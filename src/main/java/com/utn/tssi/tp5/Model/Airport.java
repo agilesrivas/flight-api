@@ -1,16 +1,18 @@
 package com.utn.tssi.tp5.Model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@Entity
 public class Airport {
 
-    @Id
-    @GeneratedValue
-    private long id;
+    @Id @GeneratedValue private long id;
     private String name;
     private String iataCode;
-    private City city;
+    @Autowired private City city;
     private float latitude;
     private float longitude;
 

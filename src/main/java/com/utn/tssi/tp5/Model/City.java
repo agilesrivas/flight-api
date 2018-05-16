@@ -1,16 +1,18 @@
 package com.utn.tssi.tp5.Model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@Entity
 public class City {
 
-    @Id
-    @GeneratedValue
-    private long id;
+    @Id @GeneratedValue private long id;
     private String name;
     private String iataCode;
-    private State state;
+    @Autowired private State state;
 
     public City(long id, String name, String iataCode, State state) {
         this.id = id;

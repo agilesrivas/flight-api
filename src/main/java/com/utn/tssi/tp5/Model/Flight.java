@@ -1,17 +1,19 @@
 package com.utn.tssi.tp5.Model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 
+@Entity
 public class Flight {
 
-    @Id
-    @GeneratedValue
-    private long id;
-    private Route route;
+    @Id @GeneratedValue private long id;
+    @Autowired private Route route;
     private Date date;
-    private Cabin cabin;
+    @Autowired private Cabin cabin;
     private double totalPrice;
 
     public Flight(long id, Route route, Date date, Cabin cabin) {

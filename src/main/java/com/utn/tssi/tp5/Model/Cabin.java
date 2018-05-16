@@ -1,13 +1,13 @@
 package com.utn.tssi.tp5.Model;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@Entity
 public class Cabin {
 
-    @Id
-    @GeneratedValue
-    private long id;
+    @Id @GeneratedValue private long id;
     private String name;
     private double priceKm;
 

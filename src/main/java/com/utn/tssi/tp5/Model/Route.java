@@ -1,15 +1,17 @@
 package com.utn.tssi.tp5.Model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@Entity
 public class Route {
 
-    @Id
-    @GeneratedValue
-    private long id;
-    private Airport airportBegin;
-    private Airport airportEnd;
+    @Id @GeneratedValue private long id;
+    @Autowired private Airport airportBegin;
+    @Autowired private Airport airportEnd;
     private int distance;
     private int estimatedTime;
 
