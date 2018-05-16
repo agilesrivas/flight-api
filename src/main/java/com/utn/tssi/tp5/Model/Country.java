@@ -3,23 +3,24 @@ package com.utn.tssi.tp5.Model;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-public class Cabin {
+public class Country {
 
     @Id
     @GeneratedValue
     private long id;
     private String name;
-    private double priceKm;
+    private String isoCode;
 
-    public Cabin(long id, String name, double priceKm) {
+    public Country(long id, String name, String isoCode) {
         this.id = id;
         this.name = name;
-        this.priceKm = priceKm;
+        this.isoCode = isoCode;
     }
 
-    public Cabin(String name, double priceKm) {
+    public Country(String name, String isoCode) {
+
         this.name = name;
-        this.priceKm = priceKm;
+        this.isoCode = isoCode;
     }
 
     public long getId() {
@@ -38,36 +39,40 @@ public class Cabin {
         this.name = name;
     }
 
-    public double getPriceKm() {
-        return priceKm;
+    public String getIsoCode() {
+        return isoCode;
     }
 
-    public void setPriceKm(double priceKm) {
-        this.priceKm = priceKm;
+    public void setIsoCode(String isoCode) {
+        this.isoCode = isoCode;
     }
 
     @Override
     public String toString() {
-        return getName() + " - $" + getPriceKm() + "/km.";
+        String to = "";
+        to = getName() + " (" + getIsoCode() + ")";
+
+        return to;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || !(o instanceof Cabin)) return false;
-        Cabin cabin = (Cabin) o;
-        return getId() == cabin.getId() &&
-                getName().equals(cabin.getName()) &&
-                getPriceKm() == cabin.getPriceKm();
+        if (o == null || !(o instanceof Country)) return false;
+
+        Country country = (Country) o;
+        return getId() == country.getId() &&
+                getName().equals(country.getName()) &&
+                getIsoCode().equals(country.getIsoCode());
     }
 
     @Override
     public int hashCode() {
-        int hash = 16;
+        int hash = 11;
 
         hash = 31 * hash + (int) getId();
         hash = 31 * hash + Integer.parseInt(getName());
-        hash = 31 * hash + (int) getPriceKm();
+        hash = 31 * hash + Integer.parseInt(getIsoCode());
 
         return hash;
     }
