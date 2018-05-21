@@ -10,7 +10,6 @@ import java.util.Date;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class Flight {
 
     @Id
@@ -69,9 +68,9 @@ public class Flight {
         int hash = 17;
 
         hash = 31 * hash + (int) this.id;
-        hash = 31 * hash + this.route.hashCode();
-        hash = 31 * hash + this.route.hashCode();
-        hash = 31 * hash + this.cabin.hashCode();
+        hash = 31 * hash + ((this.route == null) ? 0 : this.route.hashCode());
+        hash = 31 * hash + ((this.date == null) ? 0 : this.date.hashCode());
+        hash = 31 * hash + ((this.cabin == null) ? 0 : this.cabin.hashCode());
         hash = 31 * hash + (int) this.totalPrice;
 
         return hash;

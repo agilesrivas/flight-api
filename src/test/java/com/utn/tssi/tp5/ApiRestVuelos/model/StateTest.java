@@ -3,21 +3,25 @@ package com.utn.tssi.tp5.ApiRestVuelos.model;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 
 public class StateTest extends TestCase{
 
     State state;
+    State otherState;
 
     @Before
     public void setUp() {
+        /*Country countryMock = Mockito.mock(Country.class);
+        when(countryMock.getId()).thenReturn(1L);
+        when(countryMock.getName()).thenReturn("Argentina");
+        when(countryMock.getIsoCode()).thenReturn("ARG");
 
-        this.state = new State();
-        this.state.setId(1);
-        this.state.setIataCode("BA");
-        this.state.setName("Buenos Aires");
-        this.state.setCountry(new Country(1, "Argentina", "ARG"));
+        when(countryMock.toString()).thenReturn("Argentina (ARG)");
+        when(countryMock.hashCode()).thenReturn(2044507685);*/
+
+        Country country = new Country(1, "Argentina", "ARG");
+        this.state = new State(1, "Buenos Aires", "BA", country);
+        this.otherState = new State("Córdoba", "COR", country);
     }
 
     @Test
@@ -48,25 +52,28 @@ public class StateTest extends TestCase{
 
     @Test
     public void testEqualsNullAttributes(){
-        State otherstate = new State(null, null, null);
-        boolean value = this.state.equals(otherstate);
+        this.otherState.setId(0);
+        this.otherState.setName(null);
+        this.otherState.setCountry(null);
+        this.otherState.setIataCode(null);
 
+        boolean value = this.state.equals(this.otherState);
         assertEquals("Checking equals", value, false);
     }
 
     @Test
     public void testEqualsDifferentAttributes(){
-        State otherstate = new State(2, "Brasil", "BR", new Country(1, "Brasil", "BR"));
-        boolean value = this.state.equals(otherstate);
-
+        boolean value = this.state.equals(this.otherState);
         assertEquals("Checking equals", value, false);
     }
 
     @Test
     public void testEqualsOK(){
-        State otherstate = new State(1, "Buenos Aires", "BA", new Country(1, "Argentina", "ARG"));
-        boolean value = this.state.equals(otherstate);
+        this.otherState.setId(1);
+        this.otherState.setName("Buenos Aires");
+        this.otherState.setIataCode("BA");
 
+        boolean value = this.state.equals(this.otherState);
         assertEquals("Checking equals", value, true);
     }
 
@@ -88,6 +95,7 @@ public class StateTest extends TestCase{
         this.state.setId(0);
         this.state.setName(null);
         this.state.setIataCode(null);
+        this.state.setCountry(null);
 
         int value = this.state.hashCode();
         assertEquals("Checking hashCode", value, 2055589937);

@@ -7,14 +7,12 @@ import org.junit.Test;
 public class CountryTest extends TestCase{
 
     Country country;
-
+    Country otherCountry;
 
     @Before
     public void setUp() {
-        this.country = new Country();
-        this.country.setId(1);
-        this.country.setIsoCode("ARG");
-        this.country.setName("Argentina");
+        this.country = new Country(1, "Argentina", "ARG");
+        this.otherCountry = new Country("Brasil", "BR");
     }
 
     @Test
@@ -45,25 +43,27 @@ public class CountryTest extends TestCase{
 
     @Test
     public void testEqualsNullAttributes(){
-        Country otherCountry = new Country(null, null);
-        boolean value = this.country.equals(otherCountry);
+        this.otherCountry.setId(0);
+        this.otherCountry.setName(null);
+        this.otherCountry.setIsoCode(null);
 
+        boolean value = this.country.equals(otherCountry);
         assertEquals("Checking equals", value, false);
     }
 
     @Test
     public void testEqualsDifferentAttributes(){
-        Country otherCountry = new Country(2, "Brasil", "BR");
-        boolean value = this.country.equals(otherCountry);
-
+        boolean value = this.country.equals(this.otherCountry);
         assertEquals("Checking equals", value, false);
     }
 
     @Test
     public void testEqualsOK(){
-        Country otherCountry = new Country(1, "Argentina", "ARG");
-        boolean value = this.country.equals(otherCountry);
+        this.otherCountry.setId(1);
+        this.otherCountry.setName("Argentina");
+        this.otherCountry.setIsoCode("ARG");
 
+        boolean value = this.country.equals(otherCountry);
         assertEquals("Checking equals", value, true);
     }
 

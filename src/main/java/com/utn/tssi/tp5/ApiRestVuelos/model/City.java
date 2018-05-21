@@ -11,7 +11,6 @@ import static sun.misc.VM.getState;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class City {
 
     @Id
@@ -61,7 +60,7 @@ public class City {
         hash = 31 * hash + (int) this.id;
         hash = 31 * hash + ((this.name == null) ? 0 : this.name.hashCode());
         hash = 31 * hash + ((this.iataCode == null) ? 0 : this.iataCode.hashCode());
-        hash = 31 * hash + this.state.hashCode();
+        hash = 31 * hash + ((this.state == null) ? 0 : this.state.hashCode());
 
         return hash;
     }

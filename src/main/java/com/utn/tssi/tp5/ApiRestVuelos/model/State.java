@@ -9,7 +9,6 @@ import javax.persistence.Id;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class State {
 
     @Id
@@ -60,7 +59,7 @@ public class State {
         hash = 31 * hash + (int) this.id;
         hash = 31 * hash + ((this.name == null) ? 0 : this.name.hashCode());
         hash = 31 * hash + ((this.iataCode == null) ? 0 : this.iataCode.hashCode());
-        hash = 31 * hash + this.country.hashCode();
+        hash = 31 * hash + ((this.country == null) ? 0 : this.country.hashCode());
 
         return hash;
     }

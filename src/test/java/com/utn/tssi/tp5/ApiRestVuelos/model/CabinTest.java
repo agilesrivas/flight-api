@@ -7,13 +7,12 @@ import org.junit.Test;
 public class CabinTest extends TestCase {
 
     Cabin cabin;
+    Cabin otherCabin;
 
     @Before
     public void setUp() {
-        this.cabin = new Cabin();
-        this.cabin.setId(1);
-        this.cabin.setName("Económico");
-        this.cabin.setPriceKm(1.12);
+        this.cabin = new Cabin(1, "Económico", 1.12);
+        this.otherCabin = new Cabin("VIP", 1.52);
     }
 
     @Test
@@ -44,25 +43,27 @@ public class CabinTest extends TestCase {
 
     @Test
     public void testEqualsNullAttributes(){
-        Cabin otherCabin = new Cabin(0, null, 0);
-        boolean value = this.cabin.equals(otherCabin);
+        this.otherCabin.setId(0);
+        this.otherCabin.setName(null);
+        this.otherCabin.setPriceKm(0);
 
+        boolean value = this.cabin.equals(otherCabin);
         assertEquals("Checking equals", value, false);
     }
 
     @Test
     public void testEqualsDifferentAttributes(){
-        Cabin otherCabin = new Cabin(2, "VIP", 1.50);
-        boolean value = this.cabin.equals(otherCabin);
-
+        boolean value = this.cabin.equals(this.otherCabin);
         assertEquals("Checking equals", value, false);
     }
 
     @Test
     public void testEqualsOK(){
-        Cabin otherCabin = new Cabin(1, "Económico", 1.12);
-        boolean value = this.cabin.equals(otherCabin);
+        this.otherCabin.setId(1);
+        this.otherCabin.setName("Económico");
+        this.otherCabin.setPriceKm(1.12);
 
+        boolean value = this.cabin.equals(otherCabin);
         assertEquals("Checking equals", value, true);
     }
 

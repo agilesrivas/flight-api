@@ -9,7 +9,6 @@ import javax.persistence.Id;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class Route {
 
     @Id
@@ -61,8 +60,8 @@ public class Route {
         int hash = 15;
 
         hash = 31 * hash + (int) this.id;
-        hash = 31 * hash + this.airportBegin.hashCode();
-        hash = 31 * hash + this.airportEnd.hashCode();
+        hash = 31 * hash + ((this.airportBegin == null) ? 0 : this.airportBegin.hashCode());
+        hash = 31 * hash + ((this.airportEnd == null) ? 0 : this.airportEnd.hashCode());
         hash = 31 * hash + this.distance;
         hash = 31 * hash + this.estimatedTime;
 

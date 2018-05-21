@@ -9,7 +9,6 @@ import javax.persistence.Id;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class Cabin {
 
     @Id

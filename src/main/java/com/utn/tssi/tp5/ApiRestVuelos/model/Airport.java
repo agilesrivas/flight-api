@@ -9,7 +9,6 @@ import javax.persistence.Id;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class Airport {
 
     @Id
@@ -67,7 +66,7 @@ public class Airport {
         hash = 31 * hash + (int) this.id;
         hash = 31 * hash + ((this.name == null) ? 0 : this.name.hashCode());
         hash = 31 * hash + ((this.iataCode == null) ? 0 : this.iataCode.hashCode());
-        hash = 31 * hash + this.city.hashCode();
+        hash = 31 * hash + ((this.city == null) ? 0 : this.city.hashCode());
         hash = 31 * hash + (int) this.latitude;
         hash = 31 * hash + (int) this.longitude;
 
