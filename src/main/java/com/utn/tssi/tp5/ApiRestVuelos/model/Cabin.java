@@ -1,7 +1,6 @@
 package com.utn.tssi.tp5.ApiRestVuelos.model;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.GeneratedValue;
