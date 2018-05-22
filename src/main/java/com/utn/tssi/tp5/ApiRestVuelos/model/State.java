@@ -34,8 +34,12 @@ public class State {
 
     @Override
     public String toString() {
-        String to = "";
-        to = this.name + " (" + this.iataCode + ") - " + this.country.toString();
+        String to = "", countryString = "null";
+
+        if(this.country != null)
+            countryString = this.country.toString();
+
+        to = this.name + " (" + this.iataCode + ") - " + countryString;
 
         return to;
     }
@@ -46,10 +50,7 @@ public class State {
         if (o == null || !(o instanceof State)) return false;
 
         State state = (State) o;
-        return this.id == state.getId() &&
-                this.name.equals(state.getName()) &&
-                this.iataCode.equals(state.getIataCode()) &&
-                this.country.equals(state.getCountry());
+        return this.id == state.getId() && this.name.equals(state.getName()) && this.iataCode.equals(state.getIataCode()) && this.country.equals(state.getCountry());
     }
 
     @Override

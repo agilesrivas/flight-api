@@ -67,11 +67,7 @@ public class AirportTest extends TestCase {
 
     @Test
     public void testEqualsOK(){
-        this.otherAirport.setId(1);
-        this.otherAirport.setName("Jorge Newbery");
-        this.otherAirport.setIataCode("AEP");
-        this.otherAirport.setLatitude((float)23.14);
-        this.otherAirport.setLongitude((float)108.11);
+        this.otherAirport = this.airport;
 
         boolean value = this.airport.equals(this.otherAirport);
         assertEquals("Checking equals", value, true);

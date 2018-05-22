@@ -35,8 +35,12 @@ public class City {
 
     @Override
     public String toString() {
-        String to = "";
-        to = this.name + " (" + this.iataCode + ") - " + this.state.toString();
+        String to = "", stateString = "null";
+
+        if(this.state != null)
+            stateString = this.state.toString();
+
+        to = this.name + " (" + this.iataCode + ") - " + stateString;
 
         return to;
     }
@@ -47,10 +51,7 @@ public class City {
         if (o == null || !(o instanceof City)) return false;
 
         City city = (City) o;
-        return this.id == city.getId() &&
-                this.name.equals(city.getName()) &&
-                this.iataCode.equals(city.getIataCode()) &&
-                this.state.equals(city.getState());
+        return this.id == city.getId() && this.name.equals(city.getName()) && this.iataCode.equals(city.getIataCode()) && this.state.equals(city.getState());
     }
 
     @Override

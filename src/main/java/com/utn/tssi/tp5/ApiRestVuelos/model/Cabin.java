@@ -39,9 +39,7 @@ public class Cabin {
         if (this == o) return true;
         if (o == null || !(o instanceof Cabin)) return false;
         Cabin cabin = (Cabin) o;
-        return this.id == cabin.getId() &&
-                this.name.equals(cabin.getName()) &&
-                this.priceKm == cabin.getPriceKm();
+        return this.id == cabin.getId() && this.name.equals(cabin.getName()) && this.priceKm == cabin.getPriceKm();
     }
 
     @Override

@@ -36,8 +36,15 @@ public class Route {
 
     @Override
     public String toString() {
-        String to = "";
-        to = "{" + this.airportBegin.toString() + "} to {" + this.airportEnd.toString() + "}";
+        String to = "", airportBeginString = "null", airportEndString = "null";
+
+        if(this.airportBegin != null)
+            airportBeginString = this.airportBegin.toString();
+
+        if(this.airportEnd != null)
+            airportEndString = this.airportEnd.toString();
+
+        to = "{" + airportBeginString + "} to {" + airportEndString + "}";
 
         return to;
     }
@@ -48,11 +55,7 @@ public class Route {
         if (o == null || !(o instanceof Route)) return false;
 
         Route route = (Route) o;
-        return this.id == route.getId() &&
-                this.airportBegin.equals(route.getAirportBegin()) &&
-                this.airportEnd.equals(route.getAirportEnd()) &&
-                this.distance == route.getDistance() &&
-                this.estimatedTime == route.getEstimatedTime();
+        return this.id == route.getId() && this.airportBegin.equals(route.getAirportBegin()) && this.airportEnd.equals(route.getAirportEnd()) && this.distance == route.getDistance() && this.estimatedTime == route.getEstimatedTime();
     }
 
     @Override

@@ -11,13 +11,6 @@ public class StateTest extends TestCase{
 
     @Before
     public void setUp() {
-        /*Country countryMock = Mockito.mock(Country.class);
-        when(countryMock.getId()).thenReturn(1L);
-        when(countryMock.getName()).thenReturn("Argentina");
-        when(countryMock.getIsoCode()).thenReturn("ARG");
-
-        when(countryMock.toString()).thenReturn("Argentina (ARG)");
-        when(countryMock.hashCode()).thenReturn(2044507685);*/
 
         Country country = new Country(1, "Argentina", "ARG");
         this.state = new State(1, "Buenos Aires", "BA", country);
@@ -69,9 +62,7 @@ public class StateTest extends TestCase{
 
     @Test
     public void testEqualsOK(){
-        this.otherState.setId(1);
-        this.otherState.setName("Buenos Aires");
-        this.otherState.setIataCode("BA");
+        this.otherState = this.state;
 
         boolean value = this.state.equals(this.otherState);
         assertEquals("Checking equals", value, true);
@@ -98,6 +89,6 @@ public class StateTest extends TestCase{
         this.state.setCountry(null);
 
         int value = this.state.hashCode();
-        assertEquals("Checking hashCode", value, 2055589937);
+        assertEquals("Checking hashCode", value, 11082252);
     }
 }

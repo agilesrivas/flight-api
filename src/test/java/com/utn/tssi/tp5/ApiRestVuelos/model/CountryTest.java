@@ -59,9 +59,7 @@ public class CountryTest extends TestCase{
 
     @Test
     public void testEqualsOK(){
-        this.otherCountry.setId(1);
-        this.otherCountry.setName("Argentina");
-        this.otherCountry.setIsoCode("ARG");
+        this.otherCountry = this.country;
 
         boolean value = this.country.equals(otherCountry);
         assertEquals("Checking equals", value, true);

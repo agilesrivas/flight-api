@@ -59,9 +59,7 @@ public class CabinTest extends TestCase {
 
     @Test
     public void testEqualsOK(){
-        this.otherCabin.setId(1);
-        this.otherCabin.setName("Económico");
-        this.otherCabin.setPriceKm(1.12);
+        this.otherCabin = this.cabin;
 
         boolean value = this.cabin.equals(otherCabin);
         assertEquals("Checking equals", value, true);

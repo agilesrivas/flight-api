@@ -43,9 +43,7 @@ public class Country {
         if (o == null || !(o instanceof Country)) return false;
 
         Country country = (Country) o;
-        return this.id == country.getId() &&
-                this.name.equals(country.getName()) &&
-                this.isoCode.equals(country.getIsoCode());
+        return this.id == country.getId() && this.name.equals(country.getName()) && this.isoCode.equals(country.getIsoCode());
     }
 
     @Override

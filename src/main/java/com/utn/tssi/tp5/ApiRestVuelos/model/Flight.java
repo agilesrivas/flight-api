@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Getter
@@ -16,36 +18,27 @@ public class Flight {
     @GeneratedValue
     private long id;
     private Route route;
-    private Date date;
-    private Cabin cabin;
-    private double totalPrice;
+    private String date;
 
-    public Flight(long id, Route route, Date date, Cabin cabin) {
+    public Flight(long id, Route route, String date) {
         this.id = id;
         this.route = route;
         this.date = date;
-        this.cabin = cabin;
-        this.calculateTotalPrice();
     }
 
-    public Flight(Route route, Date date, Cabin cabin) {
+    public Flight(Route route, String date) {
         this.route = route;
         this.date = date;
-        this.cabin = cabin;
-        this.calculateTotalPrice();
-    }
-
-    public void calculateTotalPrice() {
-        double totalPrice = 0;
-        totalPrice = cabin.getPriceKm() * route.getDistance();
-
-        this.totalPrice = totalPrice;
     }
 
     @Override
     public String toString() {
-        String to = "" ;
-        to = "Flight N°" + this.id + " will be on " + this.date + " - Price: " + this.totalPrice + "- Route " + this.route.toString();
+        String to = "", routeString = "null";
+
+        if(this.route != null)
+            routeString = this.route.toString();
+
+        to = "Flight N°" + this.id + " will be on " + this.date + " - Route " + routeString;
 
         return to;
     }
@@ -56,11 +49,7 @@ public class Flight {
         if (o == null || !(o instanceof Flight)) return false;
 
         Flight flight = (Flight) o;
-        return this.id == flight.getId() &&
-                this.totalPrice == flight.getTotalPrice() &&
-                this.route.equals(flight.getRoute()) &&
-                this.date.equals(flight.getDate()) &&
-                this.cabin.equals(flight.getCabin());
+        return this.id == flight.getId() && this.route.equals(flight.getRoute()) && this.date.equals(flight.getDate());
     }
 
     @Override
@@ -70,8 +59,6 @@ public class Flight {
         hash = 31 * hash + (int) this.id;
         hash = 31 * hash + ((this.route == null) ? 0 : this.route.hashCode());
         hash = 31 * hash + ((this.date == null) ? 0 : this.date.hashCode());
-        hash = 31 * hash + ((this.cabin == null) ? 0 : this.cabin.hashCode());
-        hash = 31 * hash + (int) this.totalPrice;
 
         return hash;
     }

@@ -64,9 +64,7 @@ public class CityTest extends TestCase{
 
     @Test
     public void testEqualsOK(){
-        this.otherCity.setId(1);
-        this.otherCity.setName("Mar del Plata");
-        this.otherCity.setIataCode("MDQ");
+        this.otherCity = this.city;
 
         boolean value = this.city.equals(this.otherCity);
         assertEquals("Checking equals", value, true);
