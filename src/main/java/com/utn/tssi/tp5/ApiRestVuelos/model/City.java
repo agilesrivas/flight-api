@@ -1,8 +1,21 @@
 package com.utn.tssi.tp5.ApiRestVuelos.model;
 
+<<<<<<< HEAD
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+=======
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import static sun.misc.VM.getState;
+
+@Getter
+@Setter
+>>>>>>> gianfrancostabile_Branch
 public class City {
 
     @Id
@@ -25,6 +38,7 @@ public class City {
         this.state = state;
     }
 
+<<<<<<< HEAD
     public long getId() {
         return id;
     }
@@ -61,6 +75,16 @@ public class City {
     public String toString() {
         String to = "";
         to = getName() + " (" + getIataCode() + ") - " + getState().toString();
+=======
+    @Override
+    public String toString() {
+        String to = "", stateString = "null";
+
+        if(this.state != null)
+            stateString = this.state.toString();
+
+        to = this.name + " (" + this.iataCode + ") - " + stateString;
+>>>>>>> gianfrancostabile_Branch
 
         return to;
     }
@@ -71,20 +95,31 @@ public class City {
         if (o == null || !(o instanceof City)) return false;
 
         City city = (City) o;
+<<<<<<< HEAD
         return getId() == city.getId() &&
                 getName().equals(city.getName()) &&
                 getIataCode().equals(city.getIataCode()) &&
                 getState().equals(city.getState());
+=======
+        return this.id == city.getId() && this.name.equals(city.getName()) && this.iataCode.equals(city.getIataCode()) && this.state.equals(city.getState());
+>>>>>>> gianfrancostabile_Branch
     }
 
     @Override
     public int hashCode() {
         int hash = 13;
 
+<<<<<<< HEAD
         hash = 31 * hash + (int) getId();
         hash = 31 * hash + Integer.parseInt(getName());
         hash = 31 * hash + Integer.parseInt(getIataCode());
         hash = 31 * hash + getState().hashCode();
+=======
+        hash = 31 * hash + (int) this.id;
+        hash = 31 * hash + ((this.name == null) ? 0 : this.name.hashCode());
+        hash = 31 * hash + ((this.iataCode == null) ? 0 : this.iataCode.hashCode());
+        hash = 31 * hash + ((this.state == null) ? 0 : this.state.hashCode());
+>>>>>>> gianfrancostabile_Branch
 
         return hash;
     }
