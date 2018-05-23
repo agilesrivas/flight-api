@@ -11,13 +11,19 @@ public class Connect {
     static Connection conexion;
     static Connect instance;
 
-    private final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private final String USER = "root";
-    private final String PASS = "";
-    private final String nameDB = "db_tp5_flights"
+    private final String JDBC_DRIVER;
+    private final String USER ;
+    private final String PASS;
+    private  final String nameDB ;
 
+    public Connect() {
+        this.JDBC_DRIVER="com.mysql.jdbc.Driver";
+        this.USER="root";
+        this.PASS = "";
+        this.nameDB="db_tp5_flights";
+    }
 
-    private Connect() {
+    public void  connnect() {
 
         try {
             //STEP 2: Register JDBC driver
