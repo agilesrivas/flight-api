@@ -3,17 +3,23 @@ package com.utn.tssi.tp5.ApiRestVuelos.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "Countries")
 public class Country {
 
     @Id
     @GeneratedValue
+    @Column(name = "id", nullable = false)
     private long id;
+
+    @Column(name = "name_Country", nullable = false, unique = true)
     private String name;
+
+    @Column(name = "iso", nullable = false, unique = true)
     private String isoCode;
 
     public Country(long id, String name, String isoCode) {
