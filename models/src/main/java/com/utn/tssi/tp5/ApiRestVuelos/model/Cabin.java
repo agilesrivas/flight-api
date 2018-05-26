@@ -3,17 +3,22 @@ package com.utn.tssi.tp5.ApiRestVuelos.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "Cabins")
 public class Cabin {
 
     @Id
     @GeneratedValue
+    @Column(name = "id", nullable = false)
     private long id;
+
+    @Column(name = "type_Cabin", nullable = false, unique = true)
     private String name;
+
     private double priceKm;
 
     public Cabin(long id, String name, double priceKm) {

@@ -3,19 +3,31 @@ package com.utn.tssi.tp5.ApiRestVuelos.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "Routes")
 public class Route {
 
     @Id
     @GeneratedValue
+    @Column(name = "id", nullable = false)
     private long id;
+
+    @Column(name = "id_Airport_Begin", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Airport airportBegin;
+
+    @Column(name = "id_Airport_End", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Airport airportEnd;
+
+    @Column(name = "distance", nullable = false)
     private int distance;
+
+    @Column(name = "estimated_time", nullable = false)
     private int estimatedTime;
 
     public Route(long id, Airport airportBegin, Airport airportEnd, int distance, int estimatedTime) {

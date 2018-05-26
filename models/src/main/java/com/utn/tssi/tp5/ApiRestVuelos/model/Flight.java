@@ -3,17 +3,24 @@ package com.utn.tssi.tp5.ApiRestVuelos.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "Flights")
 public class Flight {
 
     @Id
     @GeneratedValue
+    @Column(name = "id", nullable = false)
     private long id;
+
+    @Column(name = "id_Route", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Route route;
+
+    @Column(name = "date_Flight")
     private String date;
 
     public Flight(long id, Route route, String date) {
