@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CitiesService implements MethodsRepository {
+public class StateService implements MethodsRepository {
 
     @Autowired
-    private GenericsRepository city;
+    private GenericsRepository aiports;
 
 
     @Override

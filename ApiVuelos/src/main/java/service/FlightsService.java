@@ -2,34 +2,47 @@ package service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.RepositoryCabin;
-import repository.RepositoryFlights;
+import repository.GenericsRepository;
+import repository.MethodsRepository;
+
+import javax.persistence.GeneratedValue;
+import java.util.List;
+import java.util.Optional;
 
 @Service
-public class FlightsService {
+public class FlightsService implements MethodsRepository {
 
     @Autowired
-    private RepositoryFlights vuelos;
+    private GenericsRepository vuelos;
 
 
-    public void newFlight(Flight value){
-
-        this.vuelos.save(value);
-    }
-    public List<Flight>getAll(){
-
-        return this.vuelos.findAll();
+    @Override
+    public List<Optional> getAll() {
+        return null;
     }
 
-    public Flight getFlightById(int id){
-
-        return this.vuelos.findById(id);
+    @Override
+    public Optional getByAttributeType() {
+        return Optional.empty();
     }
 
-    public void removeFlight(int id){
-
-        this.vuelos.deleteById(id);
+    @Override
+    public Optional getById() {
+        return Optional.empty();
     }
 
+    @Override
+    public void newObject() {
 
+    }
+
+    @Override
+    public void updateObject() {
+
+    }
+
+    @Override
+    public void removeObject() {
+
+    }
 }
