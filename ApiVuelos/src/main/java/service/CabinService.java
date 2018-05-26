@@ -1,35 +1,47 @@
 package service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import repository.RepositoryCabin;
+import repository.GenericsRepository;
 import org.springframework.stereotype.Service;
+import repository.MethodsRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
-public class CabinService {
+public class CabinService implements MethodsRepository {
 
     @Autowired
-    private RepositoryCabin cabinBd;
+    private GenericsRepository cabinBd;
 
 
-    public void newCabin(Cabin value){
-        this.cabinBd.save(value);
-    }
-    public List<Cabin>getAll(){
-       return this.cabinBd.findAll();
+    @Override
+    public List<Optional> getAll() {
+        return null;
     }
 
-    public Cabin getCabinById(int id){
-
-        return this.cabinBd.findById(id);
-    }
-    public Cabin getCabinByType(String type){
-
-        return this.cabinBd.getCabinByType(type);
-    }
-    public void removeCabin(int id){
-
-        this.cabinBd.deleteById(id);
+    @Override
+    public Optional getByAttributeType() {
+        return Optional.empty();
     }
 
+    @Override
+    public Optional getById() {
+        return Optional.empty();
+    }
 
+    @Override
+    public void newObject() {
+
+    }
+
+    @Override
+    public void updateObject() {
+
+    }
+
+    @Override
+    public void removeObject() {
+
+    }
 }

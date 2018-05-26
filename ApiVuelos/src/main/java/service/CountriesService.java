@@ -2,31 +2,46 @@ package service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.RepositoryCabin;
-import repository.RepositoryCountries;
+import repository.GenericsRepository;
+import repository.MethodsRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
-public class CountriesService {
+public class CountriesService implements MethodsRepository {
 
     @Autowired
-    private RepositoryCountries country;
+    private GenericsRepository country;
 
 
-    public void newCountry(Country value){
-        this.country.save(value);
-    }
-    public List<Country>getAll(){
-       return this.country.findAll();
+    @Override
+    public List<Optional> getAll() {
+        return null;
     }
 
-    public Country getCountryById(int id){
-
-        return this.country.findById(id);
-    }
-    public void removeCountry(int id){
-
-        this.country.deleteById(id);
+    @Override
+    public Optional getByAttributeType() {
+        return Optional.empty();
     }
 
+    @Override
+    public Optional getById() {
+        return Optional.empty();
+    }
 
+    @Override
+    public void newObject() {
+
+    }
+
+    @Override
+    public void updateObject() {
+
+    }
+
+    @Override
+    public void removeObject() {
+
+    }
 }

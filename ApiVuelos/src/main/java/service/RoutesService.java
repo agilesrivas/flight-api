@@ -2,30 +2,46 @@ package service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.RepositoryCabin;
+import repository.GenericsRepository;
+import repository.MethodsRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
-public class RoutesService {
+public class RoutesService implements MethodsRepository {
 
     @Autowired
-    private RepositoryRoutes route;
+    private GenericsRepository route;
 
 
-    public void newRoute(Route value){
-        this.route.save(value);
-    }
-    public List<Cabin>getAll(){
-       return this.route.findAll();
+    @Override
+    public List<Optional> getAll() {
+        return null;
     }
 
-    public Route getRouteById(int id){
-
-        return this.route.findById(id);
-    }
-    public void removeRoute(int id){
-
-        this.route.deleteById(id);
+    @Override
+    public Optional getByAttributeType() {
+        return Optional.empty();
     }
 
+    @Override
+    public Optional getById() {
+        return Optional.empty();
+    }
 
+    @Override
+    public void newObject() {
+
+    }
+
+    @Override
+    public void updateObject() {
+
+    }
+
+    @Override
+    public void removeObject() {
+
+    }
 }
