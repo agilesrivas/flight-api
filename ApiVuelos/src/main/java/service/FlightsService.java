@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import repository.GenericsRepository;
 import repository.MethodsRepository;
 
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import java.util.List;
 import java.util.Optional;
@@ -18,31 +19,37 @@ public class FlightsService implements MethodsRepository {
 
     @Override
     public List<Optional> getAll() {
+        return this.vuelos.findAll();
+    }
+
+    @Override
+    public Optional getByAttributeType(String id) {
         return null;
     }
 
     @Override
-    public Optional getByAttributeType() {
-        return Optional.empty();
+    public Optional getById(Long id) {
+        return this.vuelos.findById(id);
     }
 
     @Override
-    public Optional getById() {
-        return Optional.empty();
+    public void newObject(Optional value) {
+        this.vuelos.save(value);
     }
 
     @Override
-    public void newObject() {
-
+    public void updateObject(EntityManager value, Object value2) {
+        value.getTransaction().begin();
+        //Object vuelo=value.find(Flight,value2.getId());
+        ///SETEO LOS DATOS EN OBJECT MI vuelo
+        value.getTransaction().commit();
+        value.close();
     }
 
     @Override
-    public void updateObject() {
-
+    public void removeObject(Long id) {
+        this.vuelos.deleteById(id);
     }
 
-    @Override
-    public void removeObject() {
 
-    }
 }
