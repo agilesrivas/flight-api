@@ -16,7 +16,7 @@ public class Flight {
     @Column(name = "id", nullable = false)
     private long id;
 
-    @Column(name = "id_Route", nullable = false)
+    @JoinColumn(name = "id_Route", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Route route;
 

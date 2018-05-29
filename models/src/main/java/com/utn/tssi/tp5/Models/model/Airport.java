@@ -22,7 +22,7 @@ public class Airport {
     @Column(name = "name_Airport", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "id_City", nullable = false)
+    @JoinColumn(name = "id_City", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private City city;
 

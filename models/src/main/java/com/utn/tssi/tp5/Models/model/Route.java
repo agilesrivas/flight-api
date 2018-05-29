@@ -16,11 +16,11 @@ public class Route {
     @Column(name = "id", nullable = false)
     private long id;
 
-    @Column(name = "id_Airport_Begin", nullable = false)
+    @JoinColumn(name = "id_Airport_Begin", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Airport airportBegin;
 
-    @Column(name = "id_Airport_End", nullable = false)
+    @JoinColumn(name = "id_Airport_End", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Airport airportEnd;
 

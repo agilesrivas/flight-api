@@ -22,7 +22,7 @@ public class State {
     @Column(name = "iata", nullable = false, unique = true)
     private String iataCode;
 
-    @Column(name = "id_Country", nullable = false)
+    @JoinColumn(name = "id_Country", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Country country;
 

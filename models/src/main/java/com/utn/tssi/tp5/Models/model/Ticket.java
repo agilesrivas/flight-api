@@ -16,11 +16,11 @@ public class Ticket {
     @Column(name = "id", nullable = false)
     private long id;
 
-    @Column(name = "id_Flight", nullable = false)
+    @JoinColumn(name = "id_Flight", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Flight flight;
 
-    @Column(name = "id_Cabin", nullable = false)
+    @JoinColumn(name = "id_Cabin", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Cabin cabin;
 
