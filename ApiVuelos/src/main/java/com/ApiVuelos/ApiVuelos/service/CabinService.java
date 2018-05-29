@@ -1,25 +1,24 @@
 package service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import repository.GenericsRepository;
+import org.springframework.stereotype.Service;
 import repository.MethodsRepository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.GeneratedValue;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FlightsService implements MethodsRepository {
+public class CabinService implements MethodsRepository {
 
     @Autowired
-    private GenericsRepository vuelos;
+    private GenericsRepository cabinBd;
 
 
     @Override
     public List<Optional> getAll() {
-        return this.vuelos.findAll();
+        return this.cabinBd.findAll();
     }
 
     @Override
@@ -29,27 +28,26 @@ public class FlightsService implements MethodsRepository {
 
     @Override
     public Optional getById(Long id) {
-        return this.vuelos.findById(id);
+        return this.cabinBd.findById(id);
     }
 
     @Override
     public void newObject(Optional value) {
-        this.vuelos.save(value);
-    }
+        this.cabinBd.save(value);
+        }
 
     @Override
-    public void updateObject(EntityManager value, Object value2) {
+    public void updateObject( Object value2) {
+        EntityManager value=null;
         value.getTransaction().begin();
-        //Object vuelo=value.find(Flight,value2.getId());
-        ///SETEO LOS DATOS EN OBJECT MI vuelo
+        //Object miAiport=value.find(Aiport,value2.getId());
+        ///SETEO LOS DATOS EN OBJECT MI AIPORT
         value.getTransaction().commit();
         value.close();
     }
 
     @Override
     public void removeObject(Long id) {
-        this.vuelos.deleteById(id);
+        this.cabinBd.deleteById(id);
     }
-
-
 }

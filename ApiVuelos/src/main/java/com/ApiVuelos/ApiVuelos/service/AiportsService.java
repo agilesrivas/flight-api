@@ -1,8 +1,8 @@
 package service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import repository.GenericsRepository;
 import org.springframework.stereotype.Service;
+import repository.GenericsRepository;
 import repository.MethodsRepository;
 
 import javax.persistence.EntityManager;
@@ -10,34 +10,35 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CabinService implements MethodsRepository {
+public class AiportsService implements MethodsRepository {
 
     @Autowired
-    private GenericsRepository cabinBd;
+    private GenericsRepository aiports;
 
 
     @Override
     public List<Optional> getAll() {
-        return this.cabinBd.findAll();
+        return this.aiports.findAll();
     }
 
     @Override
     public Optional getByAttributeType(String id) {
-        return null;
+        return Optional.empty();
     }
 
     @Override
     public Optional getById(Long id) {
-        return this.cabinBd.findById(id);
+        return this.aiports.findById(id);
     }
 
     @Override
     public void newObject(Optional value) {
-        this.cabinBd.save(value);
-        }
+        this.aiports.save(value);
+    }
 
     @Override
-    public void updateObject(EntityManager value, Object value2) {
+    public void updateObject( Object value2) {
+        EntityManager value=null;
         value.getTransaction().begin();
         //Object miAiport=value.find(Aiport,value2.getId());
         ///SETEO LOS DATOS EN OBJECT MI AIPORT
@@ -45,8 +46,9 @@ public class CabinService implements MethodsRepository {
         value.close();
     }
 
+
     @Override
     public void removeObject(Long id) {
-        this.cabinBd.deleteById(id);
+        this.aiports.deleteById(id);
     }
 }

@@ -6,48 +6,51 @@ import repository.GenericsRepository;
 import repository.MethodsRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.GeneratedValue;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AirlineService implements MethodsRepository {
+public class FlightsService implements MethodsRepository {
 
     @Autowired
-    private GenericsRepository airline;
+    private GenericsRepository vuelos;
 
 
     @Override
     public List<Optional> getAll() {
-        return this.airline.findAll();
+        return this.vuelos.findAll();
     }
 
     @Override
     public Optional getByAttributeType(String id) {
-        return Optional.empty();
+        return null;
     }
 
     @Override
     public Optional getById(Long id) {
-        return this.airline.findById(id);
+        return this.vuelos.findById(id);
     }
 
     @Override
     public void newObject(Optional value) {
-        this.airline.save(value);
+        this.vuelos.save(value);
     }
 
     @Override
-    public void updateObject(EntityManager value, Object value2) {
+    public void updateObject( Object value2) {
+        EntityManager value=null;
         value.getTransaction().begin();
-        //Object airline=value.find(Airline,value2.getId());
-        ///SETEO LOS DATOS EN OBJECT MI Airline
+        //Object miAiport=value.find(Aiport,value2.getId());
+        ///SETEO LOS DATOS EN OBJECT MI AIPORT
         value.getTransaction().commit();
         value.close();
     }
 
-
     @Override
     public void removeObject(Long id) {
-        this.airline.deleteById(id);
+        this.vuelos.deleteById(id);
     }
+
+
 }
