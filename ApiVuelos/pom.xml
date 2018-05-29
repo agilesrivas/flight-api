@@ -53,7 +53,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
 		<dependency>
 			<groupId>com.utn.tssi.tp5</groupId>
 			<artifactId>Models</artifactId>
