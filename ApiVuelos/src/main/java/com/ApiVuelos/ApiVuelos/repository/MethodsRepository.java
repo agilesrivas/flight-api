@@ -14,7 +14,7 @@ public interface MethodsRepository{
         public Optional getByAttributeType(@Param("")String id);
         public Optional getById(Long id);
         public void newObject(Optional value);
-        public void updateObject(EntityManager value,Object value2);
+        public void updateObject(Object value2);
         public void removeObject(Long id);
 
 }

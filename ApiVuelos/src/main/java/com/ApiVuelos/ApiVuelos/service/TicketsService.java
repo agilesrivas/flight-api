@@ -10,15 +10,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RoutesService implements MethodsRepository {
+public class TicketsService implements MethodsRepository {
 
     @Autowired
-    private GenericsRepository route;
+    private GenericsRepository Ticket;
 
 
     @Override
     public List<Optional> getAll() {
-        return this.route.findAll();
+        return this.Ticket.findAll();
     }
 
     @Override
@@ -28,25 +28,26 @@ public class RoutesService implements MethodsRepository {
 
     @Override
     public Optional getById(Long id) {
-        return this.route.findById(id);
+        return this.Ticket.findById(id);
     }
 
     @Override
     public void newObject(Optional value) {
-            this.route.save(value);
+        this.Ticket.save(value);
     }
 
     @Override
-    public void updateObject(EntityManager value, Object value2) {
+    public void updateObject(Object value2) {
+        EntityManager value=null;
         value.getTransaction().begin();
-        //Object route=value.find(Route,value2.getId());
-        ///SETEO LOS DATOS EN OBJECT MI route
+        //Object miAiport=value.find(Aiport,value2.getId());
+        ///SETEO LOS DATOS EN OBJECT MI AIPORT
         value.getTransaction().commit();
         value.close();
     }
 
     @Override
     public void removeObject(Long id) {
-        this.route.deleteById(id);
+        this.Ticket.deleteById(id);
     }
 }

@@ -37,7 +37,8 @@ public class CitiesService implements MethodsRepository {
     }
 
     @Override
-    public void updateObject(EntityManager value, Object value2) {
+    public void updateObject( Object value2) {
+        EntityManager value=null;
         value.getTransaction().begin();
         //Object miAiport=value.find(Aiport,value2.getId());
         ///SETEO LOS DATOS EN OBJECT MI AIPORT

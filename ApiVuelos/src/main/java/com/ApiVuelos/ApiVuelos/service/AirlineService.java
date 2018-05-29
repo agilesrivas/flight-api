@@ -10,34 +10,35 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TicketsService implements MethodsRepository {
+public class AirlineService implements MethodsRepository {
 
     @Autowired
-    private GenericsRepository Ticket;
+    private GenericsRepository airline;
 
 
     @Override
     public List<Optional> getAll() {
-        return this.Ticket.findAll();
+        return this.airline.findAll();
     }
 
     @Override
     public Optional getByAttributeType(String id) {
-        return null;
+        return Optional.empty();
     }
 
     @Override
     public Optional getById(Long id) {
-        return this.Ticket.findById(id);
+        return this.airline.findById(id);
     }
 
     @Override
     public void newObject(Optional value) {
-        this.Ticket.save(value);
+        this.airline.save(value);
     }
 
     @Override
-    public void updateObject(EntityManager value, Object value2) {
+    public void updateObject( Object value2) {
+        EntityManager value=null;
         value.getTransaction().begin();
         //Object miAiport=value.find(Aiport,value2.getId());
         ///SETEO LOS DATOS EN OBJECT MI AIPORT
@@ -45,8 +46,9 @@ public class TicketsService implements MethodsRepository {
         value.close();
     }
 
+
     @Override
     public void removeObject(Long id) {
-        this.Ticket.deleteById(id);
+        this.airline.deleteById(id);
     }
 }
