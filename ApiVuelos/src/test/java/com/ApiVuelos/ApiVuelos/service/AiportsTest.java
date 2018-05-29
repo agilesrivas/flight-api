@@ -6,8 +6,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import repository.GenericsRepository;
-import repository.MethodsRepository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -18,11 +16,11 @@ import static org.mockito.Mockito.when;
 
 public class AiportsTest extends TestCase {
 
-    @Mock
+   /* @Mock
     private GenericsRepository aiports;
 
     @InjectMocks
-    private MethodsRepository met;
+    private MethodsRepository met;*/
 
     @Before
     public void setup(){

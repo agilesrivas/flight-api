@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface MethodsRepository<T>{
 
-        public List<T>getAll();
+        public List<T> getAll();
         public T getByAttributeType(@Param("")String id);
         public T getById(Long id);
         public void newObject(T value);
