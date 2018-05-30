@@ -1,6 +1,7 @@
 package com.ApiVuelos.ApiVuelos.controller;
 
 import com.ApiVuelos.ApiVuelos.service.CityService;
+import com.ApiVuelos.ApiVuelos.service.StateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +11,11 @@ public class CityController {
 
     @Autowired
     private CityService cityService;
+    @Autowired
+    private StateService stateService;
 
     @PostMapping(value = "/add")
-    public void add() {
+    public void add(String name_city,Long id_state) {
 
     }
 
