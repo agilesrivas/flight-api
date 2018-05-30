@@ -17,7 +17,7 @@ public class CountryService implements MethodsRepository<Country> {
 
     @Override
     public List<Country> getAll() {
-        return null;
+        return this.countryRepository.findAll();
     }
 
     @Override
@@ -49,6 +49,6 @@ public class CountryService implements MethodsRepository<Country> {
 
     @Override
     public void removeObject(Long id) {
-
+        this.countryRepository.deleteById(id);
     }
 }

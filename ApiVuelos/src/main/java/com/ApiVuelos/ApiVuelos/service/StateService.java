@@ -7,6 +7,7 @@ import com.utn.tssi.tp5.Models.model.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StateService implements MethodsRepository<State> {
@@ -16,7 +17,7 @@ public class StateService implements MethodsRepository<State> {
 
     @Override
     public List<State> getAll() {
-        return null;
+        return this.stateRepository.findAll();
     }
 
     @Override
@@ -26,7 +27,12 @@ public class StateService implements MethodsRepository<State> {
 
     @Override
     public State getById(Long id) {
-        return null;
+        State state=null;
+        Optional<State> stateOptional=this.stateRepository.findById(id);
+        if(stateOptional.isPresent()){
+            state=stateOptional.get();
+        }
+        return state;
     }
 
     @Override
@@ -41,6 +47,6 @@ public class StateService implements MethodsRepository<State> {
 
     @Override
     public void removeObject(Long id) {
-
+        this.stateRepository.deleteById(id);
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.utn.tssi.tp5.Models.model.City;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CityService implements MethodsRepository<City>{
@@ -16,7 +17,7 @@ public class CityService implements MethodsRepository<City>{
 
     @Override
     public List<City> getAll() {
-        return null;
+        return this.cityRepository.findAll();
     }
 
     @Override
@@ -26,12 +27,20 @@ public class CityService implements MethodsRepository<City>{
 
     @Override
     public City getById(Long id) {
-        return null;
+
+        City city=null;
+        Optional<City> cityOptional=this.cityRepository.findById(id);
+        if(cityOptional.isPresent()){
+            city=cityOptional.get();
+        }
+        return city;
     }
 
     @Override
     public void newObject(City value) {
-
+        if(value!=null){
+            this.cityRepository.save(value);
+        }
     }
 
     @Override
@@ -41,6 +50,6 @@ public class CityService implements MethodsRepository<City>{
 
     @Override
     public void removeObject(Long id) {
-
+        this.cityRepository.deleteById(id);
     }
 }
