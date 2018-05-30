@@ -3,9 +3,11 @@ package com.ApiVuelos.ApiVuelos.controller;
 import com.ApiVuelos.ApiVuelos.service.CountryService;
 import com.utn.tssi.tp5.Models.model.Country;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -27,13 +29,13 @@ public class CountryController {
     }
 
     @PutMapping(value = "/update")
-    public void update() {
+    public void update(Countr){
 
     }
 
     @DeleteMapping(value = "/remove")
-    public void remove() {
-
+    public void remove(@RequestParam("id") Long id){
+        this.countryService.removeObject(id);
     }
 
     @GetMapping(value = "/")
