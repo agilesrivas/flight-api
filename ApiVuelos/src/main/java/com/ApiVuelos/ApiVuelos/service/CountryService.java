@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CountryService implements MethodsRepository<Country> {
 
-    /*@Autowired
-    private CountryRepository countryRepository;*/
+    @Autowired
+    private CountryRepository countryRepository;
 
     @Override
     public List<Country> getAll() {
@@ -26,12 +27,19 @@ public class CountryService implements MethodsRepository<Country> {
 
     @Override
     public Country getById(Long id) {
-        return null;
+        Country country = null;
+        Optional<Country> countryOptional = this.countryRepository.findById(id);
+
+        if(countryOptional.isPresent()) {
+            country = countryOptional.get();
+        }
+
+        return country;
     }
 
     @Override
     public void newObject(Country value) {
-        //this.countryRepository.save(value);
+        this.countryRepository.save(value);
     }
 
     @Override

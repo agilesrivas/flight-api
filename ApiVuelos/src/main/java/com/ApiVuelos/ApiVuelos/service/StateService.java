@@ -1,12 +1,18 @@
 package com.ApiVuelos.ApiVuelos.service;
 
+import com.ApiVuelos.ApiVuelos.repository.CountryRepository;
 import com.ApiVuelos.ApiVuelos.repository.MethodsRepository;
+import com.ApiVuelos.ApiVuelos.repository.StateRepository;
 import com.utn.tssi.tp5.Models.model.State;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class StateService implements MethodsRepository<State> {
+
+    @Autowired
+    private StateRepository stateRepository;
 
     @Override
     public List<State> getAll() {
@@ -25,7 +31,7 @@ public class StateService implements MethodsRepository<State> {
 
     @Override
     public void newObject(State value) {
-
+        this.stateRepository.save(value);
     }
 
     @Override

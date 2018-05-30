@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/city")
 public class CityController {
 
+    @Autowired
+    private CityService cityService;
 
     @PostMapping(value = "/add")
     public void add() {

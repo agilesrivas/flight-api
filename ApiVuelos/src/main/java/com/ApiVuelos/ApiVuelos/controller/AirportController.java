@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/airport")
 public class AirportController {
 
+    @Autowired
+    private AirportService airportService;
 
     @PostMapping(value = "/add")
     public void add() {

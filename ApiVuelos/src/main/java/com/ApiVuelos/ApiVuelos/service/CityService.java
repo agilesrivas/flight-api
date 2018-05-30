@@ -1,6 +1,8 @@
 package com.ApiVuelos.ApiVuelos.service;
 
+import com.ApiVuelos.ApiVuelos.repository.CityRepository;
 import com.ApiVuelos.ApiVuelos.repository.MethodsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.utn.tssi.tp5.Models.model.City;
 
@@ -8,6 +10,9 @@ import java.util.List;
 
 @Service
 public class CityService implements MethodsRepository<City>{
+
+    @Autowired
+    private CityRepository cityRepository;
 
     @Override
     public List<City> getAll() {
