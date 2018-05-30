@@ -30,7 +30,7 @@ public class TicketTest extends TestCase{
     @Test
     public void testToStringOK() {
         String value = this.ticket.toString();
-        assertEquals("Checking toString", value, "Flight N°1 will be on 21/05/2018 - Route {Jorge Newbery (AEP) - Buenos Aires (CABA) - Buenos Aires (BA) - Argentina (ARG)} to {Ezeiza International Airport (EZE) - Buenos Aires (CABA) - Buenos Aires (BA) - Argentina (ARG)} - Cabin: Económica - $1.12/km - Total Price: $56.00000000000001 - Will be: 21/05/2018");
+        assertEquals("Checking toString", value, "Ticket{flight=Flight{route=Route{airportBegin=Airport{iataCode='AEP', name='Jorge Newbery', city=City{name='Buenos Aires', iataCode='CABA', state=State{name='Buenos Aires', iataCode='BA', country=Country{name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}, airportEnd=Airport{iataCode='EZE', name='Ezeiza International Airport', city=City{name='Buenos Aires', iataCode='CABA', state=State{name='Buenos Aires', iataCode='BA', country=Country{name='Argentina', isoCode='ARG'}}}, latitude=24.22, longitude=107.58}, distance=50, estimatedTime=3}, date='21/05/2018'}, cabin=Cabin{name='Económica', priceKm=1.12}, date='21/05/2018', totalPrice=56.00000000000001}");
     }
 
     @Test
@@ -40,7 +40,7 @@ public class TicketTest extends TestCase{
 
         String value = this.ticket.toString();
 
-        assertEquals("Checking toString", value, "null - Cabin: Económica - $1.12/km - Total Price: $0.0 - Will be: 21/05/2018");
+        assertEquals("Checking toString", value, "Ticket{flight=null, cabin=Cabin{name='Económica', priceKm=1.12}, date='21/05/2018', totalPrice=0.0}");
     }
 
     @Test

@@ -22,15 +22,15 @@ public class CityTest extends TestCase{
     @Test
     public void testToStringOK() {
         String value = this.city.toString();
-        assertEquals("Checking toString", value, "Mar del Plata (MDQ) - Buenos Aires (BA) - Argentina (ARG)");
+        assertEquals("Checking toString", value, "City{name='Mar del Plata', iataCode='MDQ', state=State{name='Buenos Aires', iataCode='BA', country=Country{name='Argentina', isoCode='ARG'}}}");
     }
 
     @Test
     public void testToStringNull() {
-        this.city.setName(null);
+        this.city.setState(null);
         String value = this.city.toString();
 
-        assertEquals("Checking toString", value, "null (MDQ) - Buenos Aires (BA) - Argentina (ARG)");
+        assertEquals("Checking toString", value, "City{name='Mar del Plata', iataCode='MDQ', state=null}");
     }
 
     @Test

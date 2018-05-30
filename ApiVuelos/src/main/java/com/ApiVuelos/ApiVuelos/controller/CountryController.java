@@ -15,11 +15,6 @@ public class CountryController {
     @Autowired
     private CountryService countryService;
 
-    @RequestMapping(value = "/index.html")
-    public ModelAndView indexView() {
-        return null;
-    }
-
     @PostMapping(value = "/add")
     public void add(String name, String isoCode) {
         Country country = new Country(name, isoCode);
