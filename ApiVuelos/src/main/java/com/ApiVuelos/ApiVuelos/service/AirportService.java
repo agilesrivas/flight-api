@@ -16,7 +16,7 @@ public class AirportService implements MethodsRepository<Airport>{
 
     @Override
     public List<Airport> getAll() {
-        return null;
+        return this.airportRepository.findAll();
     }
 
     @Override
@@ -26,7 +26,7 @@ public class AirportService implements MethodsRepository<Airport>{
 
     @Override
     public Airport getById(Long id) {
-        return null;
+        return this.airportRepository.findById(id);
     }
 
     @Override

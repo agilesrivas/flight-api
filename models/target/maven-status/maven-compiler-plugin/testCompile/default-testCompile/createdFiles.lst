@@ -1,0 +1,9 @@
+com\utn\tssi\tp5\Models\model\AirportTest.class
+com\utn\tssi\tp5\Models\ModelsApplicationTests.class
+com\utn\tssi\tp5\Models\model\FlightTest.class
+com\utn\tssi\tp5\Models\model\StateTest.class
+com\utn\tssi\tp5\Models\model\CityTest.class
+com\utn\tssi\tp5\Models\model\CabinTest.class
+com\utn\tssi\tp5\Models\model\RouteTest.class
+com\utn\tssi\tp5\Models\model\CountryTest.class
+com\utn\tssi\tp5\Models\model\TicketTest.class

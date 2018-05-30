@@ -70,7 +70,22 @@
 			<artifactId>hibernate-jpa-2.0-api</artifactId>
 			<version>1.0.1.Final</version>
 		</dependency>
-    </dependencies>
+		<dependency>
+			<groupId>com.utn.tssi.tp5</groupId>
+			<artifactId>Models</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.utn.tssi.tp5</groupId>
+			<artifactId>Models</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.utn.tssi.tp5</groupId>
+			<artifactId>Models</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
