@@ -1,0 +1,33 @@
+*{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+a, a:hover, i, i:hover{
+	text-decoration: none;
+}
+
+.fx {
+	-webkit-transition: all 750ms ease;
+	-moz-transition: all 750ms ease;
+	-ms-transition: all 750ms ease;
+	-o-transition: all 750ms ease;
+	transition: all 750ms ease;
+}
+
+.eliminarSeleccion{
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none; 
+}
+
+#mainNavbar, #mainFooter {
+	justify-content: flex-start;
+}
+
+#mainNavbar a:hover{
+	background-color: #343C40;
+}
+

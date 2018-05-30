@@ -4,6 +4,9 @@ import com.ApiVuelos.ApiVuelos.service.CountryService;
 import com.utn.tssi.tp5.Models.model.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/country")
@@ -11,6 +14,11 @@ public class CountryController {
 
     @Autowired
     private CountryService countryService;
+
+    @RequestMapping(value = "/index.html")
+    public ModelAndView indexView() {
+        return null;
+    }
 
     @PostMapping(value = "/add")
     public void add(String name, String isoCode) {
@@ -29,7 +37,8 @@ public class CountryController {
     }
 
     @GetMapping(value = "/")
-    public void getAll() {
-
+    public List<Country> getAll() {
+        List<Country> countryList = this.countryService.getAll();
+        return countryList;
     }
 }
