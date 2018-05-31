@@ -7,6 +7,8 @@ import com.utn.tssi.tp5.Models.model.City;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 @RestController
@@ -19,36 +21,64 @@ public class AirportController {
     private CityService cityService;
 
     @PostMapping(value = "/add")
-    public void add(String name_air,String iataCode,String iso,float latitud,float longitud){
-        City value=this.cityService.getByAttributeType(iso);
-        if(value!=null){
-            Airport airport=new Airport(name_air,iataCode,value,latitud,longitud);
-            this.airportService.newObject(airport);
+    public void add(String name_air,String iataCode,String iata,float latitud,float longitud){
+        try{
+            City value=this.cityService.getByAttributeType(iata);
+
+            if(value!=null){
+                Airport airport=new Airport(name_air,iataCode,value,latitud,longitud);
+                this.airportService.newObject(airport);
+            }
+        }catch(PersistenceException e){
+                e.printStackTrace();
         }
+
     }
 
     @PutMapping(value = "/update")
-    public void update(Airport value) {
-<<<<<<< HEAD
-        Airport ar=this.airportService.getById(value.getId());
-       //aca voy a buscar los datos por TAL
-=======
-        Airport ar = this.airportService.getById(value.getId());
-        City city = this.cityService.getById(value.getCity().getId());
-        if(ar!=null && city != null){
-            //seteo los daatos
+    public void update(Airport value){
+        try
+        {
+            this.airportService.updateObject(value);
+        }catch(PersistenceException e ){
+            e.printStackTrace();
         }
->>>>>>> c027de62289e03ce6050de674ee4ef9d504b30c4
+
     }
 
     @DeleteMapping(value = "/remove")
     public void remove(@RequestParam("id")Long id){
-        this.airportService.removeObject(id);
+        try{
+            this.airportService.removeObject(id);
+        }catch(PersistenceException e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     @GetMapping(value = "/")
     public List<Airport> getAll() {
-        List<Airport> airports=this.airportService.getAll();
+        List<Airport> airports=null;
+        try
+        {
+           airports=this.airportService.getAll();
+        }
+        catch(PersistenceException e){
+            e.printStackTrace();
+        }
         return airports;
+    }
+    @GetMapping(value="/")
+    public Airport getByOne(@RequestParam("iata")String iataCode){
+        Airport ar=null;
+        try
+        {
+          ar=this.airportService.getByAttributeType(iataCode);
+        }
+        catch(PersistenceException e){
+            e.printStackTrace();
+        }
+        return ar;
     }
 }
