@@ -1,6 +1,7 @@
 package com.utn.tssi.tp5.Models.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "Cabins")
+@NoArgsConstructor
 public class Cabin {
 
     @Id
@@ -32,10 +34,12 @@ public class Cabin {
         this.priceKm = priceKm;
     }
 
-
     @Override
     public String toString() {
-        return this.name + " - $" + this.priceKm + "/km";
+        return "{" +
+                "name='" + name + '\'' +
+                ", priceKm=" + priceKm +
+                '}';
     }
 
     @Override

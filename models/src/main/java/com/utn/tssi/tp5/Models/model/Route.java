@@ -1,6 +1,7 @@
 package com.utn.tssi.tp5.Models.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "Routes")
+@NoArgsConstructor
 public class Route {
 
     @Id
@@ -47,17 +49,12 @@ public class Route {
 
     @Override
     public String toString() {
-        String to = "", airportBeginString = "null", airportEndString = "null";
-
-        if(this.airportBegin != null)
-            airportBeginString = this.airportBegin.toString();
-
-        if(this.airportEnd != null)
-            airportEndString = this.airportEnd.toString();
-
-        to = "{" + airportBeginString + "} to {" + airportEndString + "}";
-
-        return to;
+        return "{" +
+                "airportBegin=" + airportBegin +
+                ", airportEnd=" + airportEnd +
+                ", distance=" + distance +
+                ", estimatedTime=" + estimatedTime +
+                '}';
     }
 
     @Override

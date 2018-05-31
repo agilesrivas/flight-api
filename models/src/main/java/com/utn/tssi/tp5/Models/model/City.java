@@ -1,6 +1,7 @@
 package com.utn.tssi.tp5.Models.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "Cities")
+@NoArgsConstructor
 public class City {
 
     @Id
@@ -41,14 +43,11 @@ public class City {
 
     @Override
     public String toString() {
-        String to = "", stateString = "null";
-
-        if(this.state != null)
-            stateString = this.state.toString();
-
-        to = this.name + " (" + this.iataCode + ") - " + stateString;
-
-        return to;
+        return "{" +
+                "name='" + name + '\'' +
+                ", iataCode='" + iataCode + '\'' +
+                ", state=" + state +
+                '}';
     }
 
     @Override

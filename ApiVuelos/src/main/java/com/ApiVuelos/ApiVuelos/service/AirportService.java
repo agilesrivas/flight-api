@@ -29,7 +29,6 @@ public class AirportService implements MethodsRepository<Airport>{
 
     @Override
     public Airport getById(Long id) {
-        return this.airportRepository.findById(id);
         Airport airport=null;
         Optional<Airport>airportaOptional=this.airportRepository.findById(id);
         if(airportaOptional.isPresent()){

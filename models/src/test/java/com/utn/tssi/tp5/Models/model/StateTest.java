@@ -20,15 +20,15 @@ public class StateTest extends TestCase{
     @Test
     public void testToStringOK() {
         String value = this.state.toString();
-        assertEquals("Checking toString", value, "Buenos Aires (BA) - Argentina (ARG)");
+        assertEquals("Checking toString", value, "{name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}");
     }
 
     @Test
     public void testToStringNull() {
-        this.state.setName(null);
+        this.state.setCountry(null);
         String value = this.state.toString();
 
-        assertEquals("Checking toString", value, "null (BA) - Argentina (ARG)");
+        assertEquals("Checking toString", value, "{name='Buenos Aires', iataCode='BA', country=null}");
     }
 
     @Test

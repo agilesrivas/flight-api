@@ -1,14 +1,20 @@
 package com.utn.tssi.tp5.Models.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "Tickets")
+@NoArgsConstructor
 public class Ticket {
 
     @Id
@@ -58,17 +64,12 @@ public class Ticket {
 
     @Override
     public String toString() {
-        String to = "", flightString = "null", cabinString = "null";
-
-        if(this.flight != null)
-            flightString = this.flight.toString();
-
-        if(this.cabin != null)
-            cabinString = this.cabin.toString();
-
-        to = flightString + " - Cabin: " + cabinString + " - Total Price: $" + this.totalPrice + " - Will be: " + this.date;
-
-        return to;
+        return "{" +
+                "flight=" + flight +
+                ", cabin=" + cabin +
+                ", date='" + date + '\'' +
+                ", totalPrice=" + totalPrice +
+                '}';
     }
 
     @Override
