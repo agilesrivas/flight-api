@@ -38,16 +38,22 @@ public class StateController {
     }
 
     @PutMapping(value = "/update")
-    public void update() {
-
+    public void update(State st) {
+        Country country=this.countryService.getById(st.getId());
+        State value=this.stateService.getById(st.getId());
+        if(value!=null && country != null){
+            //seteo los daatos
+        }
     }
 
     @DeleteMapping(value = "/remove")
-    public void remove() {
-
+    public void remove(@RequestParam("id")Long id){
+        this.stateService.removeObject(id);
     }
 
-    @GetMapping(value = "/")
-    public void getAll() {
+    @GetMapping(value ="/")
+    public List<State> getAll() {
+        List<State>st=this.stateService.getAll();
+        return st;
     }
 }
