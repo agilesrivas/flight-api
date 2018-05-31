@@ -21,12 +21,12 @@ public class CityService implements MethodsRepository<City>{
     }
 
     @Override
-    public City getByAttributeType(String id) {
-        return null;
+    public City getByAttributeType(String iataCode) {
+       return  this.cityRepository.getAtributte(iataCode);
     }
 
     @Override
-    public City getById(Long id) {
+    public City getById(Long id){
 
         City city=null;
         Optional<City> cityOptional=this.cityRepository.findById(id);

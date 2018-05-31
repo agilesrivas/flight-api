@@ -4,13 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.utn.tssi.tp5</groupId>
-<<<<<<< HEAD
 	<artifactId>ApiRestVuelos</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
-=======
+
 	<artifactId>Models</artifactId>
 	<version>1.0.2</version>
->>>>>>> c027de62289e03ce6050de674ee4ef9d504b30c4
 	<packaging>jar</packaging>
 
 	<name>Models</name>
