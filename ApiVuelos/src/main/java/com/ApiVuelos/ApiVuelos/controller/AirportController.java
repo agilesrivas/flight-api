@@ -2,8 +2,12 @@ package com.ApiVuelos.ApiVuelos.controller;
 
 import com.ApiVuelos.ApiVuelos.service.AirportService;
 import com.ApiVuelos.ApiVuelos.service.CityService;
+import com.utn.tssi.tp5.Models.model.Airport;
+import com.utn.tssi.tp5.Models.model.City;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/airport")
@@ -26,10 +30,7 @@ public class AirportController {
     @PutMapping(value = "/update")
     public void update(Airport value) {
         Airport ar=this.airportService.getById(value.getId());
-        City value=this.cityService.getById(value.getCity().getId());
-        if(ar!=null && value != null){
-            //seteo los daatos
-        }
+       //aca voy a buscar los datos por TAL
     }
 
     @DeleteMapping(value = "/remove")
