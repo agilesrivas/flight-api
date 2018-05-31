@@ -4,19 +4,17 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.utn.tssi.tp5</groupId>
+<<<<<<< HEAD
 	<artifactId>ApiRestVuelos</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
+=======
+	<artifactId>Models</artifactId>
+	<version>1.0.2</version>
+>>>>>>> c027de62289e03ce6050de674ee4ef9d504b30c4
 	<packaging>jar</packaging>
 
-	<name>ApiRestVuelos</name>
-	<description>Demo project for Spring Boot</description>
-
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.2.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+	<name>Models</name>
+	<description>All models for ApiRestVuelos</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,17 +23,6 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -56,15 +43,5 @@
 			<version>1.0.1.Final</version>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
 
 </project>

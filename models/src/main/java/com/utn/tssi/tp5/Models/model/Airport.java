@@ -1,6 +1,7 @@
 package com.utn.tssi.tp5.Models.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "Airports")
+@NoArgsConstructor
 public class Airport {
 
     @Id
@@ -51,16 +53,15 @@ public class Airport {
 
     @Override
     public String toString() {
-        String to = "", cityString = "null";
-
-        if (this.city != null)
-            cityString = this.city.toString();
-
-        to = this.name + " (" + this.iataCode + ") - " + this.city.toString();
-
-        return to;
+        return "Airport{" +
+                "iataCode='" + iataCode + '\'' +
+                ", name='" + name + '\'' +
+                ", city=" + city +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
     }
-	
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

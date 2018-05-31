@@ -25,15 +25,16 @@ public class RouteTest extends TestCase {
     @Test
     public void testToStringOK() {
         String value = this.route.toString();
-        assertEquals("Checking toString", value, "{Jorge Newbery (AEP) - Buenos Aires (CABA) - Buenos Aires (BA) - Argentina (ARG)} to {Ezeiza International Airport (EZE) - Buenos Aires (CABA) - Buenos Aires (BA) - Argentina (ARG)}");
+        assertEquals("Checking toString", value, "Route{airportBegin=Airport{iataCode='AEP', name='Jorge Newbery', city=City{name='Buenos Aires', iataCode='CABA', state=State{name='Buenos Aires', iataCode='BA', country=Country{name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}, airportEnd=Airport{iataCode='EZE', name='Ezeiza International Airport', city=City{name='Buenos Aires', iataCode='CABA', state=State{name='Buenos Aires', iataCode='BA', country=Country{name='Argentina', isoCode='ARG'}}}, latitude=24.22, longitude=107.58}, distance=50, estimatedTime=3}");
     }
 
     @Test
     public void testToStringNull() {
         this.route.setAirportBegin(null);
+        this.route.setAirportEnd(null);
         String value = this.route.toString();
 
-        assertEquals("Checking toString", value, "{null} to {Ezeiza International Airport (EZE) - Buenos Aires (CABA) - Buenos Aires (BA) - Argentina (ARG)}");
+        assertEquals("Checking toString", value, "Route{airportBegin=null, airportEnd=null, distance=50, estimatedTime=3}");
     }
 
     @Test

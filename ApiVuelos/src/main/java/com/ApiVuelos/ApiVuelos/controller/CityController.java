@@ -2,8 +2,12 @@ package com.ApiVuelos.ApiVuelos.controller;
 
 import com.ApiVuelos.ApiVuelos.service.CityService;
 import com.ApiVuelos.ApiVuelos.service.StateService;
+import com.utn.tssi.tp5.Models.model.City;
+import com.utn.tssi.tp5.Models.model.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/city")

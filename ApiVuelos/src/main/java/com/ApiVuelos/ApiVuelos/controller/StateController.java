@@ -53,7 +53,7 @@ public class StateController {
 
     @GetMapping(value ="/")
     public List<State> getAll() {
-        List<State>St=this.stateService.getAll();
+        List<State>st=this.stateService.getAll();
         return st;
     }
 }

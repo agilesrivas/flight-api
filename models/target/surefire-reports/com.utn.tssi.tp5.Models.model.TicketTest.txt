@@ -1,4 +1,12 @@
 -------------------------------------------------------------------------------
 Test set: com.utn.tssi.tp5.Models.model.TicketTest
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s - in com.utn.tssi.tp5.Models.model.TicketTest
+=======
+<<<<<<< HEAD
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec
+=======
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s - in com.utn.tssi.tp5.Models.model.TicketTest
+>>>>>>> 9e108e4161d0f2ecbdf68d15ebf4ddc27bfc9461
+>>>>>>> c027de62289e03ce6050de674ee4ef9d504b30c4

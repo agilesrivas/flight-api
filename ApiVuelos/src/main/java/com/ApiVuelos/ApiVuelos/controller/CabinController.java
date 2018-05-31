@@ -2,8 +2,11 @@ package com.ApiVuelos.ApiVuelos.controller;
 
 import com.ApiVuelos.ApiVuelos.service.AirportService;
 import com.ApiVuelos.ApiVuelos.service.CabinService;
+import com.utn.tssi.tp5.Models.model.Cabin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/cabin")
@@ -14,7 +17,7 @@ public class CabinController {
 
     @PostMapping(value = "/add")
     public void add(String name_cabin) {
-        Cabin cab=new Cabin(name_cabin);
+        Cabin cab = new Cabin(name_cabin, 0);
         this.cabinService.newObject(cab);
     }
 

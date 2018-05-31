@@ -29,8 +29,16 @@ public class AirportController {
 
     @PutMapping(value = "/update")
     public void update(Airport value) {
+<<<<<<< HEAD
         Airport ar=this.airportService.getById(value.getId());
        //aca voy a buscar los datos por TAL
+=======
+        Airport ar = this.airportService.getById(value.getId());
+        City city = this.cityService.getById(value.getCity().getId());
+        if(ar!=null && city != null){
+            //seteo los daatos
+        }
+>>>>>>> c027de62289e03ce6050de674ee4ef9d504b30c4
     }
 
     @DeleteMapping(value = "/remove")

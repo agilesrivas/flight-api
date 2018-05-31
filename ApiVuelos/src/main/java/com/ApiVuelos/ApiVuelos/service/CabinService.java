@@ -27,7 +27,7 @@ public class CabinService implements MethodsRepository<Cabin> {
     @Override
     public Cabin getById(Long id) {
         Cabin cabin=null;
-        Optional<Cabin> cabinOptional=this.cabin.findById(id);
+        Optional<Cabin> cabinOptional = this.cabin.findById(id);
         if(cabinOptional.isPresent()){
             cabin=cabinOptional.get();
         }

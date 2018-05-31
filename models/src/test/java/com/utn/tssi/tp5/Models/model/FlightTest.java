@@ -26,7 +26,7 @@ public class FlightTest extends TestCase{
     @Test
     public void testToStringOK() {
         String value = this.flight.toString();
-        assertEquals("Checking toString", value, "Flight N°1 will be on 21/05/2018 - Route {Jorge Newbery (AEP) - Buenos Aires (CABA) - Buenos Aires (BA) - Argentina (ARG)} to {Ezeiza International Airport (EZE) - Buenos Aires (CABA) - Buenos Aires (BA) - Argentina (ARG)}");
+        assertEquals("Checking toString", value, "Flight{route=Route{airportBegin=Airport{iataCode='AEP', name='Jorge Newbery', city=City{name='Buenos Aires', iataCode='CABA', state=State{name='Buenos Aires', iataCode='BA', country=Country{name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}, airportEnd=Airport{iataCode='EZE', name='Ezeiza International Airport', city=City{name='Buenos Aires', iataCode='CABA', state=State{name='Buenos Aires', iataCode='BA', country=Country{name='Argentina', isoCode='ARG'}}}, latitude=24.22, longitude=107.58}, distance=50, estimatedTime=3}, date='21/05/2018'}");
     }
 
     @Test
@@ -34,7 +34,7 @@ public class FlightTest extends TestCase{
         this.flight.setRoute(null);
         String value = this.flight.toString();
 
-        assertEquals("Checking toString", value, "Flight N°1 will be on 21/05/2018 - Route null");
+        assertEquals("Checking toString", value, "Flight{route=null, date='21/05/2018'}");
     }
 
     @Test

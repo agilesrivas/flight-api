@@ -3,10 +3,13 @@ package com.ApiVuelos.ApiVuelos.controller;
 import com.ApiVuelos.ApiVuelos.service.AirportService;
 import com.ApiVuelos.ApiVuelos.service.FlightService;
 import com.ApiVuelos.ApiVuelos.service.RouteService;
+import com.utn.tssi.tp5.Models.model.Flight;
+import com.utn.tssi.tp5.Models.model.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/flight")
@@ -19,7 +22,7 @@ public class FlightController {
     private RouteService routeService;
 
     @PostMapping(value = "/add")
-    public void add(Route route, Date date_flight){
+    public void add(Route route, String date_flight){
         Route rt=this.routeService.getById(route.getId());
         if(rt!=null){
             Flight flight=new Flight(rt,date_flight);
@@ -29,7 +32,7 @@ public class FlightController {
 
     @PutMapping(value = "/update")
     public void update(Flight flight) {
-        Route ruta=this.routeService.getById(flight.getIdRoute());
+        Route ruta=this.routeService.getById(flight.getRoute().getId());
         Flight vuelo=this.flightService.getById(flight.getId());
         if(vuelo!=null && ruta!=null)
         {
@@ -44,6 +47,6 @@ public class FlightController {
 
     @GetMapping(value = "/")
     public List<Flight> getAll() {
-
+        return this.flightService.getAll();
     }
 }
