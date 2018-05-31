@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,34 +29,52 @@ public class StateController {
     }
 
     @PostMapping(value = "/add")
-    public void add(String name, String iataCode, long id_Country) {
+    public void add(String name, String iataCode,String iso) {
+        try{
+            Country country = this.countryService.getByAttributeType(iso);
 
-        Country country = this.countryService.getById(id_Country);
+            if(country != null) {
+                State state = new State(name, iataCode, country);
+                this.stateService.newObject(state);
 
-        if(country != null) {
-            State state = new State(name, iataCode, country);
-            this.stateService.newObject(state);
-
+            }
         }
-    }
+        catch(PersistenceException e){
+            e.printStackTrace();
+        }
 
+    }
     @PutMapping(value = "/update")
     public void update(State st) {
-        Country country=this.countryService.getById(st.getId());
-        State value=this.stateService.getById(st.getId());
-        if(value!=null && country != null){
-            //seteo los daatos
-        }
+      try{
+            this.stateService.updateObject(st);
+      }
+      catch(PersistenceException e ){
+          e.printStackTrace();
+      }
     }
 
     @DeleteMapping(value = "/remove")
     public void remove(@RequestParam("id")Long id){
-        this.stateService.removeObject(id);
+        try {
+            this.stateService.removeObject(id);
+        }
+        catch(PersistenceException e){
+            e.printStackTrace();
+        }
+
     }
 
     @GetMapping(value ="/")
     public List<State> getAll() {
-        List<State>st=this.stateService.getAll();
+        List<State>st=new ArrayList<State>();
+                try{
+                    st= this.stateService.getAll();
+                }
+                catch(PersistenceException e){
+                    e.printStackTrace();
+                }
+
         return st;
     }
 }
