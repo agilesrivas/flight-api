@@ -34,10 +34,9 @@ public class Cabin {
         this.priceKm = priceKm;
     }
 
-
     @Override
     public String toString() {
-        return "Cabin{" +
+        return "{" +
                 "name='" + name + '\'' +
                 ", priceKm=" + priceKm +
                 '}';

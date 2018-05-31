@@ -38,7 +38,7 @@ public class Flight {
 
     @Override
     public String toString() {
-        return "Flight{" +
+        return "{" +
                 "route=" + route +
                 ", date='" + date + '\'' +
                 '}';

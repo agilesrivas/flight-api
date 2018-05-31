@@ -24,7 +24,7 @@ public class Price {
     @Column(name = "fromDate", nullable = false)
     private String fromDate;
 
-    @Column(name = "toDate", nullable = false)
+    @Column(name = "toDate")
     private String toDate;
 
     @Column(name = "state_bool", nullable = false)
@@ -51,10 +51,9 @@ public class Price {
         this.cabin = cabin;
     }
 
-
     @Override
     public String toString() {
-        return "Price{" +
+        return "{" +
                 "price=" + price +
                 ", fromDate='" + fromDate + '\'' +
                 ", toDate='" + toDate + '\'' +
@@ -69,7 +68,7 @@ public class Price {
         if (o == null || !(o instanceof Price)) return false;
 
         Price price= (Price) o;
-        return this.id == price.getId() && this.price == price.getPrice() && this.fromDate.equals(price.fromDate) && this.toDate.equals(price.toDate) && this.state_bool == price.isState_bool() && this.cabin == price.getCabin();
+        return this.id == price.getId() && this.price == price.getPrice() && this.fromDate.equals(price.fromDate) && this.toDate.equals(price.toDate) && this.state_bool == price.isState_bool();
     }
 
     @Override
@@ -80,7 +79,6 @@ public class Price {
         hash = 31 * hash + (int) this.price;
         hash = 31 * hash + ((this.fromDate == null) ? 0 : this.fromDate.hashCode());
         hash = 31 * hash + ((this.toDate == null) ? 0 : this.toDate.hashCode());
-        hash = 31 * hash + this.cabin.hashCode();
 
         return hash;
     }

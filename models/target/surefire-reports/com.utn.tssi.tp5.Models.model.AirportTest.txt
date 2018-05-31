@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.utn.tssi.tp5.Models.model.AirportTest
 -------------------------------------------------------------------------------
-<<<<<<< HEAD
-Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.201 sec
-=======
-Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.078 s - in com.utn.tssi.tp5.Models.model.AirportTest
->>>>>>> 9e108e4161d0f2ecbdf68d15ebf4ddc27bfc9461
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.199 sec

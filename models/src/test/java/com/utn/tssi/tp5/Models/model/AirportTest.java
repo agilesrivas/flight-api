@@ -23,7 +23,7 @@ public class AirportTest extends TestCase {
     @Test
     public void testToStringOK() {
         String value = this.airport.toString();
-        assertEquals("Checking toString", value, "Airport{iataCode='AEP', name='Jorge Newbery', city=City{name='Buenos Aires', iataCode='CABA', state=State{name='Buenos Aires', iataCode='BA', country=Country{name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}");
+        assertEquals("Checking toString", value, "{iataCode='AEP', name='Jorge Newbery', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}");
     }
 
     @Test
@@ -31,7 +31,7 @@ public class AirportTest extends TestCase {
         this.airport.setCity(null);
         String value = this.airport.toString();
 
-        assertEquals("Checking toString", value, "Airport{iataCode='AEP', name='Jorge Newbery', city=null, latitude=23.14, longitude=108.11}");
+        assertEquals("Checking toString", value, "{iataCode='AEP', name='Jorge Newbery', city=null, latitude=23.14, longitude=108.11}");
     }
 
     @Test

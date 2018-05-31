@@ -44,7 +44,7 @@ public class State {
 
     @Override
     public String toString() {
-        return "State{" +
+        return "{" +
                 "name='" + name + '\'' +
                 ", iataCode='" + iataCode + '\'' +
                 ", country=" + country +

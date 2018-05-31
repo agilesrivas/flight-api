@@ -49,7 +49,7 @@ public class Route {
 
     @Override
     public String toString() {
-        return "Route{" +
+        return "{" +
                 "airportBegin=" + airportBegin +
                 ", airportEnd=" + airportEnd +
                 ", distance=" + distance +
