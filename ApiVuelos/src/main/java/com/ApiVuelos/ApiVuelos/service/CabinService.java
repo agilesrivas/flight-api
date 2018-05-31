@@ -5,7 +5,9 @@ import com.ApiVuelos.ApiVuelos.repository.MethodsRepository;
 import com.utn.tssi.tp5.Models.model.Cabin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +22,8 @@ public class CabinService implements MethodsRepository<Cabin> {
     }
 
     @Override
-    public Cabin getByAttributeType(String id) {
-        return null;
+    public Cabin getByAttributeType(String value) {
+        return this.cabin.getAtributte(value);
     }
 
     @Override
@@ -41,9 +43,15 @@ public class CabinService implements MethodsRepository<Cabin> {
         }
     }
 
+    @Transactional
     @Override
-    public void updateObject(Object value2) {
-
+    public void updateObject(Cabin value2) {
+        EntityManager enty = null;
+        enty.getTransaction().begin();
+        Cabin cabin=enty.find(Cabin.class,value2.getId());
+        cabin.setName(value2.getName());
+        cabin.setPriceKm(value2.getPriceKm());
+        enty.getTransaction().commit();
     }
 
     @Override

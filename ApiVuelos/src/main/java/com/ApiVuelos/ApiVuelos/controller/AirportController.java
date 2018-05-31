@@ -21,9 +21,9 @@ public class AirportController {
     private CityService cityService;
 
     @PostMapping(value = "/add")
-    public void add(String name_air,String iataCode,String iata,float latitud,float longitud){
+    public void add(String name_air,String iataCode,float latitud,float longitud){
         try{
-            City value=this.cityService.getByAttributeType(iata);
+            City value=this.cityService.getByAttributeType(iataCode);
 
             if(value!=null){
                 Airport airport=new Airport(name_air,iataCode,value,latitud,longitud);
@@ -69,8 +69,8 @@ public class AirportController {
         }
         return airports;
     }
-    @GetMapping(value="/")
-    public Airport getByOne(@RequestParam("iata")String iataCode){
+    @GetMapping(value="/airport/air")
+    public Airport getByOne(@RequestParam("iataCode")String iataCode){
         Airport ar=null;
         try
         {
