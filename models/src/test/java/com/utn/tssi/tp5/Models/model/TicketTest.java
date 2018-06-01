@@ -30,7 +30,15 @@ public class TicketTest extends TestCase{
     @Test
     public void testToStringOK() {
         String value = this.ticket.toString();
+<<<<<<< HEAD
         assertEquals("Checking toString", value, "{flight={route={airportBegin={iataCode='AEP', name='Jorge Newbery', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}, airportEnd={iataCode='EZE', name='Ezeiza International Airport', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=24.22, longitude=107.58}, distance=50, estimatedTime=3}, date='21/05/2018'}, cabin={name='Económica', priceKm=1.12}, date='21/05/2018', totalPrice=56.00000000000001}");
+=======
+<<<<<<< HEAD
+        assertEquals("Checking toString", value, "Ticket{flight=Flight{route=Route{airportBegin=Airport{iataCode='AEP', name='Jorge Newbery', city=City{name='Buenos Aires', iataCode='CABA', state=State{name='Buenos Aires', iataCode='BA', country=Country{name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}, airportEnd=Airport{iataCode='EZE', name='Ezeiza International Airport', city=City{name='Buenos Aires', iataCode='CABA', state=State{name='Buenos Aires', iataCode='BA', country=Country{name='Argentina', isoCode='ARG'}}}, latitude=24.22, longitude=107.58}, distance=50, estimatedTime=3}, date='21/05/2018'}, cabin=Cabin{name='Económica', priceKm=1.12}, date='21/05/2018', totalPrice=56.00000000000001}");
+=======
+        assertEquals("Checking toString", value, "{flight={route={airportBegin={iataCode='AEP', name='Jorge Newbery', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}, airportEnd={iataCode='EZE', name='Ezeiza International Airport', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=24.22, longitude=107.58}, distance=50, estimatedTime=3}, date='21/05/2018'}, cabin={name='Económica', priceKm=1.12}, date='21/05/2018', totalPrice=56.00000000000001}");
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
+>>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
     }
 
     @Test
@@ -40,7 +48,15 @@ public class TicketTest extends TestCase{
 
         String value = this.ticket.toString();
 
+<<<<<<< HEAD
         assertEquals("Checking toString", value, "{flight=null, cabin={name='Económica', priceKm=1.12}, date='21/05/2018', totalPrice=0.0}");
+=======
+<<<<<<< HEAD
+        assertEquals("Checking toString", value, "Ticket{flight=null, cabin=Cabin{name='Económica', priceKm=1.12}, date='21/05/2018', totalPrice=0.0}");
+=======
+        assertEquals("Checking toString", value, "{flight=null, cabin={name='Económica', priceKm=1.12}, date='21/05/2018', totalPrice=0.0}");
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
+>>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
     }
 
     @Test

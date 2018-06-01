@@ -2,10 +2,13 @@ package com.ApiVuelos.ApiVuelos.service;
 
 import com.ApiVuelos.ApiVuelos.repository.CountryRepository;
 import com.ApiVuelos.ApiVuelos.repository.MethodsRepository;
+import com.utn.tssi.tp5.Models.model.Airport;
 import com.utn.tssi.tp5.Models.model.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +24,8 @@ public class CountryService implements MethodsRepository<Country> {
     }
 
     @Override
-    public Country getByAttributeType(String id) {
-        return null;
+    public Country getByAttributeType(String value) {
+        return this.countryRepository.getAtributte(value);
     }
 
     @Override
@@ -41,10 +44,18 @@ public class CountryService implements MethodsRepository<Country> {
     public void newObject(Country value) {
         this.countryRepository.save(value);
     }
-
+    @Transactional
     @Override
     public void updateObject(Country value2) {
+<<<<<<< HEAD
 
+=======
+        EntityManager enty=null;
+        Country country=enty.find(Country.class,value2.getId());
+        country.setName(value2.getName());
+        country.setIsoCode(value2.getIsoCode());
+        enty.getTransaction().commit();
+>>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
     }
 
     @Override

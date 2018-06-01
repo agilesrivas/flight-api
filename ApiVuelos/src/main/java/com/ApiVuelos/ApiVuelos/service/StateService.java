@@ -3,9 +3,13 @@ package com.ApiVuelos.ApiVuelos.service;
 import com.ApiVuelos.ApiVuelos.repository.CountryRepository;
 import com.ApiVuelos.ApiVuelos.repository.MethodsRepository;
 import com.ApiVuelos.ApiVuelos.repository.StateRepository;
+import com.utn.tssi.tp5.Models.model.Airport;
 import com.utn.tssi.tp5.Models.model.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +25,8 @@ public class StateService implements MethodsRepository<State> {
     }
 
     @Override
-    public State getByAttributeType(String id) {
-        return null;
+    public State getByAttributeType(String iataCode) {
+        return this.stateRepository.getAtributte(iataCode);
     }
 
     @Override
@@ -40,9 +44,19 @@ public class StateService implements MethodsRepository<State> {
         this.stateRepository.save(value);
     }
 
+    @Transactional
     @Override
     public void updateObject(State value2) {
+<<<<<<< HEAD
 
+=======
+        EntityManager enty=null;
+        State st=enty.find(State.class,value2.getId());
+        st.setIataCode(value2.getIataCode());
+        st.setName(value2.getName());
+        st.setCountry(value2.getCountry());
+        enty.getTransaction().commit();
+>>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
     }
 
     @Override

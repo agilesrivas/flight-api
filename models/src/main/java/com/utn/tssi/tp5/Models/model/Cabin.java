@@ -36,7 +36,15 @@ public class Cabin {
 
     @Override
     public String toString() {
+<<<<<<< HEAD
         return "{" +
+=======
+<<<<<<< HEAD
+        return "Cabin{" +
+=======
+        return "{" +
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
+>>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
                 "name='" + name + '\'' +
                 ", priceKm=" + priceKm +
                 '}';
