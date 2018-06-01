@@ -6,6 +6,8 @@ import com.utn.tssi.tp5.Models.model.City;
 import com.utn.tssi.tp5.Models.model.State;
 import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.PersistenceException;
@@ -22,53 +24,74 @@ public class CityController {
     private StateService stateService;
 
     @PostMapping(value = "/add")
-    public void add(String name_city,String iataCode){
+    public ResponseEntity add(String name_city, String iataCode){
         try{
-            State state=this.stateService.getByAttributeType(iataCode);
-            if(state!=null)
-            {
-                City city=new City(name_city,iataCode,state);
+            if(name_city!=null && iataCode!=null){
+                State state=this.stateService.getByAttributeType(iataCode);
+                if(state!=null)
+                {
+                    City city=new City(name_city,iataCode,state);
+                    return new ResponseEntity(HttpStatus.OK);
+                }else
+                {
+                    return new ResponseEntity(HttpStatus.NO_CONTENT);
+                }
+            }else{
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
             }
-
         }
-        catch(PersistenceException e){
-            e.printStackTrace();
+        catch(Exception e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
 
     @PutMapping(value = "/update")
-    public void update(City value) {
+    public ResponseEntity update(City value) {
         try{
-            this.cityService.updateObject(value);
+            if(value!=null){
+                this.cityService.updateObject(value);
+                return new ResponseEntity(HttpStatus.OK);
+            }
+            else{
+                return  new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
         }
-        catch(PersistenceException e){
-            e.printStackTrace();
+        catch(Exception e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
     @DeleteMapping(value = "/remove")
-    public void remove(@RequestParam("id")Long id){
-        try{
-            this.cityService.removeObject(id);
+    public ResponseEntity remove(@RequestParam("id")Long id){
+        try {
+            if (id != null) {
+                this.cityService.removeObject(id);
+                return new ResponseEntity(HttpStatus.OK);
+            } else {
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
         }
-        catch(PersistenceException e)
+        catch(Exception e)
         {
-            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
     @GetMapping(value = "/")
     @ResponseBody
-    public List<City> getAll() {
+    public ResponseEntity<List<City>> getAll() {
         List<City>cities=new ArrayList<City>();
         try{
             cities=this.cityService.getAll();
+            if(cities!=null){
+                return new ResponseEntity<List<City>>(cities,HttpStatus.OK);
+            }else
+            {
+                return new ResponseEntity<List<City>>(HttpStatus.NO_CONTENT);
+            }
         }
-        catch(PersistenceException e){
-            e.printStackTrace();
+        catch(Exception e){
+            return new ResponseEntity<List<City>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return cities;
     }
 }

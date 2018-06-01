@@ -4,6 +4,8 @@ import com.ApiVuelos.ApiVuelos.service.AirportService;
 import com.ApiVuelos.ApiVuelos.service.TicketService;
 import com.utn.tssi.tp5.Models.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
@@ -19,59 +21,91 @@ public class TicketController {
     @Autowired
     private TicketService ticketService;
 
-    @PostMapping(value = "/add")
-    public void add(Flight fl,Cabin cn,Price price,Date date){
+    @PostMapping(value = "/")
+    public ResponseEntity add(Flight fl,Cabin cn,Price price,Date date){
         try{
-            Ticket tk=new Ticket(fl,cn);
-            this.ticketService.newObject(tk);
+            if(fl!=null && cn!=null && price!=null && date!=null){
+                Ticket tk=new Ticket(fl,cn);
+                this.ticketService.newObject(tk);
+                return new ResponseEntity(HttpStatus.OK);
+            }
+            else
+            {
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
         }
-        catch(PersistenceException e){
-            e.printStackTrace();
+        catch(Exception e){
+           return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
-    @GetMapping(value="/ticket")
-    public Ticket getOneTicket(String date){
-        Ticket tk=null;
+    @GetMapping
+    public ResponseEntity getOneTicket(String date){
+
         try{
-            tk=this.ticketService.getByAttributeType(date);
+            Ticket tk=null;
+            if(date!=null){
+                tk=this.ticketService.getByAttributeType(date);
+                if(tk!=null){
+                    return new ResponseEntity(tk,HttpStatus.OK);
+                }
+            }
+            else
+            {
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
         }
-        catch(PersistenceException e){
-            e.printStackTrace();
+        catch(Exception e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return tk;
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping(value = "/update")
-    public void update(Ticket tk2){
+    @PutMapping(value = "/")
+    public ResponseEntity update(Ticket tk2){
         try{
-            this.ticketService.updateObject(tk2);
+            if(tk2!=null){
+                this.ticketService.updateObject(tk2);
+                return new ResponseEntity(HttpStatus.OK);
+            }else{
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
         }
-        catch(PersistenceException e){
-            e.printStackTrace();
+        catch(Exception e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    @DeleteMapping(value = "/remove")
-    public void remove(@RequestParam("id")Long id){
+    @DeleteMapping(value = "/")
+    public ResponseEntity remove(@RequestParam("id")Long id){
         try{
-            this.ticketService.removeObject(id);
+            if(id!=null){
+                this.ticketService.removeObject(id);
+                return new ResponseEntity(HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
         }
         catch(PersistenceException e){
-            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
 
     @GetMapping(value = "/")
-    public List<Ticket> getAll() {
+    public ResponseEntity<List<Ticket>> getAll() {
         List<Ticket>tkList=new ArrayList<Ticket>();
         try{
             tkList=this.ticketService.getAll();
+            if(tkList.isEmpty()){
+                return new ResponseEntity<List<Ticket>>(HttpStatus.NO_CONTENT);
+            }else
+            {
+                return new ResponseEntity<List<Ticket>>(tkList,HttpStatus.OK);
+            }
         }
-        catch(PersistenceException e){
-            e.printStackTrace();
+        catch(Exception e){
+            return new ResponseEntity<List<Ticket>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return tkList;
     }
 }

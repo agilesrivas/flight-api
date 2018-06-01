@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CabinRepository extends JpaRepository<Cabin, Long> {
-    @Query(value="SELECT * FROM cabins WHERE type=typeCabin",nativeQuery = true)
+    @Query(value="SELECT c FROM cabins c WHERE c.type=typeCabin",nativeQuery = true)
     public Cabin getAtributte(@Param("typeCabin")String value);
 }
