@@ -2,10 +2,13 @@ package com.ApiVuelos.ApiVuelos.service;
 
 import com.ApiVuelos.ApiVuelos.repository.CityRepository;
 import com.ApiVuelos.ApiVuelos.repository.MethodsRepository;
+import com.utn.tssi.tp5.Models.model.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.utn.tssi.tp5.Models.model.City;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,12 +24,12 @@ public class CityService implements MethodsRepository<City>{
     }
 
     @Override
-    public City getByAttributeType(String id) {
-        return null;
+    public City getByAttributeType(String iataCode) {
+       return  this.cityRepository.getAtributte(iataCode);
     }
 
     @Override
-    public City getById(Long id) {
+    public City getById(Long id){
 
         City city=null;
         Optional<City> cityOptional=this.cityRepository.findById(id);
@@ -42,10 +45,15 @@ public class CityService implements MethodsRepository<City>{
             this.cityRepository.save(value);
         }
     }
-
+    @Transactional
     @Override
-    public void updateObject(Object value2) {
-
+    public void updateObject(City value2) {
+        EntityManager enty=null;
+        City city=enty.find(City.class,value2.getId());
+        city.setName(value2.getName());
+        city.setState(value2.getState());
+        city.setIataCode(value2.getIataCode());
+        enty.getTransaction().commit();
     }
 
     @Override
