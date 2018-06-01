@@ -13,7 +13,11 @@ import java.util.Optional;
 @Repository
 public interface CabinRepository extends JpaRepository<Cabin, Long> {
 <<<<<<< HEAD
+<<<<<<< HEAD
     @Query(value="SELECT * FROM cabins WHERE type=typeCabin",nativeQuery = true)
+=======
+    @Query(value="SELECT c FROM cabins c WHERE c.type=typeCabin",nativeQuery = true)
+>>>>>>> alekano
     public Cabin getAtributte(@Param("typeCabin")String value);
 =======
 

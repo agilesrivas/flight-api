@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FlightRepository extends JpaRepository<Flight, Long> {
-    @Query(value="SELECT * FROM countries WHERE date_flight=date_flight",nativeQuery = true)
+    @Query(value="SELECT fl FROM flights fl WHERE fl.date_flight=date_flight",nativeQuery = true)
     public Flight getAtributte(@Param("date_flight")String date);
 }
