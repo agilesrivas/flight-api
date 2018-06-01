@@ -2,6 +2,7 @@
 Test set: com.utn.tssi.tp5.Models.model.CountryTest
 -------------------------------------------------------------------------------
 <<<<<<< HEAD
+<<<<<<< HEAD
 Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 s - in com.utn.tssi.tp5.Models.model.CountryTest
 =======
 <<<<<<< HEAD
@@ -10,3 +11,6 @@ Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
 Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s - in com.utn.tssi.tp5.Models.model.CountryTest
 >>>>>>> 9e108e4161d0f2ecbdf68d15ebf4ddc27bfc9461
 >>>>>>> c027de62289e03ce6050de674ee4ef9d504b30c4
+=======
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b

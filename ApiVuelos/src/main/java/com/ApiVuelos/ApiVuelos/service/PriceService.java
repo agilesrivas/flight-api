@@ -30,7 +30,11 @@ public class PriceService implements MethodsRepository<Price>{
     }
 
     @Override
+<<<<<<< HEAD
     public void updateObject(Price value2) {
+=======
+    public void updateObject(Object value2) {
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
 
     }
 

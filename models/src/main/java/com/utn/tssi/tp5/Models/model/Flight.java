@@ -38,7 +38,11 @@ public class Flight {
 
     @Override
     public String toString() {
+<<<<<<< HEAD
         return "Flight{" +
+=======
+        return "{" +
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
                 "route=" + route +
                 ", date='" + date + '\'' +
                 '}';

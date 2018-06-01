@@ -46,16 +46,25 @@ public class StateController {
     }
     @PutMapping(value = "/update")
     public void update(State st) {
+<<<<<<< HEAD
       try{
             this.stateService.updateObject(st);
       }
       catch(PersistenceException e ){
           e.printStackTrace();
       }
+=======
+        Country country=this.countryService.getById(st.getId());
+        State value=this.stateService.getById(st.getId());
+        if(value!=null && country != null){
+            //seteo los daatos
+        }
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 
     @DeleteMapping(value = "/remove")
     public void remove(@RequestParam("id")Long id){
+<<<<<<< HEAD
         try {
             this.stateService.removeObject(id);
         }
@@ -63,10 +72,14 @@ public class StateController {
             e.printStackTrace();
         }
 
+=======
+        this.stateService.removeObject(id);
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 
     @GetMapping(value ="/")
     public List<State> getAll() {
+<<<<<<< HEAD
         List<State>st=new ArrayList<State>();
                 try{
                     st= this.stateService.getAll();
@@ -75,6 +88,9 @@ public class StateController {
                     e.printStackTrace();
                 }
 
+=======
+        List<State>st=this.stateService.getAll();
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
         return st;
     }
 }

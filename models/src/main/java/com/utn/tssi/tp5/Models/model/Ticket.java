@@ -5,6 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -60,7 +64,11 @@ public class Ticket {
 
     @Override
     public String toString() {
+<<<<<<< HEAD
         return "Ticket{" +
+=======
+        return "{" +
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
                 "flight=" + flight +
                 ", cabin=" + cabin +
                 ", date='" + date + '\'' +

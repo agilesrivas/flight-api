@@ -15,13 +15,21 @@ public class PriceTest extends TestCase {
         Cabin cabin2 = new Cabin(2, "VIP", 2.42);
 
         this.price = new Price(1, (float)1.12, "25/06/2018", null, true, cabin);
+<<<<<<< HEAD
         this.otherPrice = new Price(2, (float)2.42, "29/06/2018", null, true, cabin2);
+=======
+        this.otherPrice = new Price((float)2.42, "29/06/2018", null, true, cabin2);
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 
     @Test
     public void testToStringOK() {
         String value = this.price.toString();
+<<<<<<< HEAD
         assertEquals("Checking toString", value, "Price{price=1.12, fromDate='25/06/2018', toDate='null', state_bool=true, cabin=Cabin{name='Económico', priceKm=1.12}}");
+=======
+        assertEquals("Checking toString", value, "{price=1.12, fromDate='25/06/2018', toDate='null', state_bool=true, cabin={name='Económico', priceKm=1.12}}");
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 
     @Test
@@ -29,7 +37,11 @@ public class PriceTest extends TestCase {
         this.price.setCabin(null);
         String value = this.price.toString();
 
+<<<<<<< HEAD
         assertEquals("Checking toString", value, "Price{price=1.12, fromDate='25/06/2018', toDate='null', state_bool=true, cabin=null}");
+=======
+        assertEquals("Checking toString", value, "{price=1.12, fromDate='25/06/2018', toDate='null', state_bool=true, cabin=null}");
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 
     @Test
@@ -74,14 +86,22 @@ public class PriceTest extends TestCase {
     @Test
     public void testHashCodeOK() {
         int value = this.price.hashCode();
+<<<<<<< HEAD
         assertEquals("Checking hashCode", value, -1534475225);
+=======
+        assertEquals("Checking hashCode", value, -686332563);
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 
     @Test
     public void testHashCodeOneNull() {
         this.price.setPrice(0);
         int value = this.price.hashCode();
+<<<<<<< HEAD
         assertEquals("Checking hashCode", value, -1534505016);
+=======
+        assertEquals("Checking hashCode", value, -686333524);
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 
     @Test
@@ -94,6 +114,10 @@ public class PriceTest extends TestCase {
         this.otherPrice.setState_bool(false);
 
         int value = this.price.hashCode();
+<<<<<<< HEAD
         assertEquals("Checking hashCode", value, -1534475225);
+=======
+        assertEquals("Checking hashCode", value, -686332563);
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 }

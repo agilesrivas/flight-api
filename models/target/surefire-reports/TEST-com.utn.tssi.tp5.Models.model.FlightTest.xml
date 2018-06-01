@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuite tests="10" failures="0" name="com.utn.tssi.tp5.Models.model.FlightTest" time="0" errors="0" skipped="0">
 =======
@@ -9,6 +10,10 @@
 <testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.utn.tssi.tp5.Models.model.FlightTest" time="0.008" tests="10" errors="0" skipped="0" failures="0">
 >>>>>>> 9e108e4161d0f2ecbdf68d15ebf4ddc27bfc9461
 >>>>>>> c027de62289e03ce6050de674ee4ef9d504b30c4
+=======
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="10" failures="0" name="com.utn.tssi.tp5.Models.model.FlightTest" time="0" errors="0" skipped="0">
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_161\jre\bin"/>
@@ -25,6 +30,9 @@
     <property name="user.country" value="ES"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     <property name="sun.os.patch.level" value=""/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="user.dir" value="C:\Users\gianf\Desktop\Nueva carpeta\Models"/>
@@ -35,6 +43,7 @@
     <property name="java.io.tmpdir" value="C:\Users\gianf\AppData\Local\Temp\"/>
     <property name="line.separator" value="
 "/>
+<<<<<<< HEAD
 =======
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_162\jre\bin"/>
     <property name="sun.java.command" value="C:\Users\Ale\AppData\Local\Temp\surefire4666082529498854626\surefirebooter4092287904642410862.jar C:\Users\Ale\AppData\Local\Temp\surefire4666082529498854626 2018-05-30T20-37-36_805-jvmRun1 surefire6441052602338026774tmp surefire_02181078352279684326tmp"/>
@@ -48,6 +57,8 @@
     <property name="file.separator" value="\"/>
     <property name="line.separator" value="&#10;"/>
 >>>>>>> 9e108e4161d0f2ecbdf68d15ebf4ddc27bfc9461
+=======
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 10"/>
@@ -57,6 +68,7 @@
     <property name="maven.conf" value="C:\Program Files\Maven\apache-maven-3.5.3\bin\../conf"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <property name="java.class.version" value="52.0"/>
 =======
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
@@ -64,6 +76,9 @@
     <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_162\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_162\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_162\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_162\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_162\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_162\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_162\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_162\jre\classes"/>
     <property name="user.script" value=""/>
 >>>>>>> 9e108e4161d0f2ecbdf68d15ebf4ddc27bfc9461
+=======
+    <property name="java.class.version" value="52.0"/>
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="os.version" value="10.0"/>
     <property name="library.jansi.path" value="C:\Program Files\Maven\apache-maven-3.5.3\bin\..\lib\jansi-native"/>

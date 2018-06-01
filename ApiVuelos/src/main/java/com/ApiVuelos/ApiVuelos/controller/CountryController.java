@@ -8,9 +8,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+<<<<<<< HEAD
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+=======
+import javax.servlet.http.HttpServletRequest;
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
 import java.util.List;
 
 @RestController
@@ -34,22 +38,32 @@ public class CountryController {
 
     @PutMapping(value = "/update")
     public void update(Country country){
+<<<<<<< HEAD
         try{
             this.countryService.updateObject(country);
         }
         catch(PersistenceException e){
             e.printStackTrace();
+=======
+        Country value=this.countryService.getById(country.getId());
+        if(value !=null){
+            //Seteo los datos
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
         }
     }
 
     @DeleteMapping(value = "/remove")
     public void remove(@RequestParam("id") Long id){
+<<<<<<< HEAD
         try{
             this.countryService.removeObject(id);
         }
         catch(PersistenceException e){
             e.printStackTrace();
         }
+=======
+        this.countryService.removeObject(id);
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 
     @GetMapping(value = "/")

@@ -2,6 +2,7 @@ package com.ApiVuelos.ApiVuelos.controller;
 
 import com.ApiVuelos.ApiVuelos.service.AirportService;
 import com.ApiVuelos.ApiVuelos.service.TicketService;
+<<<<<<< HEAD
 import com.utn.tssi.tp5.Models.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
 @RestController
 @RequestMapping(value = "/ticket")
 public class TicketController {
@@ -20,6 +26,7 @@ public class TicketController {
     private TicketService ticketService;
 
     @PostMapping(value = "/add")
+<<<<<<< HEAD
     public void add(Flight fl,Cabin cn,Price price,Date date){
         try{
             Ticket tk=new Ticket(fl,cn);
@@ -60,10 +67,24 @@ public class TicketController {
         catch(PersistenceException e){
             e.printStackTrace();
         }
+=======
+    public void add() {
+
+    }
+
+    @PutMapping(value = "/update")
+    public void update() {
+
+    }
+
+    @DeleteMapping(value = "/remove")
+    public void remove() {
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
 
     }
 
     @GetMapping(value = "/")
+<<<<<<< HEAD
     public List<Ticket> getAll() {
         List<Ticket>tkList=new ArrayList<Ticket>();
         try{
@@ -73,5 +94,9 @@ public class TicketController {
             e.printStackTrace();
         }
         return tkList;
+=======
+    public void getAll() {
+
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 }

@@ -2,7 +2,11 @@
 Test set: com.utn.tssi.tp5.Models.model.CityTest
 -------------------------------------------------------------------------------
 <<<<<<< HEAD
+<<<<<<< HEAD
 Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s - in com.utn.tssi.tp5.Models.model.CityTest
 =======
 Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec
 >>>>>>> c027de62289e03ce6050de674ee4ef9d504b30c4
+=======
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b

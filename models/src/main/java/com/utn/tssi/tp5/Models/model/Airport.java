@@ -53,7 +53,11 @@ public class Airport {
 
     @Override
     public String toString() {
+<<<<<<< HEAD
         return "Airport{" +
+=======
+        return "{" +
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
                 "iataCode='" + iataCode + '\'' +
                 ", name='" + name + '\'' +
                 ", city=" + city +

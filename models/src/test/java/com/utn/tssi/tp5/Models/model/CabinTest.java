@@ -18,7 +18,11 @@ public class CabinTest extends TestCase {
     @Test
     public void testToStringOK() {
         String value = this.cabin.toString();
+<<<<<<< HEAD
         assertEquals("Checking toString", value, "Cabin{name='Económico', priceKm=1.12}");
+=======
+        assertEquals("Checking toString", value, "{name='Económico', priceKm=1.12}");
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 
     @Test
@@ -26,7 +30,11 @@ public class CabinTest extends TestCase {
         this.cabin.setName(null);
         String value = this.cabin.toString();
 
+<<<<<<< HEAD
         assertEquals("Checking toString", value, "Cabin{name='null', priceKm=1.12}");
+=======
+        assertEquals("Checking toString", value, "{name='null', priceKm=1.12}");
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 
     @Test

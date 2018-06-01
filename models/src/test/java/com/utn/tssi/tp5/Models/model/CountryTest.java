@@ -18,7 +18,11 @@ public class CountryTest extends TestCase{
     @Test
     public void testToStringOK() {
         String value = this.country.toString();
+<<<<<<< HEAD
         assertEquals("Checking toString", value, "Country{name='Argentina', isoCode='ARG'}");
+=======
+        assertEquals("Checking toString", value, "{name='Argentina', isoCode='ARG'}");
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 
     @Test
@@ -26,7 +30,11 @@ public class CountryTest extends TestCase{
         this.country.setName(null);
         String value = this.country.toString();
 
+<<<<<<< HEAD
         assertEquals("Checking toString", value, "Country{name='null', isoCode='ARG'}");
+=======
+        assertEquals("Checking toString", value, "{name='null', isoCode='ARG'}");
+>>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 
     @Test
