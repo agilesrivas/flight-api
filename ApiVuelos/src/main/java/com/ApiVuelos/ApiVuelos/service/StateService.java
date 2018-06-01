@@ -47,16 +47,12 @@ public class StateService implements MethodsRepository<State> {
     @Transactional
     @Override
     public void updateObject(State value2) {
-<<<<<<< HEAD
-
-=======
         EntityManager enty=null;
         State st=enty.find(State.class,value2.getId());
         st.setIataCode(value2.getIataCode());
         st.setName(value2.getName());
         st.setCountry(value2.getCountry());
         enty.getTransaction().commit();
->>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
     }
 
     @Override

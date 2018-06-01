@@ -49,14 +49,8 @@ public class StateController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-<<<<<<< HEAD
-    @PutMapping(value = "/update")
-    public void update(State st) {
-<<<<<<< HEAD
-=======
     @PutMapping(value = "/")
     public ResponseEntity update(State st) {
->>>>>>> alekano
       try{
           if(st!=null){
               this.stateService.updateObject(st);
@@ -69,23 +63,10 @@ public class StateController {
       catch(Exception e ){
           return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
       }
-=======
-        Country country=this.countryService.getById(st.getId());
-        State value=this.stateService.getById(st.getId());
-        if(value!=null && country != null){
-            //seteo los daatos
-        }
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 
-<<<<<<< HEAD
-    @DeleteMapping(value = "/remove")
-    public void remove(@RequestParam("id")Long id){
-<<<<<<< HEAD
-=======
     @DeleteMapping(value = "/")
     public ResponseEntity remove(@RequestParam("id")Long id){
->>>>>>> alekano
         try {
             if(id!=null){
                 this.stateService.removeObject(id);
@@ -99,22 +80,10 @@ public class StateController {
         catch(Exception e){
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-<<<<<<< HEAD
-
-=======
-        this.stateService.removeObject(id);
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
-    }
-
-    @GetMapping(value ="/")
-    public List<State> getAll() {
-<<<<<<< HEAD
-=======
     }
 
     @GetMapping(value ="/")
     public ResponseEntity<List<State>> getAll() {
->>>>>>> alekano
         List<State>st=new ArrayList<State>();
                 try{
                     st= this.stateService.getAll();
@@ -128,13 +97,5 @@ public class StateController {
                 catch(Exception e){
                     return new ResponseEntity<List<State>>(HttpStatus.INTERNAL_SERVER_ERROR);
                 }
-<<<<<<< HEAD
-
-=======
-        List<State>st=this.stateService.getAll();
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
-        return st;
-=======
->>>>>>> alekano
     }
 }

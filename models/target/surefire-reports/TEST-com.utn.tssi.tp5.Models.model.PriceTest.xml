@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<<<<<<< HEAD
 <testsuite tests="10" failures="0" name="com.utn.tssi.tp5.Models.model.PriceTest" time="0" errors="0" skipped="0">
-=======
-<<<<<<< HEAD
-<testsuite tests="10" failures="0" name="com.utn.tssi.tp5.Models.model.PriceTest" time="0.005" errors="0" skipped="0">
-=======
-<testsuite tests="10" failures="0" name="com.utn.tssi.tp5.Models.model.PriceTest" time="0" errors="0" skipped="0">
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
->>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_161\jre\bin"/>
@@ -80,15 +72,7 @@
   <testcase classname="com.utn.tssi.tp5.Models.model.PriceTest" name="testEqualsNull" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.PriceTest" name="testEqualsDifferentAttributes" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.PriceTest" name="testHashCodeOneNull" time="0"/>
-<<<<<<< HEAD
   <testcase classname="com.utn.tssi.tp5.Models.model.PriceTest" name="testEqualsNullAttributes" time="0"/>
-=======
-<<<<<<< HEAD
-  <testcase classname="com.utn.tssi.tp5.Models.model.PriceTest" name="testEqualsNullAttributes" time="0.005"/>
-=======
-  <testcase classname="com.utn.tssi.tp5.Models.model.PriceTest" name="testEqualsNullAttributes" time="0"/>
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
->>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
   <testcase classname="com.utn.tssi.tp5.Models.model.PriceTest" name="testToStringOK" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.PriceTest" name="testHashCodeAllNull" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.PriceTest" name="testEqualsOK" time="0"/>

@@ -10,15 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-<<<<<<< HEAD
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
-<<<<<<< HEAD
-=======
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
-=======
 import java.util.ArrayList;
->>>>>>> alekano
 import java.util.List;
 
 @RestController
@@ -30,14 +24,8 @@ public class AirportController {
     @Autowired
     private CityService cityService;
 
-<<<<<<< HEAD
-    @PostMapping(value = "/add")
-<<<<<<< HEAD
-    public void add(String name_air,String iataCode,float latitud,float longitud){
-=======
     @PostMapping(value = "/")
     public ResponseEntity add(@RequestParam("name_air") String name_air,@RequestParam("iata")String iataCode, @RequestParam("latitud") float latitud, @RequestParam("longitud") float longitud){
->>>>>>> alekano
         try{
             if(name_air!=null && iataCode!=null && latitud!=0 && longitud!=0){
                 City value=this.cityService.getByAttributeType(iataCode);
@@ -77,33 +65,10 @@ public class AirportController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-=======
-    public void add(String name_air,String iataCode,String iso,float latitud,float longitud){
-        City value=this.cityService.getByAttributeType(iso);
-        if(value!=null){
-            Airport airport=new Airport(name_air,iataCode,value,latitud,longitud);
-            this.airportService.newObject(airport);
-        }
     }
 
-    @PutMapping(value = "/update")
-    public void update(Airport value) {
-        Airport ar = this.airportService.getById(value.getId());
-        City city = this.cityService.getById(value.getCity().getId());
-        if(ar!=null && city != null){
-            //seteo los daatos
-        }
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
-    }
-
-<<<<<<< HEAD
-    @DeleteMapping(value = "/remove")
-    public void remove(@RequestParam("id")Long id){
-<<<<<<< HEAD
-=======
     @DeleteMapping(value = "/")
     public ResponseEntity remove(@RequestParam("id")Long id){
->>>>>>> alekano
         try{
             if(id!=null){
                 this.airportService.removeObject(id);
@@ -117,20 +82,10 @@ public class AirportController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-=======
-        this.airportService.removeObject(id);
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 
-<<<<<<< HEAD
-    @GetMapping(value = "/")
-    public List<Airport> getAll() {
-<<<<<<< HEAD
-        List<Airport> airports=null;
-=======
     @GetMapping
     public ResponseEntity<List<Airport>> getAll() {
->>>>>>> alekano
         try
         {
             List<Airport> airports=new ArrayList<Airport>();
@@ -142,16 +97,9 @@ public class AirportController {
         }
 
     }
-<<<<<<< HEAD
-
-    @GetMapping(value="/algo")
-    public Airport getByOne(@RequestParam("iata")String iataCode){
-        Airport ar=null;
-=======
     @GetMapping(value="/")
     public ResponseEntity getByOne(@RequestParam("iataCode")String iataCode){
 
->>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
         try
         {
             Airport ar=null;
@@ -167,14 +115,6 @@ public class AirportController {
         catch(Exception e){
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-<<<<<<< HEAD
-        return ar;
-=======
-        List<Airport> airports=this.airportService.getAll();
-        return airports;
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
-=======
 
->>>>>>> alekano
     }
 }

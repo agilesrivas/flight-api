@@ -46,16 +46,12 @@ public class CabinService implements MethodsRepository<Cabin> {
     @Transactional
     @Override
     public void updateObject(Cabin value2) {
-<<<<<<< HEAD
-
-=======
         EntityManager enty = null;
         enty.getTransaction().begin();
         Cabin cabin=enty.find(Cabin.class,value2.getId());
         cabin.setName(value2.getName());
         cabin.setPriceKm(value2.getPriceKm());
         enty.getTransaction().commit();
->>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
     }
 
     @Override

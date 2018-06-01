@@ -47,15 +47,11 @@ public class CountryService implements MethodsRepository<Country> {
     @Transactional
     @Override
     public void updateObject(Country value2) {
-<<<<<<< HEAD
-
-=======
         EntityManager enty=null;
         Country country=enty.find(Country.class,value2.getId());
         country.setName(value2.getName());
         country.setIsoCode(value2.getIsoCode());
         enty.getTransaction().commit();
->>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
     }
 
     @Override

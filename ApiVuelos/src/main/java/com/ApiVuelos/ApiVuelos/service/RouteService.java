@@ -46,9 +46,6 @@ public class RouteService implements MethodsRepository<Route> {
     @Transactional
     @Override
     public void updateObject(Route value2) {
-<<<<<<< HEAD
-
-=======
         EntityManager enty=null;
         Route route=enty.find(Route.class,value2.getId());
         route.setAirportBegin(value2.getAirportBegin());
@@ -56,7 +53,6 @@ public class RouteService implements MethodsRepository<Route> {
         route.setDistance(value2.getDistance());
         route.setEstimatedTime(value2.getEstimatedTime());
         enty.getTransaction().commit();
->>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
     }
 
     @Override

@@ -46,9 +46,6 @@ public class TicketService implements MethodsRepository<Ticket> {
     @Transactional
     @Override
     public void updateObject(Ticket value2) {
-<<<<<<< HEAD
-
-=======
         EntityManager enty=null;
         Ticket tk=enty.find(Ticket.class,value2.getId());
         tk.setCabin(value2.getCabin());
@@ -56,7 +53,6 @@ public class TicketService implements MethodsRepository<Ticket> {
         tk.setFlight(value2.getFlight());
         tk.setTotalPrice(value2.getTotalPrice());
         enty.getTransaction().commit();
->>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
     }
 
     @Override

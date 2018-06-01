@@ -9,13 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-<<<<<<< HEAD
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-=======
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
 import java.util.List;
 
 @RestController
@@ -25,14 +22,8 @@ public class CabinController {
     @Autowired
     private CabinService cabinService;
 
-<<<<<<< HEAD
-    @PostMapping(value = "/add")
-    public void add(String name_cabin) {
-<<<<<<< HEAD
-=======
     @PostMapping(value = "/")
     public ResponseEntity add(String name_cabin) {
->>>>>>> alekano
         try{
             if(name_cabin!=null){
                 Cabin cab = new Cabin(name_cabin, 0);
@@ -119,29 +110,4 @@ public class CabinController {
         }
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-=======
-        Cabin cab = new Cabin(name_cabin, 0);
-        this.cabinService.newObject(cab);
-    }
-
-    @PutMapping(value = "/update")
-    public void update(Cabin value) {
-        Cabin cab=this.cabinService.getById(value.getId());
-        if(cab!=null){
-            //seteo los datos
-        }
-
-    }
-
-    @DeleteMapping(value = "/remove")
-    public void remove(@RequestParam("id")Long id) {
-        this.cabinService.removeObject(id);
-    }
-
-    @GetMapping(value = "/")
-    public List<Cabin> getAll() {
-        List<Cabin>cabins=this.cabinService.getAll();
-        return cabins;
-    }
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
 }

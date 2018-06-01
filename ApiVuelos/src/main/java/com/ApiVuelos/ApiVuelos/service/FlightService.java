@@ -45,15 +45,11 @@ public class FlightService implements MethodsRepository<Flight> {
 
     @Override
     public void updateObject(Flight value2) {
-<<<<<<< HEAD
-
-=======
         EntityManager enty=null;
         Flight flight=enty.find(Flight.class,value2.getId());
         flight.setRoute(value2.getRoute());
         flight.setDate(value2.getDate());
         enty.getTransaction().commit();
->>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
     }
 
     @Override

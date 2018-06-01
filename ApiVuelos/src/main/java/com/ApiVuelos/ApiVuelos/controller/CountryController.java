@@ -10,13 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-<<<<<<< HEAD
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-=======
-import javax.servlet.http.HttpServletRequest;
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
 import java.util.List;
 
 @RestController
@@ -26,16 +22,6 @@ public class CountryController {
     @Autowired
     private CountryService countryService;
 
-<<<<<<< HEAD
-    @PostMapping(value = "/add")
-    public void add(String name, String isoCode) throws Exception{
-
-        if(name == null || name.trim().equals("")){ throw new Exception("NAME empty - Country"); }
-        else if(isoCode == null || isoCode.trim().equals("")) { throw new Exception("ISOCODE empty - Country"); }
-        else {
-            Country country = new Country(name, isoCode);
-            this.countryService.newObject(country);
-=======
     @PostMapping(value = "/" ,consumes="application/json")
     public ResponseEntity add(@RequestParam("name")String name,@RequestParam("iso")String isoCode) {
         try{
@@ -51,18 +37,11 @@ public class CountryController {
         }
         catch(Exception e){
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
->>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
         }
     }
 
-<<<<<<< HEAD
-    @PutMapping(value = "/update")
-    public void update(Country country){
-<<<<<<< HEAD
-=======
     @PutMapping(value = "/")
     public ResponseEntity update(Country country){
->>>>>>> alekano
         try{
             if(country!=null){
                 this.countryService.updateObject(country);
@@ -72,21 +51,6 @@ public class CountryController {
                 return new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         }
-<<<<<<< HEAD
-        catch(PersistenceException e){
-            e.printStackTrace();
-=======
-        Country value=this.countryService.getById(country.getId());
-        if(value !=null){
-            //Seteo los datos
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
-        }
-    }
-
-    @DeleteMapping(value = "/remove")
-    public void remove(@RequestParam("id") Long id){
-<<<<<<< HEAD
-=======
         catch(Exception e){
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -94,7 +58,6 @@ public class CountryController {
 
     @DeleteMapping(value = "/")
     public ResponseEntity remove(@RequestParam("id") Long id){
->>>>>>> alekano
         try{
             if(id!=null){
                 this.countryService.removeObject(id);
@@ -106,9 +69,6 @@ public class CountryController {
         catch(Exception e){
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-=======
-        this.countryService.removeObject(id);
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
     }
 
     @GetMapping

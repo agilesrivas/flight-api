@@ -48,16 +48,12 @@ public class CityService implements MethodsRepository<City>{
     @Transactional
     @Override
     public void updateObject(City value2) {
-<<<<<<< HEAD
-
-=======
         EntityManager enty=null;
         City city=enty.find(City.class,value2.getId());
         city.setName(value2.getName());
         city.setState(value2.getState());
         city.setIataCode(value2.getIataCode());
         enty.getTransaction().commit();
->>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
     }
 
     @Override

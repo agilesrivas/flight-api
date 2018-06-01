@@ -24,15 +24,7 @@ public class Price {
     @Column(name = "fromDate", nullable = false)
     private String fromDate;
 
-<<<<<<< HEAD
     @Column(name = "toDate")
-=======
-<<<<<<< HEAD
-    @Column(name = "toDate", nullable = false)
-=======
-    @Column(name = "toDate")
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
->>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
     private String toDate;
 
     @Column(name = "state_bool", nullable = false)
@@ -59,22 +51,9 @@ public class Price {
         this.cabin = cabin;
     }
 
-<<<<<<< HEAD
     @Override
     public String toString() {
         return "{" +
-=======
-<<<<<<< HEAD
-
-    @Override
-    public String toString() {
-        return "Price{" +
-=======
-    @Override
-    public String toString() {
-        return "{" +
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
->>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
                 "price=" + price +
                 ", fromDate='" + fromDate + '\'' +
                 ", toDate='" + toDate + '\'' +
@@ -89,15 +68,7 @@ public class Price {
         if (o == null || !(o instanceof Price)) return false;
 
         Price price= (Price) o;
-<<<<<<< HEAD
         return this.id == price.getId() && this.price == price.getPrice() && this.fromDate.equals(price.fromDate) && this.toDate.equals(price.toDate) && this.state_bool == price.isState_bool();
-=======
-<<<<<<< HEAD
-        return this.id == price.getId() && this.price == price.getPrice() && this.fromDate.equals(price.fromDate) && this.toDate.equals(price.toDate) && this.state_bool == price.isState_bool() && this.cabin == price.getCabin();
-=======
-        return this.id == price.getId() && this.price == price.getPrice() && this.fromDate.equals(price.fromDate) && this.toDate.equals(price.toDate) && this.state_bool == price.isState_bool();
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
->>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
     }
 
     @Override
@@ -108,13 +79,6 @@ public class Price {
         hash = 31 * hash + (int) this.price;
         hash = 31 * hash + ((this.fromDate == null) ? 0 : this.fromDate.hashCode());
         hash = 31 * hash + ((this.toDate == null) ? 0 : this.toDate.hashCode());
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-        hash = 31 * hash + this.cabin.hashCode();
-=======
->>>>>>> 311b2c0941cf3d22be5443db63e3764af889b41b
->>>>>>> 533ee41a8f98fe21a11082b148ad0e10a168bba2
 
         return hash;
     }
