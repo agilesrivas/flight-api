@@ -23,7 +23,7 @@ public class CabinService implements MethodsRepository<Cabin> {
 
     @Override
     public Cabin getByAttributeType(String value) {
-        return this.cabin.getAtributte(value);
+        return this.cabin.getAttribute(value);
     }
 
     @Override

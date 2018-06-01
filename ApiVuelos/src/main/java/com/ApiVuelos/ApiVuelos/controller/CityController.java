@@ -4,13 +4,11 @@ import com.ApiVuelos.ApiVuelos.service.CityService;
 import com.ApiVuelos.ApiVuelos.service.StateService;
 import com.utn.tssi.tp5.Models.model.City;
 import com.utn.tssi.tp5.Models.model.State;
-import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 

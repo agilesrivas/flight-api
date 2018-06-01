@@ -23,7 +23,7 @@ public class FlightService implements MethodsRepository<Flight> {
 
     @Override
     public Flight getByAttributeType(String value) {
-        return this.flight.getAtributte(value);
+        return this.flight.getAttribute(value);
     }
 
     @Override

@@ -1,17 +1,12 @@
 package com.ApiVuelos.ApiVuelos.controller;
 
 import com.ApiVuelos.ApiVuelos.service.CountryService;
-import com.ApiVuelos.ApiVuelos.service.StateService;
 import com.utn.tssi.tp5.Models.model.Country;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.PersistenceException;
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 

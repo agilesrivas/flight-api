@@ -25,7 +25,7 @@ public class CountryService implements MethodsRepository<Country> {
 
     @Override
     public Country getByAttributeType(String value) {
-        return this.countryRepository.getAtributte(value);
+        return this.countryRepository.getAttribute(value);
     }
 
     @Override

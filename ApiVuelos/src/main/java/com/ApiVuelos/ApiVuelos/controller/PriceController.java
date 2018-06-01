@@ -1,16 +1,10 @@
 package com.ApiVuelos.ApiVuelos.controller;
 
-import com.ApiVuelos.ApiVuelos.service.AirportService;
-import com.ApiVuelos.ApiVuelos.service.FlightService;
 import com.ApiVuelos.ApiVuelos.service.PriceService;
-import com.ApiVuelos.ApiVuelos.service.RouteService;
-import com.utn.tssi.tp5.Models.model.Flight;
 import com.utn.tssi.tp5.Models.model.Price;
-import com.utn.tssi.tp5.Models.model.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController

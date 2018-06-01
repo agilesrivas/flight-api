@@ -1,9 +1,7 @@
 package com.ApiVuelos.ApiVuelos.service;
 
-import com.ApiVuelos.ApiVuelos.repository.CountryRepository;
 import com.ApiVuelos.ApiVuelos.repository.MethodsRepository;
 import com.ApiVuelos.ApiVuelos.repository.StateRepository;
-import com.utn.tssi.tp5.Models.model.Airport;
 import com.utn.tssi.tp5.Models.model.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +24,7 @@ public class StateService implements MethodsRepository<State> {
 
     @Override
     public State getByAttributeType(String iataCode) {
-        return this.stateRepository.getAtributte(iataCode);
+        return this.stateRepository.getAttribute(iataCode);
     }
 
     @Override

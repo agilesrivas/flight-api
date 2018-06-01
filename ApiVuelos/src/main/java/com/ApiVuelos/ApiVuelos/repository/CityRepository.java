@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CityRepository extends JpaRepository<City, Long> {
     @Query(value="SELECT cs FROM cities cs WHERE cs.iata=iataCode",nativeQuery = true)
-    public City getAtributte(@Param("iataCode")String iataCode);
+    public City getAttribute(@Param("iataCode")String iataCode);
 }

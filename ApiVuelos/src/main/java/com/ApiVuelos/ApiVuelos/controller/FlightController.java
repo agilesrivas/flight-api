@@ -1,6 +1,6 @@
 package com.ApiVuelos.ApiVuelos.controller;
 
-import com.ApiVuelos.ApiVuelos.service.AirportService;
+
 import com.ApiVuelos.ApiVuelos.service.FlightService;
 import com.ApiVuelos.ApiVuelos.service.RouteService;
 import com.utn.tssi.tp5.Models.model.Flight;
@@ -10,9 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.PersistenceException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController

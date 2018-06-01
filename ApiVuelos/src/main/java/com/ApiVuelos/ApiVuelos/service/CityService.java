@@ -25,7 +25,7 @@ public class CityService implements MethodsRepository<City>{
 
     @Override
     public City getByAttributeType(String iataCode) {
-       return  this.cityRepository.getAtributte(iataCode);
+       return  this.cityRepository.getAttribute(iataCode);
     }
 
     @Override

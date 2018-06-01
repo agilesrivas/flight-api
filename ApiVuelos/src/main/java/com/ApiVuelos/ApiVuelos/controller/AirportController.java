@@ -5,13 +5,10 @@ import com.ApiVuelos.ApiVuelos.service.CityService;
 import com.utn.tssi.tp5.Models.model.Airport;
 import com.utn.tssi.tp5.Models.model.City;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 

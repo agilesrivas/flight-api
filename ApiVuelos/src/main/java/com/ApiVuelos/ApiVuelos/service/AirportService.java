@@ -24,7 +24,7 @@ public class AirportService implements MethodsRepository<Airport>{
 
     @Override
     public Airport getByAttributeType(String value) {
-        return this.airportRepository.getAtributte(value);
+        return this.airportRepository.getAttribute(value);
     }
 
     @Override
