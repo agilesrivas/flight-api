@@ -98,4 +98,26 @@ public class AirportTest extends TestCase {
         int value = this.airport.hashCode();
         assertEquals("Checking hashCode", value, -459850354);
     }
+
+    @Test
+    public void testValidateNullEmptyOK() {
+        boolean value = this.airport.validateNullEmpty();
+        assertFalse("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeNull() {
+        this.airport.setName(null);
+
+        boolean value = this.airport.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeEmpty() {
+        this.airport.setName("");
+
+        boolean value = this.airport.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
 }

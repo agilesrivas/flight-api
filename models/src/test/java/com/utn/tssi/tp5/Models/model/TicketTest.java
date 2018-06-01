@@ -107,4 +107,26 @@ public class TicketTest extends TestCase{
         int value = this.ticket.hashCode();
         assertEquals("Checking hashCode", value, 515324718);
     }
+
+    @Test
+    public void testValidateNullEmptyOK() {
+        boolean value = this.ticket.validateNullEmpty();
+        assertFalse("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeNull() {
+        this.ticket.setFlight(null);
+
+        boolean value = this.ticket.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeEmpty() {
+        this.ticket.setDate("");
+
+        boolean value = this.ticket.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
 }

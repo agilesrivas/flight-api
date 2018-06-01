@@ -87,4 +87,26 @@ public class CabinTest extends TestCase {
         int value = this.cabin.hashCode();
         assertEquals("Checking hashCode", value, 476656);
     }
+
+    @Test
+    public void testValidateNullEmptyOK() {
+        boolean value = this.cabin.validateNullEmpty();
+        assertFalse("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeNull() {
+        this.cabin.setName(null);
+
+        boolean value = this.cabin.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeEmpty() {
+        this.cabin.setName("");
+
+        boolean value = this.cabin.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
 }

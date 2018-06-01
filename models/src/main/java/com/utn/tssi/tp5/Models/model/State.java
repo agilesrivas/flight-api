@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "States")
 @NoArgsConstructor
-public class State {
+public class State implements ValidationInterface{
 
     @Id
     @GeneratedValue
@@ -70,5 +70,15 @@ public class State {
         hash = 31 * hash + ((this.country == null) ? 0 : this.country.hashCode());
 
         return hash;
+    }
+
+    public boolean validateNullEmpty() {
+        boolean bool = true;
+
+        if(id > 0 && name != null && !(name.trim().equals("")) && iataCode != null && !(iataCode.trim().equals("")) && country != null && !(country.validateNullEmpty())) {
+            bool = false;
+        }
+
+        return bool;
     }
 }

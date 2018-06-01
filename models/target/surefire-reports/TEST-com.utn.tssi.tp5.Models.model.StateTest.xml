@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="10" failures="0" name="com.utn.tssi.tp5.Models.model.StateTest" time="0" errors="0" skipped="0">
+<testsuite tests="13" failures="0" name="com.utn.tssi.tp5.Models.model.StateTest" time="0" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_161\jre\bin"/>
@@ -47,7 +47,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_161\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher install"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean install"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="es"/>
     <property name="user.language.format" value="en"/>
@@ -68,6 +68,8 @@
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
   <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testEqualsOtherObject" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testValidateNullEmptyOK" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testValidateNullEmptyAttributeNull" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testHashCodeOK" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testEqualsNull" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testEqualsDifferentAttributes" time="0"/>
@@ -76,5 +78,6 @@
   <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testToStringOK" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testHashCodeAllNull" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testEqualsOK" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testValidateNullEmptyAttributeEmpty" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testToStringNull" time="0"/>
 </testsuite>

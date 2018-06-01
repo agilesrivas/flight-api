@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Prices")
 @NoArgsConstructor
-public class Price {
+public class Price implements ValidationInterface<Price>{
 
     @Id
     @GeneratedValue
@@ -68,7 +68,7 @@ public class Price {
         if (o == null || !(o instanceof Price)) return false;
 
         Price price= (Price) o;
-        return this.id == price.getId() && this.price == price.getPrice() && this.fromDate.equals(price.fromDate) && this.toDate.equals(price.toDate) && this.state_bool == price.isState_bool();
+        return this.id == price.getId() && this.price == price.getPrice() && this.fromDate.equals(price.getFromDate()) && this.toDate.equals(price.getToDate()) && this.state_bool == price.isState_bool() && this.cabin.equals(price.getCabin());
     }
 
     @Override
@@ -77,9 +77,20 @@ public class Price {
 
         hash = 31 * hash + (int) this.id;
         hash = 31 * hash + (int) this.price;
+        hash = 31 * hash + ((this.cabin == null) ? 0 : this.cabin.hashCode());
         hash = 31 * hash + ((this.fromDate == null) ? 0 : this.fromDate.hashCode());
         hash = 31 * hash + ((this.toDate == null) ? 0 : this.toDate.hashCode());
 
         return hash;
+    }
+
+    public boolean validateNullEmpty() {
+        boolean bool = true;
+
+        if(id > 0 && price >= 0 && cabin != null && !(cabin.validateNullEmpty()) && fromDate != null && !(fromDate.trim().equals(""))) {
+            bool = false;
+        }
+
+        return bool;
     }
 }

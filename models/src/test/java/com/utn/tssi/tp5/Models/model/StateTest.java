@@ -91,4 +91,26 @@ public class StateTest extends TestCase{
         int value = this.state.hashCode();
         assertEquals("Checking hashCode", value, 11082252);
     }
+
+    @Test
+    public void testValidateNullEmptyOK() {
+        boolean value = this.state.validateNullEmpty();
+        assertFalse("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeNull() {
+        this.state.setName(null);
+
+        boolean value = this.state.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeEmpty() {
+        this.state.setName("");
+
+        boolean value = this.state.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
 }

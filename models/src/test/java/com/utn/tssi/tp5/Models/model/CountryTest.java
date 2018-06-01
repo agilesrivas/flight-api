@@ -87,4 +87,26 @@ public class CountryTest extends TestCase{
         int value = this.country.hashCode();
         assertEquals("Checking hashCode", value, 327701);
     }
+
+    @Test
+    public void testValidateNullEmptyOK() {
+        boolean value = this.country.validateNullEmpty();
+        assertFalse("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeNull() {
+        this.country.setName(null);
+
+        boolean value = this.country.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeEmpty() {
+        this.country.setName("");
+
+        boolean value = this.country.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
 }
