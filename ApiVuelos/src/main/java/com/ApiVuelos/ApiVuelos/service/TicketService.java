@@ -24,7 +24,7 @@ public class TicketService implements MethodsRepository<Ticket> {
 
     @Override
     public Ticket getByAttributeType(String value) {
-        return this.ticketRepo.getAtributte(value);
+        return this.ticketRepo.getAttribute(value);
     }
 
     @Override

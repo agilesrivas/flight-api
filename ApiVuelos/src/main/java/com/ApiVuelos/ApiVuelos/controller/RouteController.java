@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.PersistenceException;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,68 +17,141 @@ import java.util.List;
 public class RouteController {
 
     @Autowired
+    private AirportService airportService;
+
+    @Autowired
     private RouteService routeService;
 
-    @PostMapping(value = "/")
-    public ResponseEntity add(Airport begin , Airport end, int distance, int time_estimed) {
+    @PostMapping(value = "/", consumes = "application/json")
+    public ResponseEntity add(@RequestBody List<Route> routes) {
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        Airport airportBegin = null, airportEnd = null;
+
         try{
-            if(begin!=null && end!=null && distance!=0 && time_estimed!=0){
-                Route rt=new Route(begin,end,distance,time_estimed);
-                this.routeService.newObject(rt);
-                return new ResponseEntity(HttpStatus.OK);
-            }else{
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            for(Route route : routes) {
+                if (!route.validateNullEmpty()) {
+                    airportBegin = this.airportService.getByAttributeType(route.getAirportBegin().getIataCode());
+                    airportEnd = this.airportService.getByAttributeType(route.getAirportEnd().getIataCode());
+
+                    if(airportBegin != null && airportEnd != null) {
+                        route.setAirportBegin(airportBegin);
+                        route.setAirportEnd(airportEnd);
+
+                        this.routeService.newObject(route);
+                        status = new ResponseEntity(HttpStatus.OK);
+
+                    } else {
+                        status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                    }
+                } else {
+                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                }
             }
         }
         catch(Exception e){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+        return status;
     }
 
     @PutMapping(value = "/")
     public ResponseEntity update(Route value){
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        Airport airportBegin = null, airportEnd = null;
+
         try{
-            if(value!=null){
-                this.routeService.updateObject(value);
-                return new ResponseEntity(HttpStatus.OK);
+            if(value != null && !(value.validateNullEmpty())){
+
+                airportBegin = this.airportService.getByAttributeType(value.getAirportBegin().getIataCode());
+                airportEnd = this.airportService.getByAttributeType(value.getAirportEnd().getIataCode());
+
+                if(airportBegin != null && airportEnd != null) {
+                    value.setAirportBegin(airportBegin);
+                    value.setAirportEnd(airportEnd);
+
+                    this.routeService.updateObject(value);
+                    status = new ResponseEntity(HttpStatus.OK);
+
+                } else{
+                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                }
+            } else{
+                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
-            else{
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
-            }
+        } catch(Exception e){
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        catch(Exception e){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
+        return status;
     }
 
     @DeleteMapping(value = "/")
     public ResponseEntity remove(Long id){
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+
         try{
-            if(id!=null){
+            if(id != null && id > 0){
                 this.routeService.removeObject(id);
-                return new ResponseEntity(HttpStatus.OK);
-            }else
-            {
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
+                status = new ResponseEntity(HttpStatus.OK);
+
+            }else {
+                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
 
         }catch(Exception e){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+        return status;
     }
 
-    @GetMapping(value = "/")
+    @GetMapping
     public ResponseEntity<List<Route>> getAll() {
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         List<Route>rtList=new ArrayList<Route>();
+
         try{
-            rtList=this.routeService.getAll();
-            if(rtList.isEmpty()){
-                return new ResponseEntity<List<Route>>(HttpStatus.NO_CONTENT);
+            rtList = this.routeService.getAll();
+            if(!rtList.isEmpty()){
+                status = new ResponseEntity<List<Route>>(rtList,HttpStatus.OK);
+
             }else{
-                return new ResponseEntity<List<Route>>(rtList,HttpStatus.OK);
+                status = new ResponseEntity<List<Route>>(HttpStatus.NO_CONTENT);
             }
         }catch(Exception e){
-            return new ResponseEntity<List<Route>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            status = new ResponseEntity<List<Route>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+        return status;
+    }
+
+    @GetMapping(value= "/")
+    public ResponseEntity getByOneRoute(@RequestParam("iataAirportBegin") String iataAirportBegin, @RequestParam("iataAirportEnd") String iataAirportEnd){
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        Route route= null;
+
+        try{
+            if(iataAirportBegin != null && !(iataAirportBegin.trim().equals("")) && iataAirportEnd != null && !(iataAirportEnd.trim().equals(""))){
+                route = this.routeService.getByAttributeTypeRoute(iataAirportBegin, iataAirportEnd);
+
+                if(route != null){
+                    status = new ResponseEntity<Route>(route, HttpStatus.OK);
+
+                }   else {
+                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                }
+            }else {
+                status = new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
+        } catch(Exception e) {
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return status;
     }
 }
