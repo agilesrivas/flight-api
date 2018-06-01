@@ -23,8 +23,8 @@ public class AirportService implements MethodsRepository<Airport>{
     }
 
     @Override
-    public Airport getByAttributeType(String id) {
-        return null;
+    public Airport getByAttributeType(String iata) {
+        return this.airportRepository.getAttribute(iata);
     }
 
     @Override
@@ -46,10 +46,15 @@ public class AirportService implements MethodsRepository<Airport>{
     }
     @Transactional
     @Override
-    public void updateObject(Object value2) {
-        /*EntityManager enty=null;
-        Airport airport=enty.find(Airport,value2.getId());
-        //SETEAR DATOS*/
+    public void updateObject(Airport value2) {
+        EntityManager enty=null;
+        Airport airport=enty.find(Airport.class,value2.getId());
+        airport.setCity(value2.getCity());
+        airport.setIataCode(value2.getIataCode());
+        airport.setName(value2.getName());
+        airport.setLatitude(value2.getLatitude());
+        airport.setLongitude(value2.getLongitude());
+        enty.getTransaction().commit();
     }
 
     @Override

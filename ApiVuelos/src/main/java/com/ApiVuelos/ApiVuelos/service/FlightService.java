@@ -42,7 +42,7 @@ public class FlightService implements MethodsRepository<Flight> {
     }
 
     @Override
-    public void updateObject(Object value2) {
+    public void updateObject(Flight value2) {
 
     }
 

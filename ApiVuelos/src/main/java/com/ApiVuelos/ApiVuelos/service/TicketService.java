@@ -42,7 +42,7 @@ public class TicketService implements MethodsRepository<Ticket> {
     }
 
     @Override
-    public void updateObject(Object value2) {
+    public void updateObject(Ticket value2) {
 
     }
 

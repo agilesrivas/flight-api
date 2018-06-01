@@ -42,7 +42,7 @@ public class RouteService implements MethodsRepository<Route> {
     }
 
     @Override
-    public void updateObject(Object value2) {
+    public void updateObject(Route value2) {
 
     }
 

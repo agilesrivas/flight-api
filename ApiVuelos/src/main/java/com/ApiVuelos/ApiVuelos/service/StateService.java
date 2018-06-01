@@ -41,7 +41,7 @@ public class StateService implements MethodsRepository<State> {
     }
 
     @Override
-    public void updateObject(Object value2) {
+    public void updateObject(State value2) {
 
     }
 

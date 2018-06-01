@@ -43,7 +43,7 @@ public class CountryService implements MethodsRepository<Country> {
     }
 
     @Override
-    public void updateObject(Object value2) {
+    public void updateObject(Country value2) {
 
     }
 

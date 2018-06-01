@@ -42,7 +42,7 @@ public class CabinService implements MethodsRepository<Cabin> {
     }
 
     @Override
-    public void updateObject(Object value2) {
+    public void updateObject(Cabin value2) {
 
     }
 

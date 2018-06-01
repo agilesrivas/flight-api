@@ -19,9 +19,14 @@ public class CountryController {
     private CountryService countryService;
 
     @PostMapping(value = "/add")
-    public void add(String name, String isoCode) {
-        Country country = new Country(name, isoCode);
-        this.countryService.newObject(country);
+    public void add(String name, String isoCode) throws Exception{
+
+        if(name == null || name.trim().equals("")){ throw new Exception("NAME empty - Country"); }
+        else if(isoCode == null || isoCode.trim().equals("")) { throw new Exception("ISOCODE empty - Country"); }
+        else {
+            Country country = new Country(name, isoCode);
+            this.countryService.newObject(country);
+        }
     }
 
     @PutMapping(value = "/update")
