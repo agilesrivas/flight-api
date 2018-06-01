@@ -22,77 +22,95 @@ public class StateController {
     @Autowired
     private CountryService countryService;
 
-    @PostMapping(value = "/")
-    public ResponseEntity add(String name, String iataCode, String iso) {
-        try{
-            if(name!=null && iataCode!=null && iso!=null){
-                Country country = this.countryService.getByAttributeType(iso);
+    @PostMapping(value = "/", consumes = "application/json")
+    public ResponseEntity add(@RequestBody List<State> states) {
 
-                if(country != null) {
-                    State state = new State(name, iataCode, country);
-                    this.stateService.newObject(state);
-                    return  new ResponseEntity(HttpStatus.OK);
+        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        try{
+            for (State state : states) {
+                if (state.getName() != null  && !(state.getName().trim().equals("")) && state.getIataCode() != null  && !(state.getIataCode().trim().equals("")) && state.getCountry() != null) {
+                    Country country = this.countryService.getByAttributeType(state.getCountry().getIsoCode());
+
+                    if(country != null) {
+                        state.setCountry(country);
+                        this.stateService.newObject(state);
+
+                        status = new ResponseEntity(HttpStatus.OK);
+
+                    } else {
+                        status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                    }
+                } else {
+                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
                 }
-                else
-                {
-                    return new ResponseEntity(HttpStatus.NO_CONTENT);
-                }
-            }else
-            {
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         }
         catch(Exception e){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return status;
     }
+
     @PutMapping(value = "/")
     public ResponseEntity update(State st) {
-      try{
-          if(st!=null){
-              this.stateService.updateObject(st);
-              return new ResponseEntity(HttpStatus.OK);
-          }else
-          {
-              return new ResponseEntity(HttpStatus.NO_CONTENT);
-          }
-      }
-      catch(Exception e ){
-          return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-      }
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        try{
+            if(st!=null){
+                this.stateService.updateObject(st);
+                status = new ResponseEntity(HttpStatus.OK);
+
+            }else {
+                status = new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
+        }
+        catch(Exception e ){
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return status;
     }
 
     @DeleteMapping(value = "/")
     public ResponseEntity remove(@RequestParam("id")Long id){
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+
         try {
             if(id!=null){
                 this.stateService.removeObject(id);
-                return new ResponseEntity(HttpStatus.OK);
-            }
-            else
-            {
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
+                status = new ResponseEntity(HttpStatus.OK);
+
+            } else {
+                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         }
         catch(Exception e){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return status;
     }
 
     @GetMapping(value ="/")
     public ResponseEntity<List<State>> getAll() {
-        List<State>st=new ArrayList<State>();
-                try{
-                    st= this.stateService.getAll();
-                    if(st.isEmpty()){
-                        return new ResponseEntity<List<State>>(HttpStatus.NO_CONTENT);
-                    }else
-                    {
-                        return new ResponseEntity<List<State>>(st,HttpStatus.OK);
-                    }
-                }
-                catch(Exception e){
-                    return new ResponseEntity<List<State>>(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        List<State>st = new ArrayList<State>();
+
+        try{
+            st= this.stateService.getAll();
+            if(!st.isEmpty()){
+                status = new ResponseEntity<List<State>>(HttpStatus.NO_CONTENT);
+
+            }else {
+                status = new ResponseEntity<List<State>>(st,HttpStatus.OK);
+            }
+        }
+        catch(Exception e){
+            status = new ResponseEntity<List<State>>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return status;
     }
 }

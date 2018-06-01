@@ -21,21 +21,22 @@ public class CityController {
     @Autowired
     private StateService stateService;
 
-    @PostMapping(value = "/add")
-    public ResponseEntity add(String name_city, String iataCode){
+    @PostMapping(value = "/", consumes = "application/json")
+    public ResponseEntity add(@RequestBody List<City> cities){
         try{
-            if(name_city!=null && iataCode!=null){
-                State state=this.stateService.getByAttributeType(iataCode);
-                if(state!=null)
-                {
-                    City city=new City(name_city,iataCode,state);
-                    return new ResponseEntity(HttpStatus.OK);
-                }else
-                {
+            for(City city : cities) {
+                if (city.getName() != null && !(city.getName().trim().equals("")) && city.getIataCode() != null && !(city.getIataCode().trim().equals(""))) {
+                    State state = this.stateService.getByAttributeType(city.getIataCode());
+
+                    if (state != null) {
+                        this.cityService.newObject(city);
+                        return new ResponseEntity(HttpStatus.OK);
+                    } else {
+                        return new ResponseEntity(HttpStatus.NO_CONTENT);
+                    }
+                } else {
                     return new ResponseEntity(HttpStatus.NO_CONTENT);
                 }
-            }else{
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         }
         catch(Exception e){
