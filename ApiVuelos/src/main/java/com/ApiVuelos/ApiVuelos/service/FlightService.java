@@ -4,6 +4,7 @@ import com.ApiVuelos.ApiVuelos.repository.FlightRepository;
 import com.ApiVuelos.ApiVuelos.repository.MethodsRepository;
 import com.utn.tssi.tp5.Models.model.Country;
 import com.utn.tssi.tp5.Models.model.Flight;
+import com.utn.tssi.tp5.Models.model.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,21 +16,22 @@ import java.util.Optional;
 public class FlightService implements MethodsRepository<Flight> {
 
     @Autowired
-    private FlightRepository flight;
+    private FlightRepository flightRepository;
+
     @Override
     public List<Flight> getAll() {
-        return this.flight.findAll();
+        return this.flightRepository.findAll();
     }
 
     @Override
     public Flight getByAttributeType(String value) {
-        return this.flight.getAttribute(value);
+        return null;
     }
 
     @Override
     public Flight getById(Long id) {
         Flight flight=null;
-        Optional<Flight> flightOptional=this.flight.findById(id);
+        Optional<Flight> flightOptional=this.flightRepository.findById(id);
         if(flightOptional.isPresent()){
             flight=flightOptional.get();
         }
@@ -39,7 +41,7 @@ public class FlightService implements MethodsRepository<Flight> {
     @Override
     public void newObject(Flight value) {
         if(value!=null){
-            this.flight.save(value);
+            this.flightRepository.save(value);
         }
     }
 
@@ -54,6 +56,17 @@ public class FlightService implements MethodsRepository<Flight> {
 
     @Override
     public void removeObject(Long id) {
-        this.flight.deleteById(id);
+        this.flightRepository.deleteById(id);
+    }
+
+    public Flight getByAttributeTypeDateRoute(String date, Route route){
+        Flight flight = null;
+        Optional<Flight> flightOptional = this.flightRepository.getAttribute(date, route.getId());
+
+        if(flightOptional.isPresent()) {
+            flight = flightOptional.get();
+        }
+
+        return flight;
     }
 }

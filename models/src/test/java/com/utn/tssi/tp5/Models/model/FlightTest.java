@@ -95,4 +95,48 @@ public class FlightTest extends TestCase{
         int value = this.flight.hashCode();
         assertEquals("Checking hashCode", value, 506447);
     }
+
+    @Test
+    public void testValidateNullEmptyOK() {
+        boolean value = this.flight.validateNullEmpty();
+        assertFalse("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeNull() {
+        this.flight.setRoute(null);
+
+        boolean value = this.flight.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeEmpty() {
+        this.flight.setDate("");
+
+        boolean value = this.flight.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierOK() {
+        boolean value = this.flight.validateNullEmptyIdentifier();
+        assertFalse("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeNull() {
+        this.flight.setRoute(null);
+
+        boolean value = this.flight.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeEmpty() {
+        this.flight.setDate("");
+
+        boolean value = this.flight.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
 }

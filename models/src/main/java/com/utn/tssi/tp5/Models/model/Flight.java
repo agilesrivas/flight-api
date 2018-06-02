@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Flights")
 @NoArgsConstructor
-public class Flight {
+public class Flight implements ValidationInterface<Flight>{
 
     @Id
     @GeneratedValue
@@ -63,4 +63,25 @@ public class Flight {
 
         return hash;
     }
+
+    public boolean validateNullEmpty() {
+        boolean bool = true;
+
+        if(id >= 0 && route != null && !(route.validateNullEmpty()) && date != null && !(date.trim().equals(""))) {
+            bool = false;
+        }
+
+        return bool;
+    }
+
+    public boolean validateNullEmptyIdentifier() {
+        boolean bool = true;
+
+        if(route != null && !(route.validateNullEmptyIdentifier()) && date != null && !(date.trim().equals(""))) {
+            bool = false;
+        }
+
+        return bool;
+    }
+
 }

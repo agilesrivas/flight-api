@@ -24,7 +24,7 @@ public class CountryController {
 
         try{
             for(Country country : countries) {
-                if (country.getName() != null && !(country.getName().trim().equals("")) && country.getIsoCode() != null && !(country.getIsoCode().trim().equals(""))) {
+                if (!country.validateNullEmpty()) {
                     this.countryService.newObject(country);
                     status = new ResponseEntity(HttpStatus.OK);
 
@@ -46,11 +46,11 @@ public class CountryController {
         ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 
         try{
-            if(country!=null){
+            if(country != null && !(country.validateNullEmpty())) {
                 this.countryService.updateObject(country);
                 status = new ResponseEntity(HttpStatus.OK);
-            }
-            else{
+
+            }else {
                 status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         }
@@ -66,7 +66,7 @@ public class CountryController {
         ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 
         try{
-            if(id != null && id != 0){
+            if(id != null && id > 0){
                 this.countryService.removeObject(id);
                 status = new ResponseEntity(HttpStatus.OK);
             }else{
@@ -100,17 +100,18 @@ public class CountryController {
         return status;
     }
 
-    @GetMapping(value="/")
+    @GetMapping(value= "/")
     public ResponseEntity getByOneCountry(@RequestParam("iso") String iso){
 
         ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         Country country = null;
 
         try{
-            if(iso!=null){
+            if(iso != null && !(iso.trim().equals(""))){
                 country= this.countryService.getByAttributeType(iso);
-                if(country!=null){
-                    status = new ResponseEntity(country,HttpStatus.OK);
+
+                if(country != null){
+                    status = new ResponseEntity<Country>(country,HttpStatus.OK);
 
                 }   else {
                     status = new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -118,9 +119,7 @@ public class CountryController {
             }else{
                 status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
-        }
-        catch(Exception e)
-        {
+        } catch(Exception e) {
            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return status;

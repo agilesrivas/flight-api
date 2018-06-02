@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "Tickets")
 @NoArgsConstructor
-public class Ticket {
+public class Ticket implements ValidationInterface<Ticket>{
 
     @Id
     @GeneratedValue
@@ -92,5 +92,19 @@ public class Ticket {
         hash = 31 * hash + (int) this.totalPrice;
 
         return hash;
+    }
+
+    public boolean validateNullEmpty() {
+        boolean bool = true;
+
+        if(id >= 0 && flight != null && !(flight.validateNullEmpty()) && cabin != null && !(cabin.validateNullEmpty()) && date != null && !(date.trim().equals("")) && totalPrice >= 0) {
+            bool = false;
+        }
+
+        return bool;
+    }
+
+    public boolean validateNullEmptyIdentifier() {
+        return true;
     }
 }

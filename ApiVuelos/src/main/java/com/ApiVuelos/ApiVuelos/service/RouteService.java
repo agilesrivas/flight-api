@@ -59,4 +59,15 @@ public class RouteService implements MethodsRepository<Route> {
     public void removeObject(Long id) {
         this.routeRepository.deleteById(id);
     }
+
+    public Route getByAttributeTypeRoute(String iataAirportBegin, String iataAirportEnd) {
+        Route route = null;
+        Optional<Route> routeOptional = this.routeRepository.getAttributeByAirports(iataAirportBegin, iataAirportEnd);
+
+        if(routeOptional.isPresent()) {
+            route = routeOptional.get();
+        }
+
+        return route;
+    }
 }

@@ -16,92 +16,111 @@ public class CabinController {
     @Autowired
     private CabinService cabinService;
 
-    @PostMapping(value = "/")
-    public ResponseEntity add(String name_cabin) {
+    @PostMapping(value = "/", consumes = "application/json")
+    public ResponseEntity add(@RequestBody List<Cabin> cabins) {
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
+
         try{
-            if(name_cabin!=null){
-                Cabin cab = new Cabin(name_cabin, 0);
-                this.cabinService.newObject(cab);
-                return new ResponseEntity(HttpStatus.OK);
-            }else
-            {
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            for (Cabin cabin : cabins) {
+                if (!cabin.validateNullEmpty()) {
+                    this.cabinService.newObject(cabin);
+                    status = new ResponseEntity(HttpStatus.OK);
+
+                } else {
+                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                }
             }
+        } catch(Exception e){
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        catch(Exception e){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
+        return status;
     }
 
     @PutMapping(value = "/")
     public ResponseEntity update(Cabin value){
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
+
         try{
-            ///aca va metodo que esta haciendo Gian
-            Cabin cab=this.cabinService.getById(value.getId());
-            if(cab!=null && value!=null){
-                cab.setName(value.getName());
-                cab.setPriceKm(value.getPriceKm());
-                return new ResponseEntity(HttpStatus.OK);
-            }else
-            {
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            if(!value.validateNullEmpty()) {
+                this.cabinService.updateObject(value);
+                status = new ResponseEntity(HttpStatus.OK);
+
+            } else {
+                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
+        } catch(Exception e) {
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        catch(Exception e)
-        {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
+        return status;
     }
 
     @DeleteMapping(value = "/")
     public ResponseEntity remove(@RequestParam("id")Long id){
-        try{
-            if(id!=null){
-                this.cabinService.removeObject(id);
-                return new ResponseEntity(HttpStatus.OK);
-            }else{
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
-            }
 
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
+
+        try{
+            if(id != null && id > 0){
+                this.cabinService.removeObject(id);
+                status = new ResponseEntity(HttpStatus.OK);
+            }else{
+                status = new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
+        } catch(Exception e){
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        catch(Exception e){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
+        return status;
     }
 
-    @GetMapping(value = "/")
+    @GetMapping
     public ResponseEntity<List<Cabin>> getAll() {
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try
         {
             List<Cabin> cabins =this.cabinService.getAll();
-            if (cabins != null) {
-                return new ResponseEntity<List<Cabin>>(cabins, HttpStatus.OK);
-            }
+            if (!cabins.isEmpty()) {
+                status = new ResponseEntity<List<Cabin>>(cabins, HttpStatus.OK);
 
+            }else{
+                status = new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
         } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        return status;
     }
-    @GetMapping
-    public ResponseEntity getByCabinOne(@RequestParam("typeCabin")String typeCabin){
+
+    @GetMapping(value = "/")
+    public ResponseEntity getByOneCabin(@RequestParam("typeCabin")String typeCabin){
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
+        Cabin cabin = null;
+
         try{
-            Cabin cabin=null;
-            if(typeCabin!=null){
-                cabin=this.cabinService.getByAttributeType(typeCabin);
-                if(cabin!=null){
-                    return new ResponseEntity(cabin,HttpStatus.OK);
+            if(typeCabin != null && !(typeCabin.trim().equals(""))){
+                cabin = this.cabinService.getByAttributeType(typeCabin);
+
+                if(cabin != null){
+                    status = new ResponseEntity<Cabin>(cabin,HttpStatus.OK);
+
+                } else {
+                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
                 }
+            } else {
+                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
-            else
-            {
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
-            }
+        } catch(Exception e){
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        catch(Exception e){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+
+        return status;
     }
 }

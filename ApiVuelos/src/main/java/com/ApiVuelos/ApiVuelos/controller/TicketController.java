@@ -1,5 +1,7 @@
 package com.ApiVuelos.ApiVuelos.controller;
 
+import com.ApiVuelos.ApiVuelos.service.CabinService;
+import com.ApiVuelos.ApiVuelos.service.FlightService;
 import com.ApiVuelos.ApiVuelos.service.TicketService;
 import com.utn.tssi.tp5.Models.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.PersistenceException;
+import java.applet.AudioClip;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,91 +22,128 @@ public class TicketController {
     @Autowired
     private TicketService ticketService;
 
-    @PostMapping(value = "/")
-    public ResponseEntity add(Flight fl,Cabin cn,Price price,Date date){
+    @Autowired
+    private FlightService flightService;
+
+    @Autowired
+    private CabinService cabinService;
+
+    @PostMapping(value = "/", consumes = "application/json")
+    public ResponseEntity add(@RequestBody List<Ticket> tickets){
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
+
         try{
-            if(fl!=null && cn!=null && price!=null && date!=null){
-                Ticket tk=new Ticket(fl,cn);
-                this.ticketService.newObject(tk);
-                return new ResponseEntity(HttpStatus.OK);
+            for (Ticket ticket : tickets) {
+                Flight flight = ticket.getFlight();
+                Cabin cabin = ticket.getCabin();
+
+                if(flight != null && cabin != null && !(flight.validateNullEmptyIdentifier()) && !(cabin.validateNullEmptyIdentifier())) {
+                    flight = this.flightService.getById(ticket.getFlight().getId());
+                    cabin = this.cabinService.getByAttributeType(ticket.getCabin().getName());
+
+                    ticket.setFlight(flight);
+                    ticket.setCabin(cabin);
+
+                    if(!ticket.validateNullEmpty()) {
+                        this.ticketService.newObject(ticket);
+                        status = new ResponseEntity(HttpStatus.OK);
+
+                    } else {
+                        status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                    }
+                } else {
+                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                }
             }
-            else
-            {
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
-            }
-        }
-        catch(Exception e){
-           return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch(Exception e){
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+        return status;
     }
-    @GetMapping
-    public ResponseEntity getOneTicket(String date){
+
+    @GetMapping(value = "/") //Este metodo buscara por el ID o EMAIL del usuario
+    public ResponseEntity getByOneTicket(String date){
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try{
             Ticket tk=null;
             if(date!=null){
                 tk=this.ticketService.getByAttributeType(date);
+
                 if(tk!=null){
-                    return new ResponseEntity(tk,HttpStatus.OK);
+                    status = new ResponseEntity(tk,HttpStatus.OK);
                 }
+            } else {
+                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
-            else
-            {
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
-            }
+        } catch(Exception e){
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        catch(Exception e){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+
+        return status;
     }
 
     @PutMapping(value = "/")
     public ResponseEntity update(Ticket tk2){
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
+
         try{
-            if(tk2!=null){
+            if(tk2 != null && !(tk2.validateNullEmpty())){
                 this.ticketService.updateObject(tk2);
-                return new ResponseEntity(HttpStatus.OK);
+                status = new ResponseEntity(HttpStatus.OK);
             }else{
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
+                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
+        } catch(Exception e){
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        catch(Exception e){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
+        return status;
     }
+
     @DeleteMapping(value = "/")
     public ResponseEntity remove(@RequestParam("id")Long id){
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
+
         try{
-            if(id!=null){
+            if(id != null && id > 0){
                 this.ticketService.removeObject(id);
-                return new ResponseEntity(HttpStatus.OK);
+                status = new ResponseEntity(HttpStatus.OK);
             }
             else{
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
+                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         }
         catch(PersistenceException e){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+        return status;
     }
 
-    @GetMapping(value = "/")
+    @GetMapping
     public ResponseEntity<List<Ticket>> getAll() {
-        List<Ticket>tkList=new ArrayList<Ticket>();
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
+        List<Ticket>tkList = new ArrayList<Ticket>();
+
         try{
-            tkList=this.ticketService.getAll();
-            if(tkList.isEmpty()){
-                return new ResponseEntity<List<Ticket>>(HttpStatus.NO_CONTENT);
-            }else
-            {
-                return new ResponseEntity<List<Ticket>>(tkList,HttpStatus.OK);
+            tkList = this.ticketService.getAll();
+            if(!tkList.isEmpty()){
+                status = new ResponseEntity<List<Ticket>>(tkList,HttpStatus.OK);
+
+            }else {
+                status = new ResponseEntity<List<Ticket>>(HttpStatus.NO_CONTENT);
             }
+        } catch(Exception e){
+            status = new ResponseEntity<List<Ticket>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        catch(Exception e){
-            return new ResponseEntity<List<Ticket>>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
+        return status;
     }
 }

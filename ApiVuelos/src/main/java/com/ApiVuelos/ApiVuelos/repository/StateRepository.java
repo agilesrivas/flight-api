@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StateRepository extends JpaRepository<State, Long> {
-    @Query(value="SELECT s FROM state  s WHERE s.iata=iataCode",nativeQuery = true)
+
+    @Query( value="SELECT * FROM state s WHERE s.iata = :iataCode",
+            nativeQuery = true,
+            name = "getAttribute")
     public State getAttribute(@Param("iataCode")String iataCode);
 }

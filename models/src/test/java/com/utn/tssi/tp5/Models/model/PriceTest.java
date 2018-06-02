@@ -74,14 +74,14 @@ public class PriceTest extends TestCase {
     @Test
     public void testHashCodeOK() {
         int value = this.price.hashCode();
-        assertEquals("Checking hashCode", value, -686332563);
+        assertEquals("Checking hashCode", value, 762321123);
     }
 
     @Test
     public void testHashCodeOneNull() {
         this.price.setPrice(0);
         int value = this.price.hashCode();
-        assertEquals("Checking hashCode", value, -686333524);
+        assertEquals("Checking hashCode", value, 762291332);
     }
 
     @Test
@@ -94,6 +94,50 @@ public class PriceTest extends TestCase {
         this.otherPrice.setState_bool(false);
 
         int value = this.price.hashCode();
-        assertEquals("Checking hashCode", value, -686332563);
+        assertEquals("Checking hashCode", value, 762321123);
+    }
+
+    @Test
+    public void testValidateNullEmptyOK() {
+        boolean value = this.price.validateNullEmpty();
+        assertFalse("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeNull() {
+        this.price.setCabin(null);
+
+        boolean value = this.price.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeEmpty() {
+        this.price.setPrice(-1);
+
+        boolean value = this.price.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierOK() {
+        boolean value = this.price.validateNullEmptyIdentifier();
+        assertFalse("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeNull() {
+        this.price.setCabin(null);
+
+        boolean value = this.price.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeEmpty() {
+        this.price.getCabin().setName("");
+
+        boolean value = this.price.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
     }
 }

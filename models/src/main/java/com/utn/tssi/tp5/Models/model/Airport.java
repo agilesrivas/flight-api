@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Airports")
 @NoArgsConstructor
-public class Airport {
+public class Airport implements ValidationInterface<Airport>{
 
     @Id
     @GeneratedValue
@@ -83,5 +83,25 @@ public class Airport {
         hash = 31 * hash + (int) this.longitude;
 
         return hash;
+    }
+
+    public boolean validateNullEmpty() {
+        boolean bool = true;
+
+        if(id >= 0 && name != null && !(name.trim().equals("")) && iataCode != null && !(iataCode.trim().equals("")) && city != null && !(city.validateNullEmpty()) && latitude >= 0 && longitude >= 0) {
+            bool = false;
+        }
+
+        return bool;
+    }
+
+    public boolean validateNullEmptyIdentifier() {
+        boolean bool = true;
+
+        if(iataCode != null && !(iataCode.trim().equals(""))) {
+            bool = false;
+        }
+
+        return bool;
     }
 }

@@ -93,4 +93,48 @@ public class CityTest extends TestCase{
         int value = this.city.hashCode();
         assertEquals("Checking hashCode", value, 12005773);
     }
+
+    @Test
+    public void testValidateNullEmptyOK() {
+        boolean value = this.city.validateNullEmpty();
+        assertFalse("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeNull() {
+        this.city.setName(null);
+
+        boolean value = this.city.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeEmpty() {
+        this.city.setName("");
+
+        boolean value = this.city.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierOK() {
+        boolean value = this.city.validateNullEmptyIdentifier();
+        assertFalse("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeNull() {
+        this.city.setIataCode(null);
+
+        boolean value = this.city.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeEmpty() {
+        this.city.setIataCode("");
+
+        boolean value = this.city.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
 }

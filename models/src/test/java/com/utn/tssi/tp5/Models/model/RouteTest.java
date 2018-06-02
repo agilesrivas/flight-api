@@ -99,4 +99,48 @@ public class RouteTest extends TestCase {
         int value = this.route.hashCode();
         assertEquals("Checking hashCode", value, 429437265);
     }
+
+    @Test
+    public void testValidateNullEmptyOK() {
+        boolean value = this.route.validateNullEmpty();
+        assertFalse("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeNull() {
+        this.route.setAirportEnd(null);
+
+        boolean value = this.route.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyAttributeEmpty() {
+        this.route.setDistance(-1);
+
+        boolean value = this.route.validateNullEmpty();
+        assertTrue("Checking validateNullEmpty", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierOK() {
+        boolean value = this.route.validateNullEmptyIdentifier();
+        assertFalse("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeNull() {
+        this.route.setAirportBegin(null);
+
+        boolean value = this.route.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeEmpty() {
+        this.route.getAirportBegin().setIataCode("");
+
+        boolean value = this.route.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
 }

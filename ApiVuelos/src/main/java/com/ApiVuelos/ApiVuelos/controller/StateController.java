@@ -29,13 +29,14 @@ public class StateController {
 
         try{
             for (State state : states) {
-                if (state.getName() != null  && !(state.getName().trim().equals("")) && state.getIataCode() != null  && !(state.getIataCode().trim().equals("")) && state.getCountry() != null) {
-                    Country country = this.countryService.getByAttributeType(state.getCountry().getIsoCode());
+                Country country = state.getCountry();
 
-                    if(country != null) {
-                        state.setCountry(country);
+                if (country != null && !(country.validateNullEmptyIdentifier())) {
+                    country = this.countryService.getByAttributeType(country.getIsoCode());
+                    state.setCountry(country);
+
+                    if(!state.validateNullEmpty()) {
                         this.stateService.newObject(state);
-
                         status = new ResponseEntity(HttpStatus.OK);
 
                     } else {
@@ -58,10 +59,18 @@ public class StateController {
         ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 
         try{
-            if(st!=null){
-                this.stateService.updateObject(st);
-                status = new ResponseEntity(HttpStatus.OK);
+            if(st != null && !(st.validateNullEmpty())) {
+                Country country = null;
+                country = this.countryService.getByAttributeType(st.getCountry().getIsoCode());
 
+                if(country != null) {
+                    st.setCountry(country);
+                    this.stateService.updateObject(st);
+                    status = new ResponseEntity(HttpStatus.OK);
+
+                }else {
+                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                }
             }else {
                 status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
@@ -78,7 +87,7 @@ public class StateController {
         ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 
         try {
-            if(id!=null){
+            if(id != null && id > 0){
                 this.stateService.removeObject(id);
                 status = new ResponseEntity(HttpStatus.OK);
 
@@ -92,7 +101,7 @@ public class StateController {
         return status;
     }
 
-    @GetMapping(value ="/")
+    @GetMapping
     public ResponseEntity<List<State>> getAll() {
 
         ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -101,16 +110,41 @@ public class StateController {
         try{
             st= this.stateService.getAll();
             if(!st.isEmpty()){
-                status = new ResponseEntity<List<State>>(HttpStatus.NO_CONTENT);
+                status = new ResponseEntity<List<State>>(st,HttpStatus.OK);
 
             }else {
-                status = new ResponseEntity<List<State>>(st,HttpStatus.OK);
+                status = new ResponseEntity<List<State>>(HttpStatus.NO_CONTENT);
             }
         }
         catch(Exception e){
             status = new ResponseEntity<List<State>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+        return status;
+    }
+
+    @GetMapping(value= "/")
+    public ResponseEntity getByOneState(@RequestParam("iata") String iata){
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        State state= null;
+
+        try{
+            if(iata != null && !(iata.trim().equals(""))){
+                state= this.stateService.getByAttributeType(iata);
+
+                if(state != null){
+                    status = new ResponseEntity<State>(state,HttpStatus.OK);
+
+                }   else {
+                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                }
+            }else{
+                status = new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
+        } catch(Exception e) {
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         return status;
     }
 }

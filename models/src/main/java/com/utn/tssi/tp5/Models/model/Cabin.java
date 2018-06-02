@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Cabins")
 @NoArgsConstructor
-public class Cabin {
+public class Cabin implements ValidationInterface<Cabin>{
 
     @Id
     @GeneratedValue
@@ -59,5 +59,25 @@ public class Cabin {
         hash = 31 * hash + (int) this.priceKm;
 
         return hash;
+    }
+
+    public boolean validateNullEmpty() {
+        boolean bool = true;
+
+        if(id >= 0 && name != null && !(name.trim().equals("")) && priceKm >= 0) {
+            bool = false;
+        }
+
+        return bool;
+    }
+
+    public boolean validateNullEmptyIdentifier() {
+        boolean bool = true;
+
+        if(name != null && !(name.trim().equals(""))) {
+            bool = false;
+        }
+
+        return bool;
     }
 }

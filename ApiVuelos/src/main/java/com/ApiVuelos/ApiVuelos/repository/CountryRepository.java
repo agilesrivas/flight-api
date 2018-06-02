@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CountryRepository extends JpaRepository<Country, Long> {
-    @Query( value="SELECT * FROM countries WHERE iso = :isoCode",
+
+    @Query( value="SELECT * FROM countries c WHERE c.iso = :isoCode",
             nativeQuery = true)
     public Country getAttribute(@Param("isoCode")String isoCode);
 }

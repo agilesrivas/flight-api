@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AirportRepository extends JpaRepository<Airport, Long> {
-    @Query(value="SELECT a FROM airports a WHERE a.iata=iataCode",nativeQuery = true)
+    @Query(value="SELECT * FROM airports a WHERE a.iata = :iataCode",nativeQuery = true)
     public Airport getAttribute(@Param("iataCode")String iata);
 }

@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
-    @Query(value="SELECT tk FROM tickets tk  WHERE tk.date_flight=date_flight",nativeQuery = true)
+
+    @Query( value="SELECT * FROM tickets tk  WHERE tk.date_flight = :date_flight",
+            nativeQuery = true,
+            name = "getAttribute")
     public Ticket getAttribute(@Param("date_flight")String  date);
 }
