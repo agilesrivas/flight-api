@@ -32,21 +32,23 @@ public class TicketController {
     public ResponseEntity add(@RequestBody List<Ticket> tickets){
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
-        Flight flight = null;
-        Cabin cabin = null;
 
         try{
             for (Ticket ticket : tickets) {
-                if(!ticket.validateNullEmpty()) {
+                Flight flight = ticket.getFlight();
+                Cabin cabin = ticket.getCabin();
+
+                if(flight != null && cabin != null && !(flight.validateNullEmptyIdentifier()) && !(cabin.validateNullEmptyIdentifier())) {
                     flight = this.flightService.getById(ticket.getFlight().getId());
                     cabin = this.cabinService.getByAttributeType(ticket.getCabin().getName());
 
-                    if(flight != null && cabin != null) {
-                        ticket.setFlight(flight);
-                        ticket.setCabin(cabin);
+                    ticket.setFlight(flight);
+                    ticket.setCabin(cabin);
 
+                    if(!ticket.validateNullEmpty()) {
                         this.ticketService.newObject(ticket);
                         status = new ResponseEntity(HttpStatus.OK);
+
                     } else {
                         status = new ResponseEntity(HttpStatus.NO_CONTENT);
                     }

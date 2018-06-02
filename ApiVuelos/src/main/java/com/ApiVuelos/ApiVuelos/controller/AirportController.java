@@ -28,12 +28,13 @@ public class AirportController {
 
         try{
             for(Airport airport : airports) {
-                if (!airport.validateNullEmpty()) {
-                    City city = null;
-                    city = this.cityService.getByAttributeType(airport.getCity().getIataCode());
+                City city = airport.getCity();
 
-                    if(city != null) {
-                        airport.setCity(city);
+                if (city != null && !(city.validateNullEmptyIdentifier())) {
+                    city = this.cityService.getByAttributeType(airport.getCity().getIataCode());
+                    airport.setCity(city);
+
+                    if(!airport.validateNullEmpty()) {
                         this.airportService.newObject(airport);
                         status = new ResponseEntity(HttpStatus.OK);
 

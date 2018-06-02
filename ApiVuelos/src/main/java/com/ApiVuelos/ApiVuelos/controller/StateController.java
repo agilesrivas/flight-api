@@ -31,7 +31,7 @@ public class StateController {
             for (State state : states) {
                 Country country = state.getCountry();
 
-                if (country != null && country.getIsoCode() != null && !(country.getIsoCode().trim().equals(""))) {
+                if (country != null && !(country.validateNullEmptyIdentifier())) {
                     country = this.countryService.getByAttributeType(country.getIsoCode());
                     state.setCountry(country);
 

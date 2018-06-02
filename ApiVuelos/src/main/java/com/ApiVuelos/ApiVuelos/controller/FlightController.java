@@ -27,15 +27,16 @@ public class FlightController {
     public ResponseEntity add(@RequestBody List<Flight> flights){
 
         ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        Route route = null;
 
         try{
             for(Flight flight : flights) {
-                if (!(flight.validateNullEmpty())) {
-                    route = this.routeService.getByAttributeTypeRoute(flight.getRoute().getAirportBegin().getIataCode(), flight.getRoute().getAirportEnd().getIataCode());
+                Route route = flight.getRoute();
 
-                    if (route != null) {
-                        flight.setRoute(route);
+                if (route != null && !(route.validateNullEmptyIdentifier())) {
+                    route = this.routeService.getByAttributeTypeRoute(flight.getRoute().getAirportBegin().getIataCode(), flight.getRoute().getAirportEnd().getIataCode());
+                    flight.setRoute(route);
+
+                    if (!(flight.validateNullEmpty())) {
                         this.flightService.newObject(flight);
                         status = new ResponseEntity(HttpStatus.OK);
 

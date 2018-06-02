@@ -26,18 +26,19 @@ public class RouteController {
     public ResponseEntity add(@RequestBody List<Route> routes) {
 
         ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        Airport airportBegin = null, airportEnd = null;
 
         try{
             for(Route route : routes) {
-                if (!route.validateNullEmpty()) {
+                Airport airportBegin = route.getAirportBegin();
+                Airport airportEnd = route.getAirportEnd();
+
+                if (airportBegin != null && airportEnd != null && !(airportBegin.validateNullEmptyIdentifier()) && !(airportEnd.validateNullEmptyIdentifier())) {
                     airportBegin = this.airportService.getByAttributeType(route.getAirportBegin().getIataCode());
                     airportEnd = this.airportService.getByAttributeType(route.getAirportEnd().getIataCode());
+                    route.setAirportBegin(airportBegin);
+                    route.setAirportEnd(airportEnd);
 
-                    if(airportBegin != null && airportEnd != null) {
-                        route.setAirportBegin(airportBegin);
-                        route.setAirportEnd(airportEnd);
-
+                    if(!route.validateNullEmpty()) {
                         this.routeService.newObject(route);
                         status = new ResponseEntity(HttpStatus.OK);
 

@@ -28,11 +28,13 @@ public class CityController {
 
         try{
             for(City city : cities) {
-                if(!city.validateNullEmpty()) {
-                    State state = this.stateService.getByAttributeType(city.getState().getIataCode());
+                State state = city.getState();
 
-                    if (state != null) {
-                        city.setState(state);
+                if(state != null && !(state.validateNullEmptyIdentifier())) {
+                    state = this.stateService.getByAttributeType(state.getIataCode());
+                    city.setState(state);
+
+                    if (!city.validateNullEmpty()) {
                         this.cityService.newObject(city);
                         status = new ResponseEntity(HttpStatus.OK);
 

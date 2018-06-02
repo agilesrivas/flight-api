@@ -29,12 +29,13 @@ public class PriceController {
 
         try{
             for (Price price : prices) {
-                if (!price.validateNullEmpty()) {
-                    Cabin cabin = null;
-                    cabin = this.cabinService.getByAttributeType(price.getCabin().getName());
+                Cabin cabin = price.getCabin();
 
-                    if(cabin != null) {
-                        price.setCabin(cabin);
+                if (cabin != null && !(cabin.validateNullEmptyIdentifier())) {
+                    cabin = this.cabinService.getByAttributeType(price.getCabin().getName());
+                    price.setCabin(cabin);
+
+                    if(!price.validateNullEmpty()) {
                         this.priceService.newObject(price);
                         status = new ResponseEntity(HttpStatus.OK);
 
