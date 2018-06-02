@@ -72,10 +72,19 @@ public class City implements ValidationInterface<City>{
     }
 
     public boolean validateNullEmpty() {
-
         boolean bool = true;
 
         if(id >= 0 && name != null && !(name.trim().equals("")) && iataCode != null && !(iataCode.trim().equals("")) && state != null && !(state.validateNullEmpty())) {
+            bool = false;
+        }
+
+        return bool;
+    }
+
+    public boolean validateNullEmptyIdentifier() {
+        boolean bool = true;
+
+        if(iataCode != null && !(iataCode.trim().equals(""))) {
             bool = false;
         }
 

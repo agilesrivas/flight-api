@@ -118,4 +118,26 @@ public class PriceTest extends TestCase {
         boolean value = this.price.validateNullEmpty();
         assertTrue("Checking validateNullEmpty", value);
     }
+
+    @Test
+    public void testValidateNullEmptyIdentifierOK() {
+        boolean value = this.price.validateNullEmptyIdentifier();
+        assertFalse("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeNull() {
+        this.price.setCabin(null);
+
+        boolean value = this.price.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeEmpty() {
+        this.price.getCabin().setName("");
+
+        boolean value = this.price.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
 }

@@ -81,4 +81,14 @@ public class State implements ValidationInterface{
 
         return bool;
     }
+
+    public boolean validateNullEmptyIdentifier() {
+        boolean bool = true;
+
+        if(iataCode != null && !(iataCode.trim().equals(""))) {
+            bool = false;
+        }
+
+        return bool;
+    }
 }

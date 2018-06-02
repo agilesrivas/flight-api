@@ -109,4 +109,26 @@ public class CountryTest extends TestCase{
         boolean value = this.country.validateNullEmpty();
         assertTrue("Checking validateNullEmpty", value);
     }
+
+    @Test
+    public void testValidateNullEmptyIdentifierOK() {
+        boolean value = this.country.validateNullEmptyIdentifier();
+        assertFalse("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeNull() {
+        this.country.setIsoCode(null);
+
+        boolean value = this.country.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeEmpty() {
+        this.country.setIsoCode("");
+
+        boolean value = this.country.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
 }

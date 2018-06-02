@@ -120,4 +120,26 @@ public class AirportTest extends TestCase {
         boolean value = this.airport.validateNullEmpty();
         assertTrue("Checking validateNullEmpty", value);
     }
+
+    @Test
+    public void testValidateNullEmptyIdentifierOK() {
+        boolean value = this.airport.validateNullEmptyIdentifier();
+        assertFalse("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeNull() {
+        this.airport.setIataCode(null);
+
+        boolean value = this.airport.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeEmpty() {
+        this.airport.setIataCode("");
+
+        boolean value = this.airport.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
 }

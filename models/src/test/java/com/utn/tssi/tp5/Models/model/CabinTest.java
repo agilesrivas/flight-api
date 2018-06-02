@@ -109,4 +109,26 @@ public class CabinTest extends TestCase {
         boolean value = this.cabin.validateNullEmpty();
         assertTrue("Checking validateNullEmpty", value);
     }
+
+    @Test
+    public void testValidateNullEmptyIdentifierOK() {
+        boolean value = this.cabin.validateNullEmptyIdentifier();
+        assertFalse("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeNull() {
+        this.cabin.setName(null);
+
+        boolean value = this.cabin.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeEmpty() {
+        this.cabin.setName("");
+
+        boolean value = this.cabin.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
 }

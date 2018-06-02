@@ -121,4 +121,26 @@ public class RouteTest extends TestCase {
         boolean value = this.route.validateNullEmpty();
         assertTrue("Checking validateNullEmpty", value);
     }
+
+    @Test
+    public void testValidateNullEmptyIdentifierOK() {
+        boolean value = this.route.validateNullEmptyIdentifier();
+        assertFalse("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeNull() {
+        this.route.setAirportBegin(null);
+
+        boolean value = this.route.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
+
+    @Test
+    public void testValidateNullEmptyIdentifierAttributeEmpty() {
+        this.route.getAirportBegin().setIataCode("");
+
+        boolean value = this.route.validateNullEmptyIdentifier();
+        assertTrue("Checking validateNullEmptyIdentifier", value);
+    }
 }

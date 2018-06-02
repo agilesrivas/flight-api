@@ -80,10 +80,19 @@ public class Route implements ValidationInterface<Route>{
     }
 
     public boolean validateNullEmpty() {
-
         boolean bool = true;
 
         if(id >= 0 && airportBegin != null && !(airportBegin.validateNullEmpty()) && airportEnd != null && !(airportEnd.validateNullEmpty()) && distance >= 0 && estimatedTime >= 0) {
+            bool = false;
+        }
+
+        return bool;
+    }
+
+    public boolean validateNullEmptyIdentifier() {
+        boolean bool = true;
+
+        if(airportBegin != null && !(airportBegin.validateNullEmptyIdentifier()) && airportEnd != null && !(airportEnd.validateNullEmptyIdentifier())) {
             bool = false;
         }
 

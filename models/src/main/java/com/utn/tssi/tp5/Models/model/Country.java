@@ -73,4 +73,14 @@ public class Country implements ValidationInterface<Country>{
 
         return bool;
     }
+
+    public boolean validateNullEmptyIdentifier() {
+        boolean bool = true;
+
+        if(isoCode != null && !(isoCode.trim().equals(""))) {
+            bool = false;
+        }
+
+        return bool;
+    }
 }

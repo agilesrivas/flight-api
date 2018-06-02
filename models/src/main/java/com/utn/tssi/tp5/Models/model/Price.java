@@ -93,4 +93,14 @@ public class Price implements ValidationInterface<Price>{
 
         return bool;
     }
+
+    public boolean validateNullEmptyIdentifier() {
+        boolean bool = true;
+
+        if(cabin != null && !(cabin.validateNullEmptyIdentifier())) {
+            bool = false;
+        }
+
+        return bool;
+    }
 }

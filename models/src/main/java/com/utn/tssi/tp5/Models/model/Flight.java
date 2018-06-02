@@ -65,7 +65,6 @@ public class Flight implements ValidationInterface<Flight>{
     }
 
     public boolean validateNullEmpty() {
-
         boolean bool = true;
 
         if(id >= 0 && route != null && !(route.validateNullEmpty()) && date != null && !(date.trim().equals(""))) {
@@ -74,4 +73,15 @@ public class Flight implements ValidationInterface<Flight>{
 
         return bool;
     }
+
+    public boolean validateNullEmptyIdentifier() {
+        boolean bool = true;
+
+        if(route != null && !(route.validateNullEmptyIdentifier()) && date != null && !(date.trim().equals(""))) {
+            bool = false;
+        }
+
+        return bool;
+    }
+
 }

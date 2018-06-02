@@ -70,4 +70,14 @@ public class Cabin implements ValidationInterface<Cabin>{
 
         return bool;
     }
+
+    public boolean validateNullEmptyIdentifier() {
+        boolean bool = true;
+
+        if(name != null && !(name.trim().equals(""))) {
+            bool = false;
+        }
+
+        return bool;
+    }
 }

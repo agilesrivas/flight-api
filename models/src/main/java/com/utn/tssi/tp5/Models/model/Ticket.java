@@ -103,4 +103,8 @@ public class Ticket implements ValidationInterface<Ticket>{
 
         return bool;
     }
+
+    public boolean validateNullEmptyIdentifier() {
+        return true;
+    }
 }
