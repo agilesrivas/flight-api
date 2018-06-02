@@ -96,7 +96,7 @@ public class FlightController {
         return status;
     }
 
-    @GetMapping(value = "/")
+    @GetMapping
     public ResponseEntity<List<Flight>> getAll() {
 
         ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);

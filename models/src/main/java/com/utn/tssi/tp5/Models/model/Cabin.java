@@ -64,7 +64,7 @@ public class Cabin implements ValidationInterface<Cabin>{
     public boolean validateNullEmpty() {
         boolean bool = true;
 
-        if(id > 0 && name != null && !(name.trim().equals("")) && priceKm >= 0) {
+        if(id >= 0 && name != null && !(name.trim().equals("")) && priceKm >= 0) {
             bool = false;
         }
 

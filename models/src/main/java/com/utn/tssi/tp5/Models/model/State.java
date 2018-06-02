@@ -75,7 +75,7 @@ public class State implements ValidationInterface{
     public boolean validateNullEmpty() {
         boolean bool = true;
 
-        if(id > 0 && name != null && !(name.trim().equals("")) && iataCode != null && !(iataCode.trim().equals("")) && country != null && !(country.validateNullEmpty())) {
+        if(id >= 0 && name != null && !(name.trim().equals("")) && iataCode != null && !(iataCode.trim().equals("")) && country != null && !(country.validateNullEmpty())) {
             bool = false;
         }
 

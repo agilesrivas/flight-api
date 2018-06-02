@@ -97,7 +97,7 @@ public class Ticket implements ValidationInterface<Ticket>{
     public boolean validateNullEmpty() {
         boolean bool = true;
 
-        if(id > 0 && flight != null && !(flight.validateNullEmpty()) && cabin != null && !(cabin.validateNullEmpty()) && date != null && !(date.trim().equals("")) && totalPrice >= 0) {
+        if(id >= 0 && flight != null && !(flight.validateNullEmpty()) && cabin != null && !(cabin.validateNullEmpty()) && date != null && !(date.trim().equals("")) && totalPrice >= 0) {
             bool = false;
         }
 

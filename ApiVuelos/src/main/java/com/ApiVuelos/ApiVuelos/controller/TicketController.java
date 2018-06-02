@@ -124,7 +124,7 @@ public class TicketController {
         return status;
     }
 
-    @GetMapping(value = "/")
+    @GetMapping
     public ResponseEntity<List<Ticket>> getAll() {
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);

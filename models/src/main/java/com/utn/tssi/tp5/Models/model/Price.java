@@ -87,7 +87,7 @@ public class Price implements ValidationInterface<Price>{
     public boolean validateNullEmpty() {
         boolean bool = true;
 
-        if(id > 0 && price >= 0 && cabin != null && !(cabin.validateNullEmpty()) && fromDate != null && !(fromDate.trim().equals(""))) {
+        if(id >= 0 && price >= 0 && cabin != null && !(cabin.validateNullEmpty()) && fromDate != null && !(fromDate.trim().equals(""))) {
             bool = false;
         }
 

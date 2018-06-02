@@ -29,13 +29,14 @@ public class StateController {
 
         try{
             for (State state : states) {
-                if (!state.validateNullEmpty()) {
-                    Country country = this.countryService.getByAttributeType(state.getCountry().getIsoCode());
+                Country country = state.getCountry();
 
-                    if(country != null) {
-                        state.setCountry(country);
+                if (country != null && country.getIsoCode() != null && !(country.getIsoCode().trim().equals(""))) {
+                    country = this.countryService.getByAttributeType(country.getIsoCode());
+                    state.setCountry(country);
+
+                    if(!state.validateNullEmpty()) {
                         this.stateService.newObject(state);
-
                         status = new ResponseEntity(HttpStatus.OK);
 
                     } else {

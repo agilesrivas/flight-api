@@ -67,7 +67,7 @@ public class Country implements ValidationInterface<Country>{
     public boolean validateNullEmpty() {
         boolean bool = true;
 
-        if(id > 0 && name != null && !(name.trim().equals("")) && isoCode != null && !(isoCode.trim().equals(""))) {
+        if(id >= 0 && name != null && !(name.trim().equals("")) && isoCode != null && !(isoCode.trim().equals(""))) {
             bool = false;
         }
 

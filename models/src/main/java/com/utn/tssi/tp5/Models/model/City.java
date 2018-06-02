@@ -75,7 +75,7 @@ public class City implements ValidationInterface<City>{
 
         boolean bool = true;
 
-        if(id > 0 && name != null && !(name.trim().equals("")) && iataCode != null && !(iataCode.trim().equals("")) && state != null && !(state.validateNullEmpty())) {
+        if(id >= 0 && name != null && !(name.trim().equals("")) && iataCode != null && !(iataCode.trim().equals("")) && state != null && !(state.validateNullEmpty())) {
             bool = false;
         }
 

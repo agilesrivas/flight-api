@@ -83,7 +83,7 @@ public class Route implements ValidationInterface<Route>{
 
         boolean bool = true;
 
-        if(id > 0 && airportBegin != null && !(airportBegin.validateNullEmpty()) && airportEnd != null && !(airportEnd.validateNullEmpty()) && distance >= 0 && estimatedTime >= 0) {
+        if(id >= 0 && airportBegin != null && !(airportBegin.validateNullEmpty()) && airportEnd != null && !(airportEnd.validateNullEmpty()) && distance >= 0 && estimatedTime >= 0) {
             bool = false;
         }
 
