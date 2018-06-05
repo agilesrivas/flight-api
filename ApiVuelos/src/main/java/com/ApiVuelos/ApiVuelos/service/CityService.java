@@ -19,17 +19,17 @@ public class CityService implements MethodsRepository<City>{
     private CityRepository cityRepository;
 
     @Override
-    public List<City> getAll() {
+    public List<City> getAll() throws Exception{
         return this.cityRepository.findAll();
     }
 
     @Override
-    public City getByAttributeType(String iataCode) {
+    public City getByAttributeType(String iataCode) throws Exception{
        return  this.cityRepository.getAttribute(iataCode);
     }
 
     @Override
-    public City getById(Long id){
+    public City getById(Long id)throws Exception{
 
         City city=null;
         Optional<City> cityOptional=this.cityRepository.findById(id);
@@ -40,7 +40,7 @@ public class CityService implements MethodsRepository<City>{
     }
 
     @Override
-    public City newObject(City value) {
+    public City newObject(City value)throws Exception {
         if(value!=null){
             this.cityRepository.save(value);
         }
@@ -49,7 +49,7 @@ public class CityService implements MethodsRepository<City>{
 
 
     @Override
-    public void removeObject(Long id) {
+    public void removeObject(Long id) throws Exception{
         this.cityRepository.deleteById(id);
     }
 }

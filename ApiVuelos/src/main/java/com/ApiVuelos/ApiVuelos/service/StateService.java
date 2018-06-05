@@ -19,17 +19,17 @@ public class StateService implements MethodsRepository<State> {
     private StateRepository stateRepository;
 
     @Override
-    public List<State> getAll() {
+    public List<State> getAll()throws Exception {
         return this.stateRepository.findAll();
     }
 
     @Override
-    public State getByAttributeType(String iataCode) {
+    public State getByAttributeType(String iataCode)throws Exception {
         return this.stateRepository.getAttribute(iataCode);
     }
 
     @Override
-    public State getById(Long id) {
+    public State getById(Long id)throws Exception {
         State state=null;
         Optional<State> stateOptional=this.stateRepository.findById(id);
         if(stateOptional.isPresent()){
@@ -39,12 +39,12 @@ public class StateService implements MethodsRepository<State> {
     }
 
     @Override
-    public State newObject(State value) {
+    public State newObject(State value)throws Exception {
         this.stateRepository.save(value);
         return value;
     }
     @Override
-    public void removeObject(Long id) {
+    public void removeObject(Long id) throws Exception{
         this.stateRepository.deleteById(id);
     }
 }

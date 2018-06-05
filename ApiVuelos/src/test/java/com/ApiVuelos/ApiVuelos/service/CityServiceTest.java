@@ -45,7 +45,7 @@ public class CityServiceTest extends TestCase {
 
 
     @Test
-    public void getALlTest() {
+    public void getALlTest() throws Exception{
         List<City> listAirport = new ArrayList<City>();
         listAirport.add(this.city);
         listAirport.add(this.city);
@@ -55,7 +55,7 @@ public class CityServiceTest extends TestCase {
         assertEquals(3, listAirport.size());
     }
     @Test
-    public void addTest(){
+    public void addTest()throws Exception{
         when(this.cityRepository.save(this.city)).thenReturn(this.city);
         City cit=this.service.newObject(this.city);
         assertEquals(1,cit.getId());
@@ -66,12 +66,12 @@ public class CityServiceTest extends TestCase {
     }
 
     @Test
-    public void removeTest(){
+    public void removeTest()throws Exception{
         service.removeObject(this.city.getId());
         verify(this.cityRepository,times(1)).deleteById(this.city.getId());
     }
     @Test
-    public void getByIdTest(){
+    public void getByIdTest()throws Exception{
         when(this.cityRepository.findById(this.city.getId())).thenReturn(java.util.Optional.ofNullable(this.city));
         City cit=this.service.getById(this.city.getId());
         assertEquals(1,cit.getId());
@@ -80,7 +80,7 @@ public class CityServiceTest extends TestCase {
         assertEquals(this.st,cit.getState());
     }
     @Test
-    public void getByAttributeTypeTest(){
+    public void getByAttributeTypeTest()throws Exception{
         when(this.cityRepository.getAttribute(this.city.getIataCode())).thenReturn(this.city);
         City cit=this.service.getByAttributeType(this.city.getIataCode());
         assertEquals(1,cit.getId());

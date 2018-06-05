@@ -48,7 +48,7 @@ public class FlightServiceTest extends TestCase {
 
 
     @Test
-    public void getALlTest() {
+    public void getALlTest() throws Exception{
         List<Flight> listFlights = new ArrayList<Flight>();
         listFlights.add(this.fl);
         listFlights.add(this.fl);
@@ -58,7 +58,7 @@ public class FlightServiceTest extends TestCase {
         assertEquals(3, listFlights.size());
     }
     @Test
-    public void addTest(){
+    public void addTest()throws Exception{
         when(this.flightRepository.save(this.fl)).thenReturn(this.fl);
         Flight fly=this.service.newObject(this.fl);
         assertEquals(1,fly.getId());
@@ -67,17 +67,17 @@ public class FlightServiceTest extends TestCase {
 
     }
     @Test
-    public void getByAttributeTypeTest(){
+    public void getByAttributeTypeTest()throws Exception{
         Flight fl=this.service.getByAttributeType("hola");
         assertNull(fl);
     }
     @Test
-    public void removeTest(){
+    public void removeTest()throws Exception{
         service.removeObject(this.ct.getId());
         verify(this.flightRepository,times(1)).deleteById(this.fl.getId());
     }
     @Test
-    public void getByIdTest(){
+    public void getByIdTest()throws Exception{
         when(this.flightRepository.findById(this.fl.getId())).thenReturn(java.util.Optional.ofNullable(this.fl));
         Flight fly=this.service.getById(this.fl.getId());
         assertEquals(1,fly.getId());
@@ -85,7 +85,7 @@ public class FlightServiceTest extends TestCase {
         assertEquals("10/12/18",fly.getDate());
     }
     @Test
-    public void getByAttributeTypeDateRouteTest(){
+    public void getByAttributeTypeDateRouteTest()throws Exception{
         when(this.flightRepository.getAttribute(this.fl.getDate(),this.rt.getId())).thenReturn(java.util.Optional.ofNullable(this.fl));
         Flight fly=this.service.getByAttributeTypeDateRoute(this.fl.getDate(),this.rt);
         assertEquals(1,fly.getId());

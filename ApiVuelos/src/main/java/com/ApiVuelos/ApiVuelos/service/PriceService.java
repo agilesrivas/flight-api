@@ -20,7 +20,7 @@ public class PriceService implements MethodsRepository<Price>{
     private PriceRepository priceRepository;
 
     @Override
-    public List<Price> getAll() {
+    public List<Price> getAll() throws Exception{
         List<Price> prices = new ArrayList<Price>();
         prices = this.priceRepository.findAll();
 
@@ -28,12 +28,12 @@ public class PriceService implements MethodsRepository<Price>{
     }
 
     @Override
-    public Price getByAttributeType(String id) {
+    public Price getByAttributeType(String id)throws Exception {
         return null;
     }
 
     @Override
-    public Price getById(Long id) {
+    public Price getById(Long id) throws Exception{
         Optional<Price> priceOptional = null;
         Price price = null;
 
@@ -47,18 +47,18 @@ public class PriceService implements MethodsRepository<Price>{
     }
 
     @Override
-    public Price newObject(Price value) {
+    public Price newObject(Price value)throws Exception {
         this.priceRepository.save(value);
         return value;
     }
 
 
     @Override
-    public void removeObject(Long id) {
+    public void removeObject(Long id)throws Exception {
         this.priceRepository.deleteById(id);
     }
 
-    public List<Price> getByAttributeTypePricesOffCabin(String type_Cabin){
+    public List<Price> getByAttributeTypePricesOffCabin(String type_Cabin)throws Exception{
         List<Price> prices = new ArrayList<Price>();
         prices = this.priceRepository.getAllPricesOffCabin(type_Cabin);
 

@@ -40,7 +40,7 @@ public class CabinServiceTest extends TestCase {
 
 
     @Test
-    public void getALlTest() {
+    public void getALlTest()throws Exception {
         List<Cabin> listCabin = new ArrayList<Cabin>();
         listCabin.add(this.cabin);
         listCabin.add(this.cabin);
@@ -50,7 +50,7 @@ public class CabinServiceTest extends TestCase {
         assertEquals(3, listCabin.size());
     }
     @Test
-    public void addTest(){
+    public void addTest()throws Exception{
         when(this.cabinRepository.save(this.cabin)).thenReturn(this.cabin);
         Cabin cab=this.service.newObject(this.cabin);
         assertEquals(1,cab.getId());
@@ -59,12 +59,12 @@ public class CabinServiceTest extends TestCase {
     }
 
     @Test
-    public void removeTest(){
+    public void removeTest()throws Exception{
         service.removeObject(this.cabin.getId());
         verify(this.cabinRepository,times(1)).deleteById(this.cabin.getId());
     }
     @Test
-    public void getByIdTest(){
+    public void getByIdTest()throws Exception{
         when(this.cabinRepository.findById(this.cabin.getId())).thenReturn(java.util.Optional.ofNullable(this.cabin));
         Cabin cab=this.service.getById(this.cabin.getId());
         assertEquals(1,cab.getId());
@@ -72,7 +72,7 @@ public class CabinServiceTest extends TestCase {
 
     }
     @Test
-    public void getByAttributeTypeTest(){
+    public void getByAttributeTypeTest()throws Exception{
         when(this.cabinRepository.getAttribute(this.cabin.getName())).thenReturn(this.cabin);
         Cabin cab=this.service.getByAttributeType(this.cabin.getName());
         assertEquals(1,cab.getId());

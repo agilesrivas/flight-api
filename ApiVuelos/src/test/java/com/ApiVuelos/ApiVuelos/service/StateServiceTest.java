@@ -42,7 +42,7 @@ public class StateServiceTest extends TestCase {
 
 
     @Test
-    public void getALlTest() {
+    public void getALlTest()throws Exception {
         List<State> stateList = new ArrayList<State>();
         stateList .add(this.st);
         stateList.add(this.st);
@@ -52,7 +52,7 @@ public class StateServiceTest extends TestCase {
         assertEquals(3, stateList.size());
     }
     @Test
-    public void addTest(){
+    public void addTest()throws Exception{
         when(this.stateRepository.save(this.st)).thenReturn(this.st);
         State state=this.service.newObject(this.st);
         assertEquals(1,state.getId());
@@ -63,12 +63,12 @@ public class StateServiceTest extends TestCase {
     }
 
     @Test
-    public void removeTest(){
+    public void removeTest()throws Exception{
         service.removeObject(this.st.getId());
         verify(this.stateRepository,times(1)).deleteById(this.st.getId());
     }
     @Test
-    public void getByIdTest(){
+    public void getByIdTest()throws Exception{
 
         when(this.stateRepository.findById(this.st.getId())).thenReturn(Optional.ofNullable(this.st));
         State stat=this.service.getById(this.st.getId());
@@ -79,7 +79,7 @@ public class StateServiceTest extends TestCase {
 
     }
     @Test
-    public void getByAttributeTypeTest(){
+    public void getByAttributeTypeTest()throws Exception{
         when(this.stateRepository.getAttribute(this.st.getIataCode())).thenReturn(this.st);
         State state=this.service.getByAttributeType(this.st.getIataCode());
         assertEquals(1,state.getId());

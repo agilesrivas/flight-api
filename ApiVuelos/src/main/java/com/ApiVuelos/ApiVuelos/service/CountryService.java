@@ -19,17 +19,17 @@ public class CountryService implements MethodsRepository<Country> {
     private CountryRepository countryRepository;
 
     @Override
-    public List<Country> getAll() {
+    public List<Country> getAll() throws Exception{
         return this.countryRepository.findAll();
     }
 
     @Override
-    public Country getByAttributeType(String value) {
+    public Country getByAttributeType(String value)throws Exception {
         return this.countryRepository.getAttribute(value);
     }
 
     @Override
-    public Country getById(Long id) {
+    public Country getById(Long id) throws Exception{
         Country country = null;
         Optional<Country> countryOptional = this.countryRepository.findById(id);
 
@@ -41,14 +41,14 @@ public class CountryService implements MethodsRepository<Country> {
     }
 
     @Override
-    public Country newObject(Country value) {
+    public Country newObject(Country value)throws Exception {
         this.countryRepository.save(value);
         return value;
     }
 
 
     @Override
-    public void removeObject(Long id) {
+    public void removeObject(Long id)throws Exception {
         this.countryRepository.deleteById(id);
     }
 }
