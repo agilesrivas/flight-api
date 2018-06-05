@@ -18,14 +18,14 @@ public class City implements ValidationInterface<City>{
     @Column(name = "id", nullable = false)
     private long id;
 
-    @Column(name = "name_City", nullable = false, unique = true)
+    @Column(name = "name_City", nullable = false)
     private String name;
 
     @Column(name = "iata", nullable = false, unique = true)
     private String iataCode;
 
     @JoinColumn(name = "id_State", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private State state;
 
     public City(long id, String name, String iataCode, State state) {

@@ -19,7 +19,7 @@ public class Flight implements ValidationInterface<Flight>{
     private long id;
 
     @JoinColumn(name = "id_Route", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Route route;
 
     @Column(name = "date_Flight")

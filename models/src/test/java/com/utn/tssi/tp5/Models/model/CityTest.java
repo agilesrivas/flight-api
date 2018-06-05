@@ -47,12 +47,8 @@ public class CityTest extends TestCase{
 
     @Test
     public void testEqualsNullAttributes(){
-        this.otherCity.setId(0);
-        this.otherCity.setName(null);
-        this.otherCity.setState(null);
-        this.otherCity.setIataCode(null);
 
-        boolean value = this.city.equals(this.otherCity);
+        boolean value = this.city.equals(new City());
         assertEquals("Checking equals", value, false);
     }
 
@@ -85,10 +81,7 @@ public class CityTest extends TestCase{
 
     @Test
     public void testHashCodeAllNull() {
-        this.city.setId(0);
-        this.city.setName(null);
-        this.city.setIataCode(null);
-        this.city.setState(null);
+        this.city = new City();
 
         int value = this.city.hashCode();
         assertEquals("Checking hashCode", value, 12005773);

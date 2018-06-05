@@ -1,4 +1,5 @@
 com\utn\tssi\tp5\Models\model\AirportTest.class
+com\utn\tssi\tp5\Models\model\UserTest.class
 com\utn\tssi\tp5\Models\model\FlightTest.class
 com\utn\tssi\tp5\Models\model\StateTest.class
 com\utn\tssi\tp5\Models\model\CityTest.class

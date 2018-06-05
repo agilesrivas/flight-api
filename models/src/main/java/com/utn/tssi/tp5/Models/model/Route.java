@@ -19,11 +19,11 @@ public class Route implements ValidationInterface<Route>{
     private long id;
 
     @JoinColumn(name = "id_Airport_Begin", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Airport airportBegin;
 
     @JoinColumn(name = "id_Airport_End", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Airport airportEnd;
 
     @Column(name = "distance", nullable = false)

@@ -51,13 +51,8 @@ public class RouteTest extends TestCase {
 
     @Test
     public void testEqualsNullAttributes(){
-        this.otherRoute.setId(0);
-        this.otherRoute.setAirportBegin(null);
-        this.otherRoute.setAirportEnd(null);
-        this.otherRoute.setDistance(0);
-        this.otherRoute.setEstimatedTime(0);
 
-        boolean value = this.route.equals(this.otherRoute);
+        boolean value = this.route.equals(new Route());
         assertEquals("Checking equals", value, false);
     }
 
@@ -90,11 +85,7 @@ public class RouteTest extends TestCase {
 
     @Test
     public void testHashCodeAllNull() {
-        this.route.setId(0);
-        this.route.setAirportBegin(null);
-        this.route.setAirportEnd(null);
-        this.route.setDistance(0);
-        this.route.setEstimatedTime(0);
+        this.route = new Route();
 
         int value = this.route.hashCode();
         assertEquals("Checking hashCode", value, 429437265);
