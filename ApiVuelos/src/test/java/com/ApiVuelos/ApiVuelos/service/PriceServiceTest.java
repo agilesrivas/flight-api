@@ -30,7 +30,7 @@ public class PriceServiceTest extends TestCase {
 
 
 
-    Cabin cabin=new Cabin(1,"Economica",1023);
+    Cabin cabin=new Cabin(1,"Economica");
     Price money=new Price(1,1023,"10/12/18",null,true,cabin);
 
     @Before

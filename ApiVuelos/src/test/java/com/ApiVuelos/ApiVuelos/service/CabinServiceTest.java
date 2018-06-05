@@ -31,7 +31,7 @@ public class CabinServiceTest extends TestCase {
 
 
 
-    Cabin cabin=new Cabin(1,"Economica",1023);
+    Cabin cabin=new Cabin(1,"Economica");
 
     @Before
     public void setUp(){
@@ -55,7 +55,6 @@ public class CabinServiceTest extends TestCase {
         Cabin cab=this.service.newObject(this.cabin);
         assertEquals(1,cab.getId());
         assertEquals("Economica",cab.getName());
-        assertEquals(1023,cab.getPriceKm(),0);
 
     }
 
@@ -70,7 +69,7 @@ public class CabinServiceTest extends TestCase {
         Cabin cab=this.service.getById(this.cabin.getId());
         assertEquals(1,cab.getId());
         assertEquals("Economica",cab.getName());
-        assertEquals(1023,cab.getPriceKm(),0);
+
     }
     @Test
     public void getByAttributeTypeTest(){
@@ -78,6 +77,6 @@ public class CabinServiceTest extends TestCase {
         Cabin cab=this.service.getByAttributeType(this.cabin.getName());
         assertEquals(1,cab.getId());
         assertEquals("Economica",cab.getName());
-        assertEquals(1023,cab.getPriceKm(),0);
+
     }
 }

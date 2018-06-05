@@ -35,8 +35,10 @@ public class TicketServiceTest extends TestCase {
     Airport airportEnd=new Airport(2,"MDP","MDP",city2,-222,222);
     Route rt=new Route(1,airportBegin,airportEnd,100,1);
     Flight fl =new Flight(1,rt,"10/12/18");
-    Cabin cabin=new Cabin(1,"Economica",1023);
-    Ticket tk=new Ticket(1,fl,cabin);
+    Cabin cabin=new Cabin(1,"Economica");
+            Price money=new Price(1,1023,"10/12/18",null,true,cabin);
+            User us=new User(1,"Alekano","12345");
+    Ticket tk=new Ticket(1,fl,money,User us);
 
     @Before
     public void setUp(){
@@ -57,10 +59,11 @@ public class TicketServiceTest extends TestCase {
     @Test
     public void addTest(){
         when(this.ticketRepository.save(this.tk)).thenReturn(this.tk);
-        Ticket fly=this.service.newObject(this.tk);
+        Ticket tkt=this.service.newObject(this.tk);
         assertEquals(1,this.tk.getId());
         assertEquals(this.fl,this.tk.getFlight());
-        assertEquals(this.cabin,this.tk.getCabin());
+        assertEquals(this.us,tkt.getUser());
+        assertEquals(this.money,tkt.getPrice());
 
     }
    @Test
@@ -74,15 +77,18 @@ public class TicketServiceTest extends TestCase {
         Ticket tkt = this.service.getById(this.tk.getId());
         assertEquals(1, tkt.getId());
         assertEquals(this.fl, tkt.getFlight());
-        assertEquals(this.cabin,tkt.getCabin());
+        assertEquals(this.us,tkt.getUser());
+        assertEquals(this.money,tkt.getPrice());
     }
         @Test
       public void getByAttributeTypeTest(){
         when(this.ticketRepository.getAttribute(this.tk.getDate())).thenReturn(this.tk);
         Ticket tkt=this.service.getByAttributeType(this.fl.getDate());
-        assertEquals(1,this.tk.getId());
-        assertEquals(this.fl,this.tk.getFlight());
-        assertEquals(this.cabin,this.tk.getCabin());
+        assertEquals(1,tkt.getId());
+        assertEquals(this.fl,tkt.getFlight());
+
+        assertEquals(this.us,tkt.getUser());
+        assertEquals(this.money,tkt.getPrice());
 
     }
 
