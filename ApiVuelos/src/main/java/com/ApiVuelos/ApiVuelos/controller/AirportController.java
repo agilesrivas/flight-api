@@ -28,22 +28,25 @@ public class AirportController {
 
         try{
             for(Airport airport : airports) {
-                City city = airport.getCity();
+                String iataCode = airport.getIataCode();
+                String[] code = iataCode.split("-");
 
-                if (city != null && !(city.validateNullEmptyIdentifier())) {
-                    city = this.cityService.getByAttributeType(airport.getCity().getIataCode());
+                if(code.length == 4 && code[0] != null && !(code[0].trim().equals("")) && code[1] != null && !(code[1].trim().equals("")) && code[2] != null && !(code[2].trim().equals("")) && code[3] != null && !(code[3].trim().equals(""))) {
+                    City city = this.cityService.getByAttributeType(code[0] + "-" + code[1] + "-" + code[2]);
                     airport.setCity(city);
+                    airport.setIataCode(code[3]);
 
-                    if(!airport.validateNullEmpty()) {
+                    if (!airport.validateNullEmpty()) {
                         this.airportService.newObject(airport);
                         status = new ResponseEntity(HttpStatus.OK);
 
                     } else {
                         status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                        break;
                     }
-
                 } else {
                     status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                    break;
                 }
             }
         }catch(Exception e) {
@@ -56,25 +59,28 @@ public class AirportController {
     @PutMapping(value = "/")
     public ResponseEntity update(@RequestBody Airport value){
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try {
-            if(value != null && !(value.validateNullEmpty())){
-                City city = null;
-                city = this.cityService.getByAttributeType(value.getCity().getIataCode());
+            if(value != null){
+                Airport airportDB = this.airportService.getById(value.getId());
 
-                if(city != null) {
-                    value.setCity(city);
-                    this.airportService.updateObject(value);
-                    status = new ResponseEntity(HttpStatus.OK);
+                if (airportDB != null) {
+                    String iataCode = value.getIataCode();
+                    String[] code = iataCode.split("-");
 
-                } else {
-                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                    if (code.length == 4 && code[0] != null && !(code[0].trim().equals("")) && code[1] != null && !(code[1].trim().equals("")) && code[2] != null && !(code[2].trim().equals("")) && code[3] != null && !(code[3].trim().equals(""))) {
+                        City city = this.cityService.getByAttributeType(code[0] + "-" + code[1] + "-" + code[2]);
+                        value.setCity(city);
+                        value.setIataCode(code[3]);
+
+                        if (!value.validateNullEmpty()) {
+                            this.airportService.newObject(value);
+                            status = new ResponseEntity(HttpStatus.OK);
+                        }
+                    }
                 }
-            } else {
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
-
         }catch(Exception e ){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -85,17 +91,14 @@ public class AirportController {
     @DeleteMapping(value = "/")
     public ResponseEntity remove(@RequestParam("id")Long id){
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try{
             if(id != null && id > 0){
                 this.airportService.removeObject(id);
                 status = new ResponseEntity(HttpStatus.OK);
 
-            }else{
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
-
         }catch(Exception e) {
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -106,16 +109,13 @@ public class AirportController {
     @GetMapping
     public ResponseEntity<List<Airport>> getAll() {
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try {
             List<Airport> airports = new ArrayList<Airport>();
             airports = this.airportService.getAll();
 
-            if (airports.isEmpty()) {
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
-
-            } else {
+            if (!airports.isEmpty()) {
                 status = new ResponseEntity<List<Airport>>(airports, HttpStatus.OK);
             }
         } catch (Exception e) {
@@ -128,7 +128,7 @@ public class AirportController {
     @GetMapping(value= "/")
     public ResponseEntity getByOneAirport(@RequestParam("iata") String iata){
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
         Airport airport= null;
 
         try{
@@ -137,16 +137,12 @@ public class AirportController {
 
                 if(airport != null){
                     status = new ResponseEntity<Airport>(airport, HttpStatus.OK);
-
-                }   else {
-                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
                 }
-            }else {
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         } catch(Exception e) {
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
         return status;
     }
 }

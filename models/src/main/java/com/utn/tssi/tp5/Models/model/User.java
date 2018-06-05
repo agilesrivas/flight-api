@@ -23,7 +23,7 @@ public class User implements ValidationInterface<User> {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     private String tocken;

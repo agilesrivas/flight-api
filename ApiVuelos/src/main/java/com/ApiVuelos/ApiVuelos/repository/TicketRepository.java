@@ -6,11 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
-    @Query( value="SELECT * FROM tickets tk  WHERE tk.date_flight = :date_flight",
+    @Query( value="SELECT * FROM tickets tk INNER JOIN users u ON tk.id_User = u.id WHERE u.id = :id_User",
             nativeQuery = true,
             name = "getAttribute")
-    public Ticket getAttribute(@Param("date_flight")String  date);
+    public Optional<Ticket> getAttribute(@Param("id_User")Long idUser);
 }

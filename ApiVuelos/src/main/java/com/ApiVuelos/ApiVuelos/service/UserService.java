@@ -4,7 +4,7 @@ import com.ApiVuelos.ApiVuelos.repository.AirportRepository;
 import com.ApiVuelos.ApiVuelos.repository.MethodsRepository;
 import com.ApiVuelos.ApiVuelos.repository.UserRepository;
 import com.utn.tssi.tp5.Models.model.Airport;
-import org.apache.catalina.User;
+import com.utn.tssi.tp5.Models.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,11 @@ public class UserService implements MethodsRepository<User>{
     }
 
     @Override
-    public User getByAttributeType(String value,String pass) {
+    public User getByAttributeType(String value) {
+        return null;
+    }
+
+    public User getByAttributeTypeUser(String value, String pass) {
         return this.userRepository.getAttribute(value,pass);
     }
 

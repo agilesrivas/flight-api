@@ -25,14 +25,14 @@ public class PriceController {
     @PostMapping(value = "/", consumes = "application/json")
     public ResponseEntity add(@RequestBody List<Price> prices) {
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
+        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 
         try{
             for (Price price : prices) {
                 Cabin cabin = price.getCabin();
 
                 if (cabin != null && !(cabin.validateNullEmptyIdentifier())) {
-                    cabin = this.cabinService.getByAttributeType(price.getCabin().getName());
+                    cabin = this.cabinService.getByAttributeType(cabin.getName());
                     price.setCabin(cabin);
 
                     if(!price.validateNullEmpty()) {
@@ -41,9 +41,11 @@ public class PriceController {
 
                     } else {
                         status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                        break;
                     }
                 } else {
                     status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                    break;
                 }
             }
         } catch(Exception e){
@@ -59,20 +61,18 @@ public class PriceController {
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try{
-            if (!value.validateNullEmpty()) {
-                Cabin cabin = null;
-                cabin = this.cabinService.getByAttributeType(value.getCabin().getName());
+            if (value != null) {
+                Price priceDB = this.priceService.getById(value.getId());
 
-                if(value != null) {
+                if(priceDB != null) {
+                    Cabin cabin = this.cabinService.getByAttributeType(value.getCabin().getName());
                     value.setCabin(cabin);
-                    this.priceService.updateObject(value);
-                    status = new ResponseEntity(HttpStatus.OK);
 
-                } else {
-                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                    if (!value.validateNullEmpty()) {
+                        this.priceService.newObject(value);
+                        status = new ResponseEntity(HttpStatus.OK);
+                    }
                 }
-            } else {
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         } catch(Exception e) {
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -90,8 +90,6 @@ public class PriceController {
             if(id != null && id > 0){
                 this.priceService.removeObject(id);
                 status = new ResponseEntity(HttpStatus.OK);
-            }else{
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         } catch(Exception e){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -110,9 +108,6 @@ public class PriceController {
             List<Price> prices = this.priceService.getAll();
             if (!prices.isEmpty()) {
                 status = new ResponseEntity<List<Price>>(prices, HttpStatus.OK);
-
-            }else{
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         } catch (Exception e) {
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -129,16 +124,11 @@ public class PriceController {
 
         try{
             if(typeCabin != null && !(typeCabin.trim().equals(""))){
-                prices = this.priceService.getByAttributeTypePricesOffCabin(typeCabin);
+                prices = this.priceService.getByAttributeTypePricesOfCabin(typeCabin);
 
                 if(!prices.isEmpty()){
                     status = new ResponseEntity<List<Price>>(prices,HttpStatus.OK);
-
-                } else {
-                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
                 }
-            } else {
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         } catch(Exception e){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
