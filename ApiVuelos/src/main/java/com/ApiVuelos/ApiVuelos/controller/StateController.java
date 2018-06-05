@@ -25,98 +25,102 @@ public class StateController {
     @PostMapping(value = "/", consumes = "application/json")
     public ResponseEntity add(@RequestBody List<State> states) {
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try{
             for (State state : states) {
-                Country country = state.getCountry();
+                if (!state.validateNullEmptyIdentifier()) {
+                    String iataCode = state.getIataCode();
+                    String[] code = iataCode.split("-");
 
-                if (country != null && !(country.validateNullEmptyIdentifier())) {
-                    country = this.countryService.getByAttributeType(country.getIsoCode());
-                    state.setCountry(country);
+                    if(code.length == 2 && code[0] != null && !(code[0].trim().equals("")) && code[1] != null && !(code[1].trim().equals(""))) {
+                        Country country = this.countryService.getByAttributeType(code[0]);
+                        state.setCountry(country);
 
-                    if(!state.validateNullEmpty()) {
-                        this.stateService.newObject(state);
-                        status = new ResponseEntity(HttpStatus.OK);
+                        if (!state.validateNullEmpty()) {
+                            this.stateService.newObject(state);
+                            status = new ResponseEntity(HttpStatus.OK);
 
-                    } else {
+                        } else {
+                            status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                            break;
+                        }
+                    }else {
                         status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                        break;
                     }
-                } else {
+                }else {
                     status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                    break;
                 }
             }
-        }
-        catch(Exception e){
+        } catch(Exception e){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
         return status;
     }
 
     @PutMapping(value = "/")
     public ResponseEntity update(State st) {
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try{
-            if(st != null && !(st.validateNullEmpty())) {
-                Country country = null;
-                country = this.countryService.getByAttributeType(st.getCountry().getIsoCode());
+            if(st != null) {
+                State stateDB = this.stateService.getById(st.getId());
 
-                if(country != null) {
-                    st.setCountry(country);
-                    this.stateService.updateObject(st);
-                    status = new ResponseEntity(HttpStatus.OK);
+                if(stateDB != null) {
+                    String iataCode = st.getIataCode();
+                    String[] code = iataCode.split("-");
 
-                }else {
-                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                    if(code.length == 2 && code[0] != null && !(code[0].trim().equals("")) && code[1] != null && !(code[1].trim().equals(""))) {
+                        Country country = this.countryService.getByAttributeType(code[0]);
+                        st.setCountry(country);
+
+                        if (!st.validateNullEmpty()) {
+                            this.stateService.newObject(st);
+                            status = new ResponseEntity(HttpStatus.OK);
+                        }
+                    }
                 }
-            }else {
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
-        }
-        catch(Exception e ){
+        } catch(Exception e ){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
         return status;
     }
 
     @DeleteMapping(value = "/")
     public ResponseEntity remove(@RequestParam("id")Long id){
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try {
             if(id != null && id > 0){
                 this.stateService.removeObject(id);
                 status = new ResponseEntity(HttpStatus.OK);
-
-            } else {
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
-        }
-        catch(Exception e){
+        } catch(Exception e){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
         return status;
     }
 
     @GetMapping
     public ResponseEntity<List<State>> getAll() {
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity<List<State>>(HttpStatus.NO_CONTENT);
         List<State>st = new ArrayList<State>();
 
         try{
             st= this.stateService.getAll();
             if(!st.isEmpty()){
                 status = new ResponseEntity<List<State>>(st,HttpStatus.OK);
-
-            }else {
-                status = new ResponseEntity<List<State>>(HttpStatus.NO_CONTENT);
             }
-        }
-        catch(Exception e){
+        } catch(Exception e){
             status = new ResponseEntity<List<State>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -126,25 +130,21 @@ public class StateController {
     @GetMapping(value= "/")
     public ResponseEntity getByOneState(@RequestParam("iata") String iata){
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        State state= null;
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try{
             if(iata != null && !(iata.trim().equals(""))){
-                state= this.stateService.getByAttributeType(iata);
+                State state = null;
+                state = this.stateService.getByAttributeType(iata);
 
                 if(state != null){
                     status = new ResponseEntity<State>(state,HttpStatus.OK);
-
-                }   else {
-                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
                 }
-            }else{
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         } catch(Exception e) {
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
         return status;
     }
 }

@@ -31,7 +31,7 @@ public class Price implements ValidationInterface<Price>{
     private boolean state_bool;
 
     @JoinColumn(name = "id_Cabin", nullable = false)
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private Cabin cabin;
 
     public Price(long id, float price, String fromDate, String toDate, boolean state_bool, Cabin cabin) {

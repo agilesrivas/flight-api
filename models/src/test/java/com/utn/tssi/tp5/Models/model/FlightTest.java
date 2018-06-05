@@ -51,11 +51,8 @@ public class FlightTest extends TestCase{
 
     @Test
     public void testEqualsNullAttributes(){
-        this.otherFlight.setId(0);
-        this.otherFlight.setRoute(null);
-        this.otherFlight.setDate(null);
 
-        boolean value = this.flight.equals(this.otherFlight);
+        boolean value = this.flight.equals(new Flight());
         assertEquals("Checking equals", value, false);
     }
 
@@ -88,9 +85,7 @@ public class FlightTest extends TestCase{
 
     @Test
     public void testHashCodeAllNull() {
-        this.flight.setId(0);
-        this.flight.setRoute(null);
-        this.flight.setDate(null);
+        this.flight = new Flight();
 
         int value = this.flight.hashCode();
         assertEquals("Checking hashCode", value, 506447);

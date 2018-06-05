@@ -28,21 +28,25 @@ public class CityController {
 
         try{
             for(City city : cities) {
-                State state = city.getState();
 
-                if(state != null && !(state.validateNullEmptyIdentifier())) {
-                    state = this.stateService.getByAttributeType(state.getIataCode());
+                String iataCode = city.getIataCode();
+                String[] code = iataCode.split("-");
+
+                if(code.length == 3 && code[0] != null && !(code[0].trim().equals("")) && code[1] != null && !(code[1].trim().equals("")) && code[2] != null && !(code[2].trim().equals(""))) {
+                    State state = this.stateService.getByAttributeType(code[0] + "-" + code[1]);
                     city.setState(state);
 
                     if (!city.validateNullEmpty()) {
                         this.cityService.newObject(city);
                         status = new ResponseEntity(HttpStatus.OK);
 
-                    } else {
+                    }else {
                         status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                        break;
                     }
-                } else {
+                }else {
                     status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                    break;
                 }
             }
         } catch(Exception e){
@@ -55,23 +59,26 @@ public class CityController {
     @PutMapping(value = "/")
     public ResponseEntity update(City value) {
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try{
-            if(value != null && value.validateNullEmpty()) {
-                State state = null;
-                state = this.stateService.getByAttributeType(value.getState().getIataCode());
+            if(value != null) {
+                City cityDB = this.cityService.getById(value.getId());
 
-                if(state != null) {
-                    value.setState(state);
-                    this.cityService.updateObject(value);
-                    status = new ResponseEntity(HttpStatus.OK);
+                if(cityDB != null) {
+                    String iataCode = value.getIataCode();
+                    String[] code = iataCode.split("-");
 
-                }else {
-                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                    if (code.length == 3 && code[0] != null && !(code[0].trim().equals("")) && code[1] != null && !(code[1].trim().equals("")) && code[2] != null && !(code[2].trim().equals(""))) {
+                        State state = this.stateService.getByAttributeType(code[0] + "-" + code[1]);
+                        value.setState(state);
+
+                        if (!value.validateNullEmpty()) {
+                            this.cityService.newObject(value);
+                            status = new ResponseEntity(HttpStatus.OK);
+                        }
+                    }
                 }
-            }else {
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         } catch(Exception e){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -83,14 +90,12 @@ public class CityController {
     @DeleteMapping(value = "/")
     public ResponseEntity remove(@RequestParam("id")Long id){
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try {
             if (id != null && id > 0) {
                 this.cityService.removeObject(id);
                 status = new ResponseEntity(HttpStatus.OK);
-            } else {
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         } catch(Exception e) {
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -102,7 +107,7 @@ public class CityController {
     @GetMapping
     public ResponseEntity<List<City>> getAll() {
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         List<City>cities = new ArrayList<City>();
 
@@ -110,9 +115,6 @@ public class CityController {
             cities=this.cityService.getAll();
             if(!cities.isEmpty()){
                 status = new ResponseEntity<List<City>>(cities,HttpStatus.OK);
-
-            }else {
-                status = new ResponseEntity<List<City>>(HttpStatus.NO_CONTENT);
             }
         } catch(Exception e) {
             status = new ResponseEntity<List<City>>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -124,7 +126,7 @@ public class CityController {
     @GetMapping(value= "/")
     public ResponseEntity getByOneCity(@RequestParam("iata") String iata){
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
         City city= null;
 
         try{
@@ -134,11 +136,7 @@ public class CityController {
                 if(city != null){
                     status = new ResponseEntity<City>(city, HttpStatus.OK);
 
-                }   else {
-                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
                 }
-            }else {
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         } catch(Exception e) {
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -43,11 +43,8 @@ public class CountryTest extends TestCase{
 
     @Test
     public void testEqualsNullAttributes(){
-        this.otherCountry.setId(0);
-        this.otherCountry.setName(null);
-        this.otherCountry.setIsoCode(null);
 
-        boolean value = this.country.equals(otherCountry);
+        boolean value = this.country.equals(new Country());
         assertEquals("Checking equals", value, false);
     }
 
@@ -80,9 +77,7 @@ public class CountryTest extends TestCase{
 
     @Test
     public void testHashCodeAllNull() {
-        this.country.setId(0);
-        this.country.setName(null);
-        this.country.setIsoCode(null);
+        this.country = new Country();
 
         int value = this.country.hashCode();
         assertEquals("Checking hashCode", value, 327701);

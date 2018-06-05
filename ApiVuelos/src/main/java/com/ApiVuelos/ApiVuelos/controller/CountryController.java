@@ -20,7 +20,7 @@ public class CountryController {
     @PostMapping(value = "/" , consumes = "application/json")
     public ResponseEntity add(@RequestBody List<Country> countries) {
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try{
             for(Country country : countries) {
@@ -30,10 +30,10 @@ public class CountryController {
 
                 } else {
                     status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                    break;
                 }
             }
-        }
-        catch(Exception e){
+        } catch(Exception e){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -43,67 +43,63 @@ public class CountryController {
     @PutMapping(value = "/")
     public ResponseEntity update(Country country){
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try{
             if(country != null && !(country.validateNullEmpty())) {
-                this.countryService.updateObject(country);
-                status = new ResponseEntity(HttpStatus.OK);
+                Country countryDB = this.countryService.getById(country.getId());
 
-            }else {
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                if(countryDB != null) {
+                    this.countryService.newObject(country);
+                    status = new ResponseEntity(HttpStatus.OK);
+                }
             }
-        }
-        catch(Exception e){
+        } catch(Exception e){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
         return status;
     }
 
     @DeleteMapping(value = "/")
     public ResponseEntity remove(@RequestParam("id") Long id){
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try{
             if(id != null && id > 0){
                 this.countryService.removeObject(id);
                 status = new ResponseEntity(HttpStatus.OK);
-            }else{
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
-        }
-        catch(Exception e){
+        } catch(Exception e){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
         return status;
     }
 
     @GetMapping
     public ResponseEntity<List<Country>> getAll() {
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
         List<Country> countryList = new ArrayList<Country>();
 
         try{
            countryList = this.countryService.getAll();
            if(!countryList.isEmpty()){
                status = new ResponseEntity<List<Country>>(countryList,HttpStatus.OK);
-
-           }else {
-               status = new ResponseEntity<List<Country>>(HttpStatus.NO_CONTENT);
            }
-        }
-        catch(Exception e){
+        } catch(Exception e){
             status = new ResponseEntity<List<Country>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
         return status;
     }
 
     @GetMapping(value= "/")
     public ResponseEntity getByOneCountry(@RequestParam("iso") String iso){
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
         Country country = null;
 
         try{
@@ -113,15 +109,12 @@ public class CountryController {
                 if(country != null){
                     status = new ResponseEntity<Country>(country,HttpStatus.OK);
 
-                }   else {
-                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
                 }
-            }else{
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         } catch(Exception e) {
            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
         return status;
     }
 }

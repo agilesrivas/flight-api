@@ -42,9 +42,11 @@ public class FlightController {
 
                     } else {
                         status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                        break;
                     }
                 } else {
                     status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                    break;
                 }
             }
         } catch(Exception e) {
@@ -57,18 +59,21 @@ public class FlightController {
     @PutMapping(value = "/")
     public ResponseEntity update(Flight flight) {
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        Route route = null;
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try{
-            if(flight != null && !(flight.validateNullEmpty())){
-                route = this.routeService.getByAttributeTypeRoute(flight.getRoute().getAirportBegin().getIataCode(), flight.getRoute().getAirportEnd().getIataCode());
+            if(flight != null){
+                Flight flightDB = this.flightService.getById(flight.getId());
 
-                this.flightService.updateObject(flight);
-                status = new ResponseEntity(HttpStatus.OK);
+                if(flightDB != null && !(flight.validateNullEmptyIdentifier())) {
+                    Route route = this.routeService.getByAttributeTypeRoute(flight.getRoute().getAirportBegin().getIataCode(), flight.getRoute().getAirportEnd().getIataCode());
+                    flight.setRoute(route);
 
-            }else{
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                    if(!flight.validateNullEmpty()) {
+                        this.flightService.newObject(flight);
+                        status = new ResponseEntity(HttpStatus.OK);
+                    }
+                }
             }
         } catch (Exception e){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -80,15 +85,12 @@ public class FlightController {
     @DeleteMapping(value = "/")
     public ResponseEntity remove(@RequestParam("id")Long id) {
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try{
             if(id != null && id > 0){
                 this.flightService.removeObject(id);
                 status = new ResponseEntity(HttpStatus.OK);
-
-            }else {
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         } catch(Exception e){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -100,7 +102,7 @@ public class FlightController {
     @GetMapping
     public ResponseEntity<List<Flight>> getAll() {
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
         List<Flight>listFlight = new ArrayList<Flight>();
 
         try{
@@ -108,9 +110,6 @@ public class FlightController {
 
             if(!listFlight.isEmpty()){
                 status = new ResponseEntity<List<Flight>>(listFlight,HttpStatus.OK);
-
-            }else {
-                status = new ResponseEntity<List<Flight>>(HttpStatus.NO_CONTENT);
             }
         }catch(Exception e){
             status = new ResponseEntity<List<Flight>>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -122,32 +121,24 @@ public class FlightController {
     @GetMapping(value= "/")
     public ResponseEntity getByOneFlightOnDate(@RequestParam("date") String date, @RequestParam("iataAirportBegin") String iataAirportBegin, @RequestParam("iataAirportEnd") String iataAirportEnd){
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        Flight flight = null;
-        Route route = null;
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try{
             if(date != null && !(date.trim().equals("")) && iataAirportBegin != null && !(iataAirportBegin.trim().equals("")) && iataAirportEnd != null && !(iataAirportEnd.trim().equals(""))){
-                route = this.routeService.getByAttributeTypeRoute(iataAirportBegin, iataAirportEnd);
+                Route route = this.routeService.getByAttributeTypeRoute(iataAirportBegin, iataAirportEnd);
 
                 if(route != null) {
-                    flight = this.flightService.getByAttributeTypeDateRoute(date, route);
+                    Flight flight = this.flightService.getByAttributeTypeDateRoute(date, route);
 
                     if (flight != null) {
                         status = new ResponseEntity<Flight>(flight, HttpStatus.OK);
-
-                    } else {
-                        status = new ResponseEntity(HttpStatus.NO_CONTENT);
                     }
-                } else {
-                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
                 }
-            }else {
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         } catch(Exception e) {
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
         return status;
     }
 }

@@ -6,5 +6,6 @@ com\utn\tssi\tp5\Models\model\Ticket.class
 com\utn\tssi\tp5\Models\model\Price.class
 com\utn\tssi\tp5\Models\model\Airport.class
 com\utn\tssi\tp5\Models\model\Country.class
+com\utn\tssi\tp5\Models\model\User.class
 com\utn\tssi\tp5\Models\model\Cabin.class
 com\utn\tssi\tp5\Models\model\Flight.class
