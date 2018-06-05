@@ -29,10 +29,12 @@ public class StateController {
 
         try{
             for (State state : states) {
-                Country country = state.getCountry();
 
-                if (country != null && !(country.validateNullEmptyIdentifier())) {
-                    country = this.countryService.getByAttributeType(country.getIsoCode());
+                if (!state.validateNullEmptyIdentifier()) {
+                    String iataCode = state.getIataCode();
+                    String[] isoCode = iataCode.split("-");
+
+                    Country country = this.countryService.getByAttributeType(isoCode[0]);
                     state.setCountry(country);
 
                     if(!state.validateNullEmpty()) {
