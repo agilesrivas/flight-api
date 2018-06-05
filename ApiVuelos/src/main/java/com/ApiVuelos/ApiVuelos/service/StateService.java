@@ -2,6 +2,7 @@ package com.ApiVuelos.ApiVuelos.service;
 
 import com.ApiVuelos.ApiVuelos.repository.MethodsRepository;
 import com.ApiVuelos.ApiVuelos.repository.StateRepository;
+import com.utn.tssi.tp5.Models.model.Airport;
 import com.utn.tssi.tp5.Models.model.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,21 +39,10 @@ public class StateService implements MethodsRepository<State> {
     }
 
     @Override
-    public void newObject(State value) {
+    public State newObject(State value) {
         this.stateRepository.save(value);
+        return value;
     }
-
-    @Transactional
-    @Override
-    public void updateObject(State value2) {
-        EntityManager enty=null;
-        State st=enty.find(State.class,value2.getId());
-        st.setIataCode(value2.getIataCode());
-        st.setName(value2.getName());
-        st.setCountry(value2.getCountry());
-        enty.getTransaction().commit();
-    }
-
     @Override
     public void removeObject(Long id) {
         this.stateRepository.deleteById(id);

@@ -2,7 +2,7 @@ package com.ApiVuelos.ApiVuelos.service;
 
 import com.ApiVuelos.ApiVuelos.repository.MethodsRepository;
 import com.ApiVuelos.ApiVuelos.repository.RouteRepository;
-import com.utn.tssi.tp5.Models.model.City;
+import com.utn.tssi.tp5.Models.model.Airport;
 import com.utn.tssi.tp5.Models.model.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,22 +38,13 @@ public class RouteService implements MethodsRepository<Route> {
     }
 
     @Override
-    public void newObject(Route value) {
+    public Route newObject(Route value) {
         if(value!=null){
             this.routeRepository.save(value);
         }
+        return value;
     }
-    @Transactional
-    @Override
-    public void updateObject(Route value2) {
-        EntityManager enty=null;
-        Route route=enty.find(Route.class,value2.getId());
-        route.setAirportBegin(value2.getAirportBegin());
-        route.setAirportEnd(value2.getAirportEnd());
-        route.setDistance(value2.getDistance());
-        route.setEstimatedTime(value2.getEstimatedTime());
-        enty.getTransaction().commit();
-    }
+
 
     @Override
     public void removeObject(Long id) {

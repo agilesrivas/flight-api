@@ -38,25 +38,13 @@ public class AirportService implements MethodsRepository<Airport>{
     }
 
     @Override
-    public void newObject(Airport value) {
+    public Airport newObject(Airport value) {
         if(value!=null){
             this.airportRepository.save(value);
         }
 
+        return value;
     }
-    @Transactional
-    @Override
-    public void updateObject(Airport value2) {
-        EntityManager enty=null;
-        Airport airport=enty.find(Airport.class,value2.getId());
-        airport.setCity(value2.getCity());
-        airport.setIataCode(value2.getIataCode());
-        airport.setName(value2.getName());
-        airport.setLatitude(value2.getLatitude());
-        airport.setLongitude(value2.getLongitude());
-        enty.getTransaction().commit();
-    }
-
     @Override
     public void removeObject(Long id) {
         this.airportRepository.deleteById(id);

@@ -40,21 +40,13 @@ public class CityService implements MethodsRepository<City>{
     }
 
     @Override
-    public void newObject(City value) {
+    public City newObject(City value) {
         if(value!=null){
             this.cityRepository.save(value);
         }
+        return value;
     }
-    @Transactional
-    @Override
-    public void updateObject(City value2) {
-        EntityManager enty=null;
-        City city=enty.find(City.class,value2.getId());
-        city.setName(value2.getName());
-        city.setState(value2.getState());
-        city.setIataCode(value2.getIataCode());
-        enty.getTransaction().commit();
-    }
+
 
     @Override
     public void removeObject(Long id) {
