@@ -2,7 +2,7 @@ package com.ApiVuelos.ApiVuelos.service;
 
 import com.ApiVuelos.ApiVuelos.repository.MethodsRepository;
 import com.ApiVuelos.ApiVuelos.repository.TicketRepository;
-import com.utn.tssi.tp5.Models.model.State;
+import com.utn.tssi.tp5.Models.model.Airport;
 import com.utn.tssi.tp5.Models.model.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,22 +38,13 @@ public class TicketService implements MethodsRepository<Ticket> {
     }
 
     @Override
-    public void newObject(Ticket value) {
+    public Ticket newObject(Ticket value) {
         if(value!=null){
             this.ticketRepo.save(value);
         }
+        return value;
     }
-    @Transactional
-    @Override
-    public void updateObject(Ticket value2) {
-        EntityManager enty=null;
-        Ticket tk=enty.find(Ticket.class,value2.getId());
-        tk.setCabin(value2.getCabin());
-        tk.setDate(value2.getDate());
-        tk.setFlight(value2.getFlight());
-        tk.setTotalPrice(value2.getTotalPrice());
-        enty.getTransaction().commit();
-    }
+
 
     @Override
     public void removeObject(Long id) {

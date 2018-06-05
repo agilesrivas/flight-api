@@ -2,6 +2,7 @@ package com.ApiVuelos.ApiVuelos.service;
 
 import com.ApiVuelos.ApiVuelos.repository.CabinRepository;
 import com.ApiVuelos.ApiVuelos.repository.MethodsRepository;
+import com.utn.tssi.tp5.Models.model.Airport;
 import com.utn.tssi.tp5.Models.model.Cabin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,22 +38,14 @@ public class CabinService implements MethodsRepository<Cabin> {
     }
 
     @Override
-    public void newObject(Cabin value) {
+    public Cabin newObject(Cabin value) {
         if(value!=null){
             this.cabin.save(value);
         }
+        return value;
     }
 
-    @Transactional
-    @Override
-    public void updateObject(Cabin value2) {
-        EntityManager enty = null;
-        enty.getTransaction().begin();
-        Cabin cabin=enty.find(Cabin.class,value2.getId());
-        cabin.setName(value2.getName());
-        cabin.setPriceKm(value2.getPriceKm());
-        enty.getTransaction().commit();
-    }
+
 
     @Override
     public void removeObject(Long id) {

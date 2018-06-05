@@ -41,18 +41,11 @@ public class CountryService implements MethodsRepository<Country> {
     }
 
     @Override
-    public void newObject(Country value) {
+    public Country newObject(Country value) {
         this.countryRepository.save(value);
+        return value;
     }
-    @Transactional
-    @Override
-    public void updateObject(Country value2) {
-        EntityManager enty=null;
-        Country country=enty.find(Country.class,value2.getId());
-        country.setName(value2.getName());
-        country.setIsoCode(value2.getIsoCode());
-        enty.getTransaction().commit();
-    }
+
 
     @Override
     public void removeObject(Long id) {
