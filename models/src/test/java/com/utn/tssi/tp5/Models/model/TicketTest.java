@@ -20,17 +20,20 @@ public class TicketTest extends TestCase{
         Airport airportEnd = new Airport(2, "Ezeiza International Airport", "EZE", city, (float)24.22, (float)107.58);
         Route route = new Route(1, airportBegin, airportEnd, 50, 3);
         Flight flight = new Flight(1, route, "21/05/2018");
-        Cabin cabinA = new Cabin(1, "Económica", 1.12);
-        Cabin cabinB = new Cabin(1, "VIP", 1.59);
+        Cabin cabinA = new Cabin(1, "Económica");
+        Cabin cabinB = new Cabin(1, "VIP");
+        Price priceA = new Price(1, (float)1.12, "25/06/2018", null, true, cabinA);
+        Price priceB = new Price((float)2.42, "29/06/2018", null, true, cabinB);
+        User user = new User(1, "pepe", "pompin");
 
-        this.ticket = new Ticket(1, flight, cabinA);
-        this.otherTicket = new Ticket(flight, cabinB);
+        this.ticket = new Ticket(1, flight, priceA, user);
+        this.otherTicket = new Ticket(flight, priceB, user);
     }
 
     @Test
     public void testToStringOK() {
         String value = this.ticket.toString();
-        assertEquals("Checking toString", value, "{flight={route={airportBegin={iataCode='AEP', name='Jorge Newbery', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}, airportEnd={iataCode='EZE', name='Ezeiza International Airport', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=24.22, longitude=107.58}, distance=50, estimatedTime=3}, date='21/05/2018'}, cabin={name='Económica', priceKm=1.12}, date='21/05/2018', totalPrice=56.00000000000001}");
+        assertEquals("Checking toString", value, "{flight={route={airportBegin={iataCode='AEP', name='Jorge Newbery', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}, airportEnd={iataCode='EZE', name='Ezeiza International Airport', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=24.22, longitude=107.58}, distance=50, estimatedTime=3}, date='21/05/2018'}, price={price=1.12, fromDate='25/06/2018', toDate='null', state_bool=true, cabin={name='Económica'}}, user={name='pepe', password='pompin'}, date='21/05/2018', totalPrice=56.00000023841858}");
     }
 
     @Test
@@ -40,7 +43,7 @@ public class TicketTest extends TestCase{
 
         String value = this.ticket.toString();
 
-        assertEquals("Checking toString", value, "{flight=null, cabin={name='Económica', priceKm=1.12}, date='21/05/2018', totalPrice=0.0}");
+        assertEquals("Checking toString", value, "{flight=null, price={price=1.12, fromDate='25/06/2018', toDate='null', state_bool=true, cabin={name='Económica'}}, user={name='pepe', password='pompin'}, date='21/05/2018', totalPrice=0.0}");
     }
 
     @Test
@@ -57,13 +60,8 @@ public class TicketTest extends TestCase{
 
     @Test
     public void testEqualsNullAttributes(){
-        this.otherTicket.setId(0);
-        this.otherTicket.setFlight(null);
-        this.otherTicket.setCabin(null);
-        this.otherTicket.setDate(null);
-        this.otherTicket.setTotalPrice(0);
 
-        boolean value = this.ticket.equals(this.otherTicket);
+        boolean value = this.ticket.equals(new Ticket());
         assertEquals("Checking equals", value, false);
     }
 
@@ -84,7 +82,7 @@ public class TicketTest extends TestCase{
     @Test
     public void testHashCodeOK() {
         int value = this.ticket.hashCode();
-        assertEquals("Checking hashCode", value, -1414432613);
+        assertEquals("Checking hashCode", value, 1866296128);
     }
 
     @Test
@@ -93,19 +91,15 @@ public class TicketTest extends TestCase{
         this.ticket.calculateTotalPrice();
 
         int value = this.ticket.hashCode();
-        assertEquals("Checking hashCode", value, 746312050);
+        assertEquals("Checking hashCode", value, 129905625);
     }
 
     @Test
     public void testHashCodeAllNull() {
-        this.ticket.setId(0);
-        this.ticket.setFlight(null);
-        this.ticket.setCabin(null);
-        this.ticket.setDate(null);
-        this.ticket.setTotalPrice(0);
+        this.ticket = new Ticket();
 
         int value = this.ticket.hashCode();
-        assertEquals("Checking hashCode", value, 515324718);
+        assertEquals("Checking hashCode", value, -1204802926);
     }
 
     @Test
@@ -133,7 +127,7 @@ public class TicketTest extends TestCase{
     @Test
     public void testValidateNullEmptyIdentifierOK() {
         boolean value = this.ticket.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
+        assertFalse("Checking validateNullEmptyIdentifier", value);
     }
 
     @Test

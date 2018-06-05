@@ -48,14 +48,8 @@ public class AirportTest extends TestCase {
 
     @Test
     public void testEqualsNullAttributes(){
-        this.otherAirport.setId(0);
-        this.otherAirport.setName(null);
-        this.otherAirport.setCity(null);
-        this.otherAirport.setIataCode(null);
-        this.otherAirport.setLatitude(0);
-        this.otherAirport.setLongitude(0);
 
-        boolean value = this.airport.equals(this.otherAirport);
+        boolean value = this.airport.equals(new Airport());
         assertEquals("Checking equals", value, false);
     }
 
@@ -88,12 +82,7 @@ public class AirportTest extends TestCase {
 
     @Test
     public void testHashCodeAllNull() {
-        this.airport.setId(0);
-        this.airport.setName(null);
-        this.airport.setIataCode(null);
-        this.airport.setCity(null);
-        this.airport.setLatitude(0);
-        this.airport.setLongitude(0);
+        this.airport = new Airport();
 
         int value = this.airport.hashCode();
         assertEquals("Checking hashCode", value, -459850354);

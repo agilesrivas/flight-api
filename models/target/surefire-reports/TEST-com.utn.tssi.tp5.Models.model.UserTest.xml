@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="16" failures="0" name="com.utn.tssi.tp5.Models.model.StateTest" time="0.001" errors="0" skipped="0">
+<testsuite tests="16" failures="0" name="com.utn.tssi.tp5.Models.model.UserTest" time="0" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_161\jre\bin"/>
@@ -67,20 +67,20 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testValidateNullEmptyIdentifierAttributeNull" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testEqualsOtherObject" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testValidateNullEmptyOK" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testValidateNullEmptyIdentifierOK" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testValidateNullEmptyAttributeNull" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testValidateNullEmptyIdentifierAttributeEmpty" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testHashCodeOK" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testEqualsNull" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testEqualsDifferentAttributes" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testHashCodeOneNull" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testEqualsNullAttributes" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testToStringOK" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testHashCodeAllNull" time="0.001"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testEqualsOK" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testValidateNullEmptyAttributeEmpty" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.StateTest" name="testToStringNull" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.UserTest" name="testValidateNullEmptyIdentifierAttributeNull" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.UserTest" name="testEqualsOtherObject" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.UserTest" name="testValidateNullEmptyOK" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.UserTest" name="testValidateNullEmptyIdentifierOK" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.UserTest" name="testValidateNullEmptyAttributeNull" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.UserTest" name="testValidateNullEmptyIdentifierAttributeEmpty" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.UserTest" name="testHashCodeOK" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.UserTest" name="testEqualsNull" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.UserTest" name="testEqualsDifferentAttributes" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.UserTest" name="testHashCodeOneNull" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.UserTest" name="testEqualsNullAttributes" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.UserTest" name="testToStringOK" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.UserTest" name="testHashCodeAllNull" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.UserTest" name="testEqualsOK" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.UserTest" name="testValidateNullEmptyAttributeEmpty" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.UserTest" name="testToStringNull" time="0"/>
 </testsuite>

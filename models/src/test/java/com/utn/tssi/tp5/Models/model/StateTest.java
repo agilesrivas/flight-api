@@ -45,12 +45,8 @@ public class StateTest extends TestCase{
 
     @Test
     public void testEqualsNullAttributes(){
-        this.otherState.setId(0);
-        this.otherState.setName(null);
-        this.otherState.setCountry(null);
-        this.otherState.setIataCode(null);
 
-        boolean value = this.state.equals(this.otherState);
+        boolean value = this.state.equals(new State());
         assertEquals("Checking equals", value, false);
     }
 
@@ -83,10 +79,7 @@ public class StateTest extends TestCase{
 
     @Test
     public void testHashCodeAllNull() {
-        this.state.setId(0);
-        this.state.setName(null);
-        this.state.setIataCode(null);
-        this.state.setCountry(null);
+        this.state = new State();
 
         int value = this.state.hashCode();
         assertEquals("Checking hashCode", value, 11082252);

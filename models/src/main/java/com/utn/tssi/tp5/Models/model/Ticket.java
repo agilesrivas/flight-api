@@ -23,12 +23,16 @@ public class Ticket implements ValidationInterface<Ticket>{
     private long id;
 
     @JoinColumn(name = "id_Flight", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Flight flight;
 
     @JoinColumn(name = "id_Cabin", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Cabin cabin;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Price price;
+
+    @JoinColumn(name = "id_User", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
 
     @Column(name = "date_flight")
     private String date;
@@ -36,37 +40,40 @@ public class Ticket implements ValidationInterface<Ticket>{
     @Column(name = "total_price", nullable = false)
     private double totalPrice;
 
-    public Ticket(long id, Flight flight, Cabin cabin) {
+    public Ticket(long id, Flight flight, Price price, User user) {
         this.id = id;
         this.flight = flight;
-        this.cabin = cabin;
+        this.price = price;
         this.date = flight.getDate();
+        this.user = user;
         calculateTotalPrice();
     }
 
-    public Ticket(Flight flight, Cabin cabin) {
+    public Ticket(Flight flight, Price price, User user) {
         this.flight = flight;
-        this.cabin = cabin;
+        this.price = price;
         this.date = flight.getDate();
+        this.user = user;
         calculateTotalPrice();
     }
 
     public void calculateTotalPrice() {
         this.totalPrice = 0;
-        double km = 0;
+        double priceKm = 0;
         int dist = 0;
 
-        km = (this.cabin == null) ? 0 : this.cabin.getPriceKm();
+        priceKm = (this.price == null) ? 0 : this.price.getPrice();
         dist = (this.flight == null || this.flight.getRoute() == null) ? 0 : this.flight.getRoute().getDistance();
 
-        this.totalPrice = km * dist;
+        this.totalPrice = priceKm * dist;
     }
 
     @Override
     public String toString() {
         return "{" +
                 "flight=" + flight +
-                ", cabin=" + cabin +
+                ", price=" + price +
+                ", user=" + user +
                 ", date='" + date + '\'' +
                 ", totalPrice=" + totalPrice +
                 '}';
@@ -78,7 +85,7 @@ public class Ticket implements ValidationInterface<Ticket>{
         if (o == null || !(o instanceof Ticket)) return false;
 
         Ticket ticket = (Ticket) o;
-        return this.id == ticket.getId() && this.flight.equals(ticket.getFlight()) && this.cabin.equals(ticket.getCabin()) && this.date.equals(ticket.getDate()) && this.totalPrice == ticket.getTotalPrice();
+        return this.id == ticket.getId() && this.flight.equals(ticket.getFlight()) && this.price.equals(ticket.getPrice()) && this.user.equals(ticket.getUser()) && this.date.equals(ticket.getDate()) && this.totalPrice == ticket.getTotalPrice();
     }
 
     @Override
@@ -87,7 +94,8 @@ public class Ticket implements ValidationInterface<Ticket>{
 
         hash = 31 * hash + (int) this.id;
         hash = 31 * hash + ((this.flight == null) ? 0 : this.flight.hashCode());
-        hash = 31 * hash + ((this.cabin == null) ? 0 : this.cabin.hashCode());
+        hash = 31 * hash + ((this.price == null) ? 0 : this.price.hashCode());
+        hash = 31 * hash + ((this.user == null) ? 0 : this.user.hashCode());
         hash = 31 * hash + ((this.date == null) ? 0 : this.date.hashCode());
         hash = 31 * hash + (int) this.totalPrice;
 
@@ -97,7 +105,7 @@ public class Ticket implements ValidationInterface<Ticket>{
     public boolean validateNullEmpty() {
         boolean bool = true;
 
-        if(id >= 0 && flight != null && !(flight.validateNullEmpty()) && cabin != null && !(cabin.validateNullEmpty()) && date != null && !(date.trim().equals("")) && totalPrice >= 0) {
+        if(id >= 0 && flight != null && !(flight.validateNullEmpty()) && price != null && !(price.validateNullEmpty()) && user != null && !(user.validateNullEmpty()) && date != null && !(date.trim().equals("")) && totalPrice >= 0) {
             bool = false;
         }
 
@@ -105,6 +113,12 @@ public class Ticket implements ValidationInterface<Ticket>{
     }
 
     public boolean validateNullEmptyIdentifier() {
-        return true;
+        boolean bool = true;
+
+        if(flight != null && !(flight.validateNullEmpty()) && user != null && !(user.validateNullEmpty()) && date != null && !(date.trim().equals(""))) {
+            bool = false;
+        }
+
+        return bool;
     }
 }

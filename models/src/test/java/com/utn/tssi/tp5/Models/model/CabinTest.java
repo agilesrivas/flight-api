@@ -11,14 +11,14 @@ public class CabinTest extends TestCase {
 
     @Before
     public void setUp() {
-        this.cabin = new Cabin(1, "Económico", 1.12);
-        this.otherCabin = new Cabin("VIP", 1.52);
+        this.cabin = new Cabin(1, "Económico");
+        this.otherCabin = new Cabin("VIP");
     }
 
     @Test
     public void testToStringOK() {
         String value = this.cabin.toString();
-        assertEquals("Checking toString", value, "{name='Económico', priceKm=1.12}");
+        assertEquals("Checking toString", value, "{name='Económico'}");
     }
 
     @Test
@@ -26,7 +26,7 @@ public class CabinTest extends TestCase {
         this.cabin.setName(null);
         String value = this.cabin.toString();
 
-        assertEquals("Checking toString", value, "{name='null', priceKm=1.12}");
+        assertEquals("Checking toString", value, "{name='null'}");
     }
 
     @Test
@@ -43,11 +43,8 @@ public class CabinTest extends TestCase {
 
     @Test
     public void testEqualsNullAttributes(){
-        this.otherCabin.setId(0);
-        this.otherCabin.setName(null);
-        this.otherCabin.setPriceKm(0);
 
-        boolean value = this.cabin.equals(otherCabin);
+        boolean value = this.cabin.equals(new Cabin());
         assertEquals("Checking equals", value, false);
     }
 
@@ -68,24 +65,22 @@ public class CabinTest extends TestCase {
     @Test
     public void testHashCodeOK() {
         int value = this.cabin.hashCode();
-        assertEquals("Checking hashCode", value, -1733002252);
+        assertEquals("Checking hashCode", value, -610092627);
     }
 
     @Test
     public void testHashCodeOneNull() {
         this.cabin.setName(null);
         int value = this.cabin.hashCode();
-        assertEquals("Checking hashCode", value, 477618);
+        assertEquals("Checking hashCode", value, 15407);
     }
 
     @Test
     public void testHashCodeAllNull() {
-        this.cabin.setId(0);
-        this.cabin.setName(null);
-        this.cabin.setPriceKm(0);
+        this.cabin = new Cabin();
 
         int value = this.cabin.hashCode();
-        assertEquals("Checking hashCode", value, 476656);
+        assertEquals("Checking hashCode", value, 15376);
     }
 
     @Test

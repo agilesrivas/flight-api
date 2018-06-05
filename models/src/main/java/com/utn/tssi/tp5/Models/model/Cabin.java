@@ -21,24 +21,19 @@ public class Cabin implements ValidationInterface<Cabin>{
     @Column(name = "type_Cabin", nullable = false, unique = true)
     private String name;
 
-    private double priceKm;
-
-    public Cabin(long id, String name, double priceKm) {
+    public Cabin(long id, String name) {
         this.id = id;
         this.name = name;
-        this.priceKm = priceKm;
     }
 
-    public Cabin(String name, double priceKm) {
+    public Cabin(String name) {
         this.name = name;
-        this.priceKm = priceKm;
     }
 
     @Override
     public String toString() {
         return "{" +
                 "name='" + name + '\'' +
-                ", priceKm=" + priceKm +
                 '}';
     }
 
@@ -47,7 +42,7 @@ public class Cabin implements ValidationInterface<Cabin>{
         if (this == o) return true;
         if (o == null || !(o instanceof Cabin)) return false;
         Cabin cabin = (Cabin) o;
-        return this.id == cabin.getId() && this.name.equals(cabin.getName()) && this.priceKm == cabin.getPriceKm();
+        return this.id == cabin.getId() && this.name.equals(cabin.getName());
     }
 
     @Override
@@ -56,7 +51,6 @@ public class Cabin implements ValidationInterface<Cabin>{
 
         hash = 31 * hash + (int) this.id;
         hash = 31 * hash + ((this.name == null) ? 0 : this.name.hashCode());
-        hash = 31 * hash + (int) this.priceKm;
 
         return hash;
     }
@@ -64,7 +58,7 @@ public class Cabin implements ValidationInterface<Cabin>{
     public boolean validateNullEmpty() {
         boolean bool = true;
 
-        if(id >= 0 && name != null && !(name.trim().equals("")) && priceKm >= 0) {
+        if(id >= 0 && name != null && !(name.trim().equals(""))) {
             bool = false;
         }
 

@@ -25,7 +25,7 @@ public class Airport implements ValidationInterface<Airport>{
     private String name;
 
     @JoinColumn(name = "id_City", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private City city;
 
     @Column(name = "latitude", nullable = false)
