@@ -1,4 +1,4 @@
 package com.utn.WebService.Controllers;
 
-public class TicketAirportController {
+public class AirportController {
 }
