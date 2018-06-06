@@ -69,8 +69,8 @@ public class TicketController {
         return status;
     }
 
-    @PutMapping(value = "/")
-    public ResponseEntity update(Ticket tk2){
+    @PutMapping(value = "/", consumes = "application/json")
+    public ResponseEntity update(@RequestBody Ticket tk2){
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 

@@ -35,6 +35,7 @@ public class StateController {
 
                     if(code.length == 2 && code[0] != null && !(code[0].trim().equals("")) && code[1] != null && !(code[1].trim().equals(""))) {
                         Country country = this.countryService.getByAttributeType(code[0]);
+                        state.setIataCode(code[0] + "-" + code[1]);
                         state.setCountry(country);
 
                         if (!state.validateNullEmpty()) {
@@ -61,8 +62,8 @@ public class StateController {
         return status;
     }
 
-    @PutMapping(value = "/")
-    public ResponseEntity update(State st) {
+    @PutMapping(value = "/", consumes = "application/json")
+    public ResponseEntity update(@RequestBody State st) {
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 

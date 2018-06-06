@@ -55,8 +55,8 @@ public class RouteController {
         return status;
     }
 
-    @PutMapping(value = "/")
-    public ResponseEntity update(Route value){
+    @PutMapping(value = "/", consumes = "application/json")
+    public ResponseEntity update(@RequestBody Route value){
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 

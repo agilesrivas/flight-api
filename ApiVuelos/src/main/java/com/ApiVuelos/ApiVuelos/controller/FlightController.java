@@ -56,8 +56,8 @@ public class FlightController {
         return status;
     }
 
-    @PutMapping(value = "/")
-    public ResponseEntity update(Flight flight) {
+    @PutMapping(value = "/", consumes = "application/json")
+    public ResponseEntity update(@RequestBody Flight flight) {
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 

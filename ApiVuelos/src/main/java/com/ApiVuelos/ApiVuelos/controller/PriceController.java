@@ -55,8 +55,8 @@ public class PriceController {
         return status;
     }
 
-    @PutMapping(value = "/")
-    public ResponseEntity update(Price value){
+    @PutMapping(value = "/", consumes = "application/json")
+    public ResponseEntity update(@RequestBody Price value){
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 

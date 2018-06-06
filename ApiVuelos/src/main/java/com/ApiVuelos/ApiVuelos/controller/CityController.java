@@ -34,6 +34,7 @@ public class CityController {
 
                 if(code.length == 3 && code[0] != null && !(code[0].trim().equals("")) && code[1] != null && !(code[1].trim().equals("")) && code[2] != null && !(code[2].trim().equals(""))) {
                     State state = this.stateService.getByAttributeType(code[0] + "-" + code[1]);
+                    city.setIataCode(code[0] + "-" + code[1] + "-" + code[2]);
                     city.setState(state);
 
                     if (!city.validateNullEmpty()) {
@@ -56,8 +57,8 @@ public class CityController {
         return status;
     }
 
-    @PutMapping(value = "/")
-    public ResponseEntity update(City value) {
+    @PutMapping(value = "/", consumes = "application/json")
+    public ResponseEntity update(@RequestBody City value) {
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 

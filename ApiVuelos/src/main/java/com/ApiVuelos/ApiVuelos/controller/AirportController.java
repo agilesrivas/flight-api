@@ -56,7 +56,7 @@ public class AirportController {
         return status;
     }
 
-    @PutMapping(value = "/")
+    @PutMapping(value = "/", consumes = "application/json")
     public ResponseEntity update(@RequestBody Airport value){
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);

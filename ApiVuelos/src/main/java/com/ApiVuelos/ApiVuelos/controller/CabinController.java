@@ -39,8 +39,8 @@ public class CabinController {
         return status;
     }
 
-    @PutMapping(value = "/")
-    public ResponseEntity update(Cabin value){
+    @PutMapping(value = "/", consumes = "application/json")
+    public ResponseEntity update(@RequestBody Cabin value){
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
