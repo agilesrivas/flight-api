@@ -64,7 +64,7 @@ ALTER TABLE routes COLLATE utf8_unicode_ci;
 CREATE TABLE IF NOT EXISTS `flights` (
 	`id` INT AUTO_INCREMENT NOT NULL,
 	`id_Route` INT NOT NULL,
-    `date_Flight` DATE,
+    `date_Flight` VARCHAR(15),
 	CONSTRAINT `pk_Flight` PRIMARY KEY (`id`),
 	CONSTRAINT `fk_IdRoute_Flight` FOREIGN KEY(`id_Route`) REFERENCES `routes`(`id`) ON UPDATE CASCADE
 ) ENGINE = InnoDB;
@@ -81,8 +81,8 @@ ALTER TABLE cabins COLLATE utf8_unicode_ci;
 CREATE TABLE IF NOT EXISTS `prices` (
 	`id` INT AUTO_INCREMENT NOT NULL,
     `id_Cabin` INT NOT NULL,
-    `fromDate` DATE NOT NULL,
-    `toDate` DATE,
+    `fromDate` VARCHAR(15) NOT NULL,
+    `toDate` VARCHAR(15),
     `price` FLOAT NOT NULL,
     `state_bool` BOOLEAN,
     CONSTRAINT `pk_Price` PRIMARY KEY(`id`),
