@@ -25,7 +25,7 @@ ALTER TABLE states COLLATE utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `cities` (
 	`id` INT AUTO_INCREMENT NOT NULL,
-    `iata` VARCHAR(7) NOT NULL,
+    `iata` VARCHAR(15) NOT NULL,
     `name_City` VARCHAR(50) NOT NULL,
     `id_State` INT NOT NULL,
     CONSTRAINT `pk_City` PRIMARY KEY(`id`),
@@ -37,10 +37,10 @@ ALTER TABLE cities COLLATE utf8_unicode_ci;
 CREATE TABLE IF NOT EXISTS `airports` (
 	`id` INT AUTO_INCREMENT NOT NULL,
     `iata` VARCHAR(5) NOT NULL,
-	`name_Airport` VARCHAR(50) NOT NULL,
+	`name_Airport` VARCHAR(200) NOT NULL,
 	`id_City` INT NOT NULL,
-    `latitude` FLOAT UNSIGNED NOT NULL,
-    `longitude` FLOAT UNSIGNED NOT NULL,
+    `latitude` FLOAT NOT NULL,
+    `longitude` FLOAT NOT NULL,
 	CONSTRAINT `id_Airport` PRIMARY KEY(`id`),
     CONSTRAINT `unq_iata_Airport` UNIQUE(`iata`),
 	CONSTRAINT `unq_name_Airport` UNIQUE(`name_Airport`),
@@ -168,3 +168,4 @@ BEGIN
     
 END;
 $$
+

@@ -88,7 +88,7 @@ public class Airport implements ValidationInterface<Airport>{
     public boolean validateNullEmpty() {
         boolean bool = true;
 
-        if(id >= 0 && name != null && !(name.trim().equals("")) && iataCode != null && !(iataCode.trim().equals("")) && city != null && !(city.validateNullEmpty()) && latitude >= 0 && longitude >= 0) {
+        if(id >= 0 && name != null && !(name.trim().equals("")) && iataCode != null && !(iataCode.trim().equals("")) && city != null && !(city.validateNullEmpty())) {
             bool = false;
         }
 
