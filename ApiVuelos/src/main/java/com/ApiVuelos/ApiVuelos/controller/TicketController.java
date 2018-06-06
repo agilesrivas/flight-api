@@ -1,8 +1,6 @@
 package com.ApiVuelos.ApiVuelos.controller;
 
-import com.ApiVuelos.ApiVuelos.service.CabinService;
-import com.ApiVuelos.ApiVuelos.service.FlightService;
-import com.ApiVuelos.ApiVuelos.service.TicketService;
+import com.ApiVuelos.ApiVuelos.service.*;
 import com.utn.tssi.tp5.Models.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +24,10 @@ public class TicketController {
     private FlightService flightService;
 
     @Autowired
-    private CabinService cabinService;
+    private PriceService priceService;
+
+    @Autowired
+    private UserService userService;
 
     @PostMapping(value = "/", consumes = "application/json")
     public ResponseEntity add(@RequestBody List<Ticket> tickets){
@@ -36,14 +37,19 @@ public class TicketController {
         try{
             for (Ticket ticket : tickets) {
                 Flight flight = ticket.getFlight();
-                Cabin cabin = ticket.getCabin();
+                Price price = ticket.getPrice();
+                User user = ticket.getUser();
 
-                if(flight != null && cabin != null && !(flight.validateNullEmptyIdentifier()) && !(cabin.validateNullEmptyIdentifier())) {
-                    flight = this.flightService.getById(ticket.getFlight().getId());
-                    cabin = this.cabinService.getByAttributeType(ticket.getCabin().getName());
+                if(flight != null && price != null && user != null) {
+                    flight = this.flightService.getById(flight.getId());
+                    price = this.priceService.getById(price.getId());
+                    user = this.userService.getById(user.getId());
 
                     ticket.setFlight(flight);
-                    ticket.setCabin(cabin);
+                    ticket.setPrice(price);
+                    ticket.setUser(user);
+                    ticket.calculateTotalPrice();
+                    ticket.setDate(flight.getDate());
 
                     if(!ticket.validateNullEmpty()) {
                         this.ticketService.newObject(ticket);
@@ -63,40 +69,38 @@ public class TicketController {
         return status;
     }
 
-    @GetMapping(value = "/") //Este metodo buscara por el ID o EMAIL del usuario
-    public ResponseEntity getByOneTicket(String date){
-
-        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
-
-        try{
-            Ticket tk=null;
-            if(date!=null){
-                tk=this.ticketService.getByAttributeType(date);
-
-                if(tk!=null){
-                    status = new ResponseEntity(tk,HttpStatus.OK);
-                }
-            } else {
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
-            }
-        } catch(Exception e){
-            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return status;
-    }
-
     @PutMapping(value = "/")
     public ResponseEntity update(Ticket tk2){
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try{
-            if(tk2 != null && !(tk2.validateNullEmpty())){
-                this.ticketService.updateObject(tk2);
-                status = new ResponseEntity(HttpStatus.OK);
-            }else{
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
+            if(tk2 != null){
+                Ticket ticketDB = this.ticketService.getById(tk2.getId());
+
+                if(ticketDB != null) {
+                    Flight flight = tk2.getFlight();
+                    Price price = tk2.getPrice();
+                    User user = tk2.getUser();
+
+                    if (flight != null && price != null && user != null) {
+                        flight = this.flightService.getById(flight.getId());
+                        price = this.priceService.getById(price.getId());
+                        user = this.userService.getById(user.getId());
+
+                        tk2.setFlight(flight);
+                        tk2.setPrice(price);
+                        tk2.setUser(user);
+                        tk2.calculateTotalPrice();
+                        tk2.setDate(flight.getDate());
+
+                        if (!tk2.validateNullEmpty()) {
+                            this.ticketService.newObject(tk2);
+                            status = new ResponseEntity(HttpStatus.OK);
+
+                        }
+                    }
+                }
             }
         } catch(Exception e){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -115,11 +119,7 @@ public class TicketController {
                 this.ticketService.removeObject(id);
                 status = new ResponseEntity(HttpStatus.OK);
             }
-            else{
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
-            }
-        }
-        catch(PersistenceException e){
+        } catch( Exception e){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -136,12 +136,29 @@ public class TicketController {
             tkList = this.ticketService.getAll();
             if(!tkList.isEmpty()){
                 status = new ResponseEntity<List<Ticket>>(tkList,HttpStatus.OK);
-
-            }else {
-                status = new ResponseEntity<List<Ticket>>(HttpStatus.NO_CONTENT);
             }
         } catch(Exception e){
             status = new ResponseEntity<List<Ticket>>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return status;
+    }
+
+    @GetMapping(value = "/")
+    public ResponseEntity getByOneTicket(@RequestParam("idUser") Long idUser){
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
+
+        try{
+            if(idUser > 0){
+                Ticket ticket = this.ticketService.getByUser(idUser);
+
+                if(ticket != null){
+                    status = new ResponseEntity(ticket, HttpStatus.OK);
+                }
+            }
+        } catch(Exception e){
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return status;

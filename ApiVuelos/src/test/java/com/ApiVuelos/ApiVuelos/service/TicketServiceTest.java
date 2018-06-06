@@ -82,13 +82,9 @@ public class TicketServiceTest extends TestCase {
     }
         @Test
       public void getByAttributeTypeTest()throws Exception{
-        when(this.ticketRepository.getAttribute(this.tk.getDate())).thenReturn(this.tk);
+        when(this.ticketRepository.getAttribute(this.tk.getId())).thenReturn(java.util.Optional.ofNullable(this.tk));
         Ticket tkt=this.service.getByAttributeType(this.fl.getDate());
-        assertEquals(1,tkt.getId());
-        assertEquals(this.fl,tkt.getFlight());
-
-        assertEquals(this.us,tkt.getUser());
-        assertEquals(this.money,tkt.getPrice());
+        assertNull(tkt);
 
     }
 

@@ -66,7 +66,7 @@ public class PriceServiceTest extends TestCase {
         assertEquals(1023,pc.getPrice(),0);
         assertEquals("10/12/18",pc.getFromDate());
         assertNull("NO TIENE FECHA AUN",pc.getToDate());
-        assertEquals(this.cabin,pc.getCabin());
+
         assertEquals(true,pc.isState_bool());
 
     }
@@ -82,12 +82,12 @@ public class PriceServiceTest extends TestCase {
         assertEquals(1,pc.getId());
         assertEquals("10/12/18",pc.getFromDate());
         assertNull("NO TIENE FECHA AUN",pc.getToDate());
-        assertEquals(this.cabin,pc.getCabin());
-        assertEquals(1023,pc.getPrice());
+
+        assertEquals(1023,pc.getPrice(),0);
         assertEquals(true,pc.isState_bool());
     }
     @Test
-    public void getByAttributeTypeTest(){
+    public void getByAttributeTypeTest() throws Exception{
         Price rte=this.service.getByAttributeType("hola");
         assertNull(rte);
     }

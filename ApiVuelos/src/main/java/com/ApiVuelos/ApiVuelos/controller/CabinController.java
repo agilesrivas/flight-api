@@ -19,7 +19,7 @@ public class CabinController {
     @PostMapping(value = "/", consumes = "application/json")
     public ResponseEntity add(@RequestBody List<Cabin> cabins) {
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
+        ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 
         try{
             for (Cabin cabin : cabins) {
@@ -29,6 +29,7 @@ public class CabinController {
 
                 } else {
                     status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                    break;
                 }
             }
         } catch(Exception e){
@@ -44,12 +45,13 @@ public class CabinController {
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try{
-            if(!value.validateNullEmpty()) {
-                this.cabinService.updateObject(value);
-                status = new ResponseEntity(HttpStatus.OK);
+            if(value != null && !value.validateNullEmpty()) {
+                Cabin cabinDB = this.cabinService.getById(value.getId());
 
-            } else {
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
+                if(cabinDB != null) {
+                    this.cabinService.newObject(value);
+                    status = new ResponseEntity(HttpStatus.OK);
+                }
             }
         } catch(Exception e) {
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -67,8 +69,6 @@ public class CabinController {
             if(id != null && id > 0){
                 this.cabinService.removeObject(id);
                 status = new ResponseEntity(HttpStatus.OK);
-            }else{
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         } catch(Exception e){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -87,9 +87,6 @@ public class CabinController {
             List<Cabin> cabins =this.cabinService.getAll();
             if (!cabins.isEmpty()) {
                 status = new ResponseEntity<List<Cabin>>(cabins, HttpStatus.OK);
-
-            }else{
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         } catch (Exception e) {
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -102,20 +99,14 @@ public class CabinController {
     public ResponseEntity getByOneCabin(@RequestParam("typeCabin")String typeCabin){
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
-        Cabin cabin = null;
 
         try{
             if(typeCabin != null && !(typeCabin.trim().equals(""))){
-                cabin = this.cabinService.getByAttributeType(typeCabin);
+                Cabin cabin = this.cabinService.getByAttributeType(typeCabin);
 
                 if(cabin != null){
                     status = new ResponseEntity<Cabin>(cabin,HttpStatus.OK);
-
-                } else {
-                    status = new ResponseEntity(HttpStatus.NO_CONTENT);
                 }
-            } else {
-                status = new ResponseEntity(HttpStatus.NO_CONTENT);
             }
         } catch(Exception e){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);

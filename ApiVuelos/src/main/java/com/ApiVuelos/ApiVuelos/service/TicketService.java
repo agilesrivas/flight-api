@@ -3,6 +3,7 @@ package com.ApiVuelos.ApiVuelos.service;
 import com.ApiVuelos.ApiVuelos.repository.MethodsRepository;
 import com.ApiVuelos.ApiVuelos.repository.TicketRepository;
 import com.utn.tssi.tp5.Models.model.Airport;
+import com.utn.tssi.tp5.Models.model.Flight;
 import com.utn.tssi.tp5.Models.model.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,8 @@ public class TicketService implements MethodsRepository<Ticket> {
 
     @Override
     public Ticket getByAttributeType(String value)throws Exception {
-        return this.ticketRepo.getAttribute(value);
+        return null;
+
     }
 
     @Override
@@ -45,9 +47,19 @@ public class TicketService implements MethodsRepository<Ticket> {
         return value;
     }
 
-
     @Override
     public void removeObject(Long id)throws Exception {
         this.ticketRepo.deleteById(id);
+    }
+
+    public Ticket getByUser(Long id) {
+        Optional<Ticket> ticketOptional= this.ticketRepo.getAttribute(id);
+        Ticket ticket= null;
+
+        if(ticketOptional.isPresent()) {
+            ticket = ticketOptional.get();
+        }
+
+        return ticket;
     }
 }
