@@ -18,17 +18,17 @@ public class RouteService implements MethodsRepository<Route> {
     @Autowired
     private RouteRepository routeRepository;
     @Override
-    public List<Route> getAll() {
+    public List<Route> getAll()throws Exception {
         return this.routeRepository.findAll();
     }
 
     @Override
-    public Route getByAttributeType(String id) {
+    public Route getByAttributeType(String id)throws Exception {
         return null;
     }
 
     @Override
-    public Route getById(Long id) {
+    public Route getById(Long id)throws Exception {
         Route route=null;
         Optional<Route> routeOptional=this.routeRepository.findById(id);
         if(routeOptional.isPresent()){
@@ -38,7 +38,7 @@ public class RouteService implements MethodsRepository<Route> {
     }
 
     @Override
-    public Route newObject(Route value) {
+    public Route newObject(Route value)throws Exception {
         if(value!=null){
             this.routeRepository.save(value);
         }
@@ -47,11 +47,11 @@ public class RouteService implements MethodsRepository<Route> {
 
 
     @Override
-    public void removeObject(Long id) {
+    public void removeObject(Long id) throws Exception{
         this.routeRepository.deleteById(id);
     }
 
-    public Route getByAttributeTypeRoute(String iataAirportBegin, String iataAirportEnd) {
+    public Route getByAttributeTypeRoute(String iataAirportBegin, String iataAirportEnd)throws Exception{
         Route route = null;
         Optional<Route> routeOptional = this.routeRepository.getAttributeByAirports(iataAirportBegin, iataAirportEnd);
 

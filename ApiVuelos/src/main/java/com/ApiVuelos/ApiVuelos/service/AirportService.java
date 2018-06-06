@@ -18,17 +18,17 @@ public class AirportService implements MethodsRepository<Airport>{
     private AirportRepository airportRepository;
 
     @Override
-    public List<Airport> getAll() {
+    public List<Airport> getAll() throws Exception{
         return this.airportRepository.findAll();
     }
 
     @Override
-    public Airport getByAttributeType(String value) {
+    public Airport getByAttributeType(String value) throws Exception{
         return this.airportRepository.getAttribute(value);
     }
 
     @Override
-    public Airport getById(Long id) {
+    public Airport getById(Long id) throws Exception{
         Airport airport=null;
         Optional<Airport>airportaOptional=this.airportRepository.findById(id);
         if(airportaOptional.isPresent()){
@@ -38,7 +38,7 @@ public class AirportService implements MethodsRepository<Airport>{
     }
 
     @Override
-    public Airport newObject(Airport value) {
+    public Airport newObject(Airport value) throws Exception{
         if(value!=null){
             this.airportRepository.save(value);
         }
@@ -46,7 +46,7 @@ public class AirportService implements MethodsRepository<Airport>{
         return value;
     }
     @Override
-    public void removeObject(Long id) {
+    public void removeObject(Long id) throws Exception{
         this.airportRepository.deleteById(id);
     }
 }

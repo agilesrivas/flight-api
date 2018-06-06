@@ -19,17 +19,18 @@ public class TicketService implements MethodsRepository<Ticket> {
     @Autowired
     private TicketRepository ticketRepo;
     @Override
-    public List<Ticket> getAll() {
+    public List<Ticket> getAll()throws Exception {
         return this.ticketRepo.findAll();
     }
 
     @Override
-    public Ticket getByAttributeType(String value) {
+    public Ticket getByAttributeType(String value)throws Exception {
         return null;
+
     }
 
     @Override
-    public Ticket getById(Long id) {
+    public Ticket getById(Long id) throws Exception{
         Ticket tick=null;
         Optional<Ticket> ticketOptional=this.ticketRepo.findById(id);
         if(ticketOptional.isPresent()){
@@ -39,7 +40,7 @@ public class TicketService implements MethodsRepository<Ticket> {
     }
 
     @Override
-    public Ticket newObject(Ticket value) {
+    public Ticket newObject(Ticket value)throws Exception {
         if(value!=null){
             this.ticketRepo.save(value);
         }
@@ -47,7 +48,7 @@ public class TicketService implements MethodsRepository<Ticket> {
     }
 
     @Override
-    public void removeObject(Long id) {
+    public void removeObject(Long id)throws Exception {
         this.ticketRepo.deleteById(id);
     }
 

@@ -18,17 +18,17 @@ public class CabinService implements MethodsRepository<Cabin> {
     @Autowired
     private CabinRepository cabin;
     @Override
-    public List<Cabin> getAll() {
+    public List<Cabin> getAll()throws Exception {
         return this.cabin.findAll();
     }
 
     @Override
-    public Cabin getByAttributeType(String value) {
+    public Cabin getByAttributeType(String value) throws Exception{
         return this.cabin.getAttribute(value);
     }
 
     @Override
-    public Cabin getById(Long id) {
+    public Cabin getById(Long id)throws Exception {
         Cabin cabin=null;
         Optional<Cabin> cabinOptional = this.cabin.findById(id);
         if(cabinOptional.isPresent()){
@@ -38,7 +38,7 @@ public class CabinService implements MethodsRepository<Cabin> {
     }
 
     @Override
-    public Cabin newObject(Cabin value) {
+    public Cabin newObject(Cabin value) throws Exception{
         if(value!=null){
             this.cabin.save(value);
         }
@@ -48,7 +48,7 @@ public class CabinService implements MethodsRepository<Cabin> {
 
 
     @Override
-    public void removeObject(Long id) {
+    public void removeObject(Long id) throws Exception{
         this.cabin.deleteById(id);
     }
 }

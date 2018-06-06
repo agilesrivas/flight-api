@@ -46,7 +46,7 @@ public class RouteServiceTest extends TestCase {
 
 
     @Test
-    public void getALlTest() {
+    public void getALlTest() throws Exception{
         List<Route> listRoutes = new ArrayList<Route>();
         listRoutes.add(this.rt);
         listRoutes.add(this.rt);
@@ -56,7 +56,7 @@ public class RouteServiceTest extends TestCase {
         assertEquals(3, listRoutes.size());
     }
     @Test
-    public void addTest(){
+    public void addTest()throws Exception{
         when(this.routeRepository.save(this.rt)).thenReturn(this.rt);
         Route rte=this.service.newObject(this.rt);
         assertEquals(this.airportEnd,rte.getAirportEnd());
@@ -67,17 +67,17 @@ public class RouteServiceTest extends TestCase {
 
     }
     @Test
-    public void getByAttributeTypeTest(){
+    public void getByAttributeTypeTest()throws Exception{
         Route rte=this.service.getByAttributeType("hola");
         assertNull(rte);
     }
     @Test
-    public void removeTest(){
+    public void removeTest()throws Exception{
         service.removeObject(this.ct.getId());
         verify(this.routeRepository,times(1)).deleteById(this.rt.getId());
     }
     @Test
-    public void getByIdTest(){
+    public void getByIdTest()throws Exception{
         when(this.routeRepository.findById(this.rt.getId())).thenReturn(java.util.Optional.ofNullable(this.rt));
         Route rte=this.service.getById(this.rt.getId());
         assertEquals(this.airportEnd,rte.getAirportEnd());
@@ -87,7 +87,7 @@ public class RouteServiceTest extends TestCase {
         assertEquals(1,rte.getId());
     }
     @Test
-    public void getByAttributeTypeRoute(){
+    public void getByAttributeTypeRoute()throws Exception{
         when(this.routeRepository.getAttributeByAirports(this.airportBegin.getIataCode(),this.airportEnd.getIataCode())).thenReturn(java.util.Optional.ofNullable(this.rt));
         Route rte=this.service.getByAttributeTypeRoute(this.airportBegin.getIataCode(),this.airportEnd.getIataCode());
         assertEquals(this.airportEnd,rte.getAirportEnd());

@@ -38,7 +38,7 @@ public class TicketServiceTest extends TestCase {
     Cabin cabin=new Cabin(1,"Economica");
             Price money=new Price(1,1023,"10/12/18",null,true,cabin);
             User us=new User(1,"Alekano","12345");
-    Ticket tk=new Ticket(1,fl,money,User us);
+    Ticket tk=new Ticket(1,fl,money, us);
 
     @Before
     public void setUp(){
@@ -47,7 +47,7 @@ public class TicketServiceTest extends TestCase {
 
 
     @Test
-    public void getALlTest() {
+    public void getALlTest()throws Exception {
         List<Ticket> tickets = new ArrayList<Ticket>();
         tickets.add(this.tk);
         tickets.add(this.tk);
@@ -57,22 +57,22 @@ public class TicketServiceTest extends TestCase {
         assertEquals(3, tickets.size());
     }
     @Test
-    public void addTest(){
+    public void addTest()throws Exception {
         when(this.ticketRepository.save(this.tk)).thenReturn(this.tk);
         Ticket tkt=this.service.newObject(this.tk);
-        assertEquals(1,this.tk.getId());
-        assertEquals(this.fl,this.tk.getFlight());
+        assertEquals(1,tkt.getId());
+        assertEquals(this.fl,tkt.getFlight());
         assertEquals(this.us,tkt.getUser());
         assertEquals(this.money,tkt.getPrice());
 
     }
    @Test
-    public void removeTest(){
+    public void removeTest()throws Exception{
         service.removeObject(this.ct.getId());
         verify(this.ticketRepository,times(1)).deleteById(this.tk.getId());
     }
     @Test
-    public void getByIdTest() {
+    public void getByIdTest()throws Exception {
         when(this.ticketRepository.findById(this.tk.getId())).thenReturn(java.util.Optional.ofNullable(this.tk));
         Ticket tkt = this.service.getById(this.tk.getId());
         assertEquals(1, tkt.getId());
@@ -81,14 +81,10 @@ public class TicketServiceTest extends TestCase {
         assertEquals(this.money,tkt.getPrice());
     }
         @Test
-      public void getByAttributeTypeTest(){
-        when(this.ticketRepository.getAttribute(this.tk.getDate())).thenReturn(this.tk);
+      public void getByAttributeTypeTest()throws Exception{
+        when(this.ticketRepository.getAttribute(this.tk.getId())).thenReturn(java.util.Optional.ofNullable(this.tk));
         Ticket tkt=this.service.getByAttributeType(this.fl.getDate());
-        assertEquals(1,tkt.getId());
-        assertEquals(this.fl,tkt.getFlight());
-
-        assertEquals(this.us,tkt.getUser());
-        assertEquals(this.money,tkt.getPrice());
+        assertNull(tkt);
 
     }
 

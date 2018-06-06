@@ -18,21 +18,22 @@ public class UserService implements MethodsRepository<User>{
     private UserRepository userRepository;
 
     @Override
-    public List<User> getAll() {
+    public List<User> getAll()throws Exception {
         return this.userRepository.findAll();
     }
 
     @Override
-    public User getByAttributeType(String value) {
+    public User getByAttributeType(String value)throws Exception {
+
         return null;
     }
 
-    public User getByAttributeTypeUser(String value, String pass) {
+    public User getByAttributeTypeUser(String value, String pass)throws Exception {
         return this.userRepository.getAttribute(value,pass);
     }
 
     @Override
-    public User getById(Long id) {
+    public User getById(Long id)throws Exception {
         User user=null;
         Optional<User>useOptional=this.userRepository.findById(id);
         if(useOptional.isPresent()){
@@ -42,7 +43,7 @@ public class UserService implements MethodsRepository<User>{
     }
 
     @Override
-    public User newObject(User value) {
+    public User newObject(User value)throws Exception {
         if(value!=null){
             this.userRepository.save(value);
         }
@@ -50,7 +51,7 @@ public class UserService implements MethodsRepository<User>{
         return value;
     }
     @Override
-    public void removeObject(Long id) {
+    public void removeObject(Long id) throws Exception{
         this.userRepository.deleteById(id);
     }
 }

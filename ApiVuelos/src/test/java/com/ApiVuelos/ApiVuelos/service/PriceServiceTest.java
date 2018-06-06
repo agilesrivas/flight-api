@@ -40,7 +40,7 @@ public class PriceServiceTest extends TestCase {
 
 
     @Test
-    public void getAllTest() {
+    public void getAllTest() throws Exception{
         List<Price> prices = new ArrayList<Price>();
         prices.add(this.money);
         prices.add(this.money);
@@ -50,7 +50,7 @@ public class PriceServiceTest extends TestCase {
         assertEquals(3, dao.size());
     }
     @Test
-    public void getByAttributeTypePricesOffCabin(){
+    public void getByAttributeTypePricesOffCabin()throws Exception{
         List<Price> prices = new ArrayList<Price>();
         prices.add(this.money);
         when(this.priceRepository.getAllPricesOffCabin(this.cabin.getName())).thenReturn(prices);
@@ -59,35 +59,35 @@ public class PriceServiceTest extends TestCase {
 
     }
     @Test
-    public void newObjectTest(){
+    public void newObjectTest()throws Exception{
         when(this.priceRepository.save(this.money)).thenReturn(this.money);
         Price pc=this.service.newObject(this.money);
         assertEquals(1,pc.getId());
         assertEquals(1023,pc.getPrice(),0);
         assertEquals("10/12/18",pc.getFromDate());
         assertNull("NO TIENE FECHA AUN",pc.getToDate());
-        assertEquals(this.cabin,pc.getCabin());
+
         assertEquals(true,pc.isState_bool());
 
     }
     @Test
-    public void removeTest(){
+    public void removeTest()throws Exception{
         service.removeObject(this.money.getId());
         verify(this.priceRepository,times(1)).deleteById(this.money.getId());
     }
     @Test
-    public void getByIdTest() {
+    public void getByIdTest() throws Exception{
         when(this.priceRepository.findById(this.money.getId())).thenReturn(java.util.Optional.ofNullable(this.money));
         Price pc = this.service.getById(this.money.getId());
         assertEquals(1,pc.getId());
         assertEquals("10/12/18",pc.getFromDate());
         assertNull("NO TIENE FECHA AUN",pc.getToDate());
-        assertEquals(this.cabin,pc.getCabin());
-        assertEquals(1023,pc.getPrice());
+
+        assertEquals(1023,pc.getPrice(),0);
         assertEquals(true,pc.isState_bool());
     }
     @Test
-    public void getByAttributeTypeTest(){
+    public void getByAttributeTypeTest() throws Exception{
         Price rte=this.service.getByAttributeType("hola");
         assertNull(rte);
     }

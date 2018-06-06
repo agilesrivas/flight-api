@@ -44,7 +44,7 @@ public class UserServiceTest extends TestCase {
 
 
     @Test
-    public void getALlTest() {
+    public void getALlTest() throws Exception{
         List<Airport> listAirport = new ArrayList<Airport>();
         listAirport.add(this.airport);
         listAirport.add(this.airport);
@@ -54,7 +54,7 @@ public class UserServiceTest extends TestCase {
         assertEquals(3,dao.size());
     }
     @Test
-    public void addTest(){
+    public void addTest()throws Exception{
         when(this.airportRepository.save(this.airport)).thenReturn(this.airport);
         Airport air=this.service.newObject(this.airport);
         assertEquals(1,air.getId());
@@ -65,12 +65,12 @@ public class UserServiceTest extends TestCase {
         assertEquals(222,air.getLongitude(),0);
     }
     @Test
-    public void removeTest(){
+    public void removeTest()throws Exception{
         service.removeObject(this.airport.getId());
         verify(this.airportRepository,times(1)).deleteById(this.airport.getId());
     }
     @Test
-    public void getByIdTest(){
+    public void getByIdTest()throws Exception{
         when(this.airportRepository.findById(this.airport.getId())).thenReturn(java.util.Optional.ofNullable(this.airport));
         Airport air=this.service.getById(this.airport.getId());
         assertEquals(1,air.getId());
@@ -81,7 +81,7 @@ public class UserServiceTest extends TestCase {
         assertEquals(222,air.getLongitude(),0);
     }
     @Test
-    public void getByAttributeTypeTest(){
+    public void getByAttributeTypeTest()throws Exception{
         when(this.airportRepository.getAttribute(this.airport.getIataCode())).thenReturn(this.airport);
         Airport air=this.service.getByAttributeType(this.airport.getIataCode());
         assertEquals(1,air.getId());

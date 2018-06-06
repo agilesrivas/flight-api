@@ -40,7 +40,7 @@ public class CountryServiceTest extends TestCase {
 
 
     @Test
-    public void getALlTest() {
+    public void getALlTest() throws Exception{
         List<Country> listCountry = new ArrayList<Country>();
         listCountry.add(this.ct);
         listCountry.add(this.ct);
@@ -50,7 +50,7 @@ public class CountryServiceTest extends TestCase {
         assertEquals(3, listCountry.size());
     }
     @Test
-    public void addTest(){
+    public void addTest()throws Exception{
         when(this.countryRepository.save(this.ct)).thenReturn(this.ct);
         Country country=this.service.newObject(this.ct);
         assertEquals(1,country.getId());
@@ -60,12 +60,12 @@ public class CountryServiceTest extends TestCase {
     }
 
     @Test
-    public void removeTest(){
+    public void removeTest()throws Exception{
         service.removeObject(this.ct.getId());
         verify(this.countryRepository,times(1)).deleteById(this.ct.getId());
     }
     @Test
-    public void getByIdTest(){
+    public void getByIdTest()throws Exception{
         when(this.countryRepository.findById(this.ct.getId())).thenReturn(java.util.Optional.ofNullable(this.ct));
         Country country=this.service.getById(this.ct.getId());
         assertEquals(1,country.getId());
@@ -73,7 +73,7 @@ public class CountryServiceTest extends TestCase {
         assertEquals("ARG",country.getIsoCode());
     }
     @Test
-    public void getByAttributeTypeTest(){
+    public void getByAttributeTypeTest()throws Exception{
         when(this.countryRepository.getAttribute(this.ct.getName())).thenReturn(this.ct);
         Country country=this.service.getByAttributeType(this.ct.getName());
         assertEquals(1,country.getId());

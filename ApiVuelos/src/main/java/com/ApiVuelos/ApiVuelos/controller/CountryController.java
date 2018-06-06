@@ -40,8 +40,8 @@ public class CountryController {
         return status;
     }
 
-    @PutMapping(value = "/")
-    public ResponseEntity update(Country country){
+    @PutMapping(value = "/", consumes = "application/json")
+    public ResponseEntity update(@RequestBody Country country){
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 

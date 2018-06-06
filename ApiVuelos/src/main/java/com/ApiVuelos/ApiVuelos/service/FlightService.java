@@ -19,17 +19,17 @@ public class FlightService implements MethodsRepository<Flight> {
     private FlightRepository flightRepository;
 
     @Override
-    public List<Flight> getAll() {
+    public List<Flight> getAll() throws Exception{
         return this.flightRepository.findAll();
     }
 
     @Override
-    public Flight getByAttributeType(String value) {
+    public Flight getByAttributeType(String value)throws Exception {
         return null;
     }
 
     @Override
-    public Flight getById(Long id) {
+    public Flight getById(Long id) throws Exception{
         Flight flight=null;
         Optional<Flight> flightOptional=this.flightRepository.findById(id);
         if(flightOptional.isPresent()){
@@ -39,7 +39,7 @@ public class FlightService implements MethodsRepository<Flight> {
     }
 
     @Override
-    public Flight newObject(Flight value) {
+    public Flight newObject(Flight value)throws Exception {
         if(value!=null){
             this.flightRepository.save(value);
         }
@@ -49,7 +49,7 @@ public class FlightService implements MethodsRepository<Flight> {
 
 
     @Override
-    public void removeObject(Long id) {
+    public void removeObject(Long id) throws Exception{
         this.flightRepository.deleteById(id);
     }
 

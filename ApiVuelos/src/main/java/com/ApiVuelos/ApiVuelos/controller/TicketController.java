@@ -69,8 +69,8 @@ public class TicketController {
         return status;
     }
 
-    @PutMapping(value = "/")
-    public ResponseEntity update(Ticket tk2){
+    @PutMapping(value = "/", consumes = "application/json")
+    public ResponseEntity update(@RequestBody Ticket tk2){
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
@@ -119,7 +119,7 @@ public class TicketController {
                 this.ticketService.removeObject(id);
                 status = new ResponseEntity(HttpStatus.OK);
             }
-        } catch(PersistenceException e){
+        } catch( Exception e){
             status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
