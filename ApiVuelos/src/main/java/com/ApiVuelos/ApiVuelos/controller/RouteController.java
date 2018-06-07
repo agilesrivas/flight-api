@@ -30,8 +30,13 @@ public class RouteController {
         try{
             for(Route route : routes) {
                 if(!route.validateNullEmptyIdentifier()) {
-                    Airport airportBegin = this.airportService.getByAttributeType(route.getAirportBegin().getIataCode());
-                    Airport airportEnd = this.airportService.getByAttributeType(route.getAirportEnd().getIataCode());
+                    Airport airportBegin = route.getAirportBegin();
+                    Airport airportEnd = route.getAirportEnd();
+                    String iataBegin = airportBegin.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
+                    String iataEnd = airportEnd.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
+
+                    airportBegin = this.airportService.getByAttributeType(iataBegin);
+                    airportEnd = this.airportService.getByAttributeType(iataEnd);
                     route.setAirportBegin(airportBegin);
                     route.setAirportEnd(airportEnd);
 
@@ -65,8 +70,13 @@ public class RouteController {
                 Route routeDB = this.routeService.getById(value.getId());
 
                 if(routeDB != null && !(value.validateNullEmptyIdentifier())) {
-                    Airport airportBegin = this.airportService.getByAttributeType(value.getAirportBegin().getIataCode());
-                    Airport airportEnd = this.airportService.getByAttributeType(value.getAirportEnd().getIataCode());
+                    Airport airportBegin = value.getAirportBegin();
+                    Airport airportEnd = value.getAirportEnd();
+                    String iataBegin = airportBegin.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
+                    String iataEnd = airportEnd.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
+
+                    airportBegin = this.airportService.getByAttributeType(iataBegin);
+                    airportEnd = this.airportService.getByAttributeType(iataEnd);
                     value.setAirportBegin(airportBegin);
                     value.setAirportEnd(airportEnd);
 

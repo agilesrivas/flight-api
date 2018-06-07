@@ -25,6 +25,9 @@ public class CountryController {
         try{
             for(Country country : countries) {
                 if (!country.validateNullEmpty()) {
+                    String isoCode = country.getIsoCode().replaceAll("[^a-zA-Z0-9]","");
+                    country.setIsoCode(isoCode);
+
                     this.countryService.newObject(country);
                     status = new ResponseEntity(HttpStatus.OK);
 
@@ -50,6 +53,9 @@ public class CountryController {
                 Country countryDB = this.countryService.getById(country.getId());
 
                 if(countryDB != null) {
+                    String isoCode = country.getIsoCode().replaceAll("[^a-zA-Z0-9]","");
+                    country.setIsoCode(isoCode);
+
                     this.countryService.newObject(country);
                     status = new ResponseEntity(HttpStatus.OK);
                 }

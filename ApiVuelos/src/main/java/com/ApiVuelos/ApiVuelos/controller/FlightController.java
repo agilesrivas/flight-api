@@ -3,6 +3,7 @@ package com.ApiVuelos.ApiVuelos.controller;
 
 import com.ApiVuelos.ApiVuelos.service.FlightService;
 import com.ApiVuelos.ApiVuelos.service.RouteService;
+import com.utn.tssi.tp5.Models.model.Airport;
 import com.utn.tssi.tp5.Models.model.Flight;
 import com.utn.tssi.tp5.Models.model.Route;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,12 @@ public class FlightController {
                 Route route = flight.getRoute();
 
                 if (route != null && !(route.validateNullEmptyIdentifier())) {
-                    route = this.routeService.getByAttributeTypeRoute(flight.getRoute().getAirportBegin().getIataCode(), flight.getRoute().getAirportEnd().getIataCode());
+                    Airport airportBegin = route.getAirportBegin();
+                    Airport airportEnd = route.getAirportEnd();
+                    String iataBegin = airportBegin.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
+                    String iataEnd = airportEnd.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
+
+                    route = this.routeService.getByAttributeTypeRoute(iataBegin, iataEnd);
                     flight.setRoute(route);
 
                     if (!(flight.validateNullEmpty())) {
@@ -66,7 +72,14 @@ public class FlightController {
                 Flight flightDB = this.flightService.getById(flight.getId());
 
                 if(flightDB != null && !(flight.validateNullEmptyIdentifier())) {
-                    Route route = this.routeService.getByAttributeTypeRoute(flight.getRoute().getAirportBegin().getIataCode(), flight.getRoute().getAirportEnd().getIataCode());
+                    Route route = flight.getRoute();
+
+                    Airport airportBegin = route.getAirportBegin();
+                    Airport airportEnd = route.getAirportEnd();
+                    String iataBegin = airportBegin.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
+                    String iataEnd = airportEnd.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
+
+                    route = this.routeService.getByAttributeTypeRoute(iataBegin, iataEnd);
                     flight.setRoute(route);
 
                     if(!flight.validateNullEmpty()) {
