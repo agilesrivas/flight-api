@@ -81,8 +81,8 @@ ALTER TABLE cabins COLLATE utf8_unicode_ci;
 CREATE TABLE IF NOT EXISTS `prices` (
 	`id` INT AUTO_INCREMENT NOT NULL,
     `id_Cabin` INT NOT NULL,
-    `fromDate` VARCHAR(15) NOT NULL,
-    `toDate` VARCHAR(15),
+    `from_Date` VARCHAR(15) NOT NULL,
+    `to_Date` VARCHAR(15),
     `price` FLOAT NOT NULL,
     `state_bool` BOOLEAN,
     CONSTRAINT `pk_Price` PRIMARY KEY(`id`),
@@ -102,14 +102,14 @@ ALTER TABLE users COLLATE utf8_unicode_ci;
 CREATE TABLE IF NOT EXISTS `tickets` (
 	`id` INT AUTO_INCREMENT NOT NULL,
     `id_Flight` INT NOT NULL,
-    `id_Cabin` INT NOT NULL,
+    `id_Price` INT NOT NULL,
 	`id_User` INT NOT NULL,
     `total_price` FLOAT UNSIGNED,
     `date_flight` DATE,
     CONSTRAINT `pk_Ticket` PRIMARY KEY(id),
     CONSTRAINT `fk_id_Flight_Ticket` FOREIGN KEY(`id_Flight`) REFERENCES `flights`(`id`) ON UPDATE NO ACTION,
     CONSTRAINT `fk_id_User_Ticket` FOREIGN KEY(`id_User`) REFERENCES `users`(`id`) ON UPDATE NO ACTION,
-    CONSTRAINT `fk_id_Cabin_Ticket` FOREIGN KEY(`id_Cabin`) REFERENCES `cabins`(`id`) ON UPDATE NO ACTION
+    CONSTRAINT `fk_id_Price_Ticket` FOREIGN KEY(`id_Price`) REFERENCES `prices`(`id`) ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
 ALTER TABLE tickets COLLATE utf8_unicode_ci;
 

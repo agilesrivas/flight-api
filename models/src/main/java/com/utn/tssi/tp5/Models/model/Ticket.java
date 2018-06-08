@@ -26,7 +26,7 @@ public class Ticket implements ValidationInterface<Ticket>{
     @ManyToOne(fetch = FetchType.EAGER)
     private Flight flight;
 
-    @JoinColumn(name = "id_Cabin", nullable = false)
+    @JoinColumn(name = "id_Price", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER)
     private Price price;
 
