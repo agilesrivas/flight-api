@@ -67,7 +67,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.utn.tssi.tp5.Models.model.CabinTest" name="testValidateNullEmptyIdentifierAttributeNull" time="0.001"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.CabinTest" name="testValidateNullEmptyIdentifierAttributeNull" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.CabinTest" name="testEqualsOtherObject" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.CabinTest" name="testValidateNullEmptyOK" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.CabinTest" name="testValidateNullEmptyIdentifierOK" time="0"/>
@@ -77,7 +77,7 @@
   <testcase classname="com.utn.tssi.tp5.Models.model.CabinTest" name="testEqualsNull" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.CabinTest" name="testEqualsDifferentAttributes" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.CabinTest" name="testHashCodeOneNull" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.CabinTest" name="testEqualsNullAttributes" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.CabinTest" name="testEqualsNullAttributes" time="0.001"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.CabinTest" name="testToStringOK" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.CabinTest" name="testHashCodeAllNull" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.CabinTest" name="testEqualsOK" time="0"/>
