@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AirportTest extends TestCase {
+public class AirportTest extends TestCase{
 
     Airport airport;
     Airport otherAirport;
@@ -14,121 +14,88 @@ public class AirportTest extends TestCase {
 
         Country country = new Country(1, "Argentina", "ARG");
         State state = new State(1, "Buenos Aires", "BA", country);
-        City city = new City(1, "Buenos Aires", "CABA", state);
+        City city = new City(1, "Mar del Plata", "7600", state);
 
-        this.airport = new Airport(1, "Jorge Newbery", "AEP", city, (float)23.14, (float)108.11);
-        this.otherAirport = new Airport("Ezeiza International Airport", "EZE", city, (float)24.22, (float)107.58);
+        this.airport = new Airport(1, "Aeropuerto Astor Piazzolla", "MDQ", city, (float)-56.55, (float)-45.45);
+        this.otherAirport = new Airport();
     }
 
     @Test
     public void testToStringOK() {
-        String value = this.airport.toString();
-        assertEquals("Checking toString", value, "{iataCode='AEP', name='Jorge Newbery', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}");
+        assertEquals("Checking toString", this.airport.toString(), "{iataCode='MDQ', name='Aeropuerto Astor Piazzolla', city={name='Mar del Plata', iataCode='7600', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=-56.55, longitude=-45.45}");
     }
 
     @Test
-    public void testToStringNull() {
-        this.airport.setCity(null);
-        String value = this.airport.toString();
-
-        assertEquals("Checking toString", value, "{iataCode='AEP', name='Jorge Newbery', city=null, latitude=23.14, longitude=108.11}");
-    }
-
-    @Test
-    public void testEqualsNull(){
-        boolean value = this.airport.equals(null);
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsOtherObject(){
-        boolean value = this.airport.equals("String");
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsNullAttributes(){
-
-        boolean value = this.airport.equals(new Airport());
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsDifferentAttributes(){
-        boolean value = this.airport.equals(this.otherAirport);
-        assertEquals("Checking equals", value, false);
+    public void testToStringBad() {
+        assertEquals("Checking toString", this.otherAirport.toString(), "{iataCode='null', name='null', city=null, latitude=0.0, longitude=0.0}");
     }
 
     @Test
     public void testEqualsOK(){
         this.otherAirport = this.airport;
+        assertTrue("Checking equals", this.airport.equals(this.otherAirport));
+    }
 
-        boolean value = this.airport.equals(this.otherAirport);
-        assertEquals("Checking equals", value, true);
+    @Test
+    public void testEqualsBad(){
+        this.otherAirport = new Airport("Pisterini", "PPPP", null, 0, 0);
+
+        assertFalse("Checking equals", this.airport.equals(null));
+        assertFalse("Checking equals", this.airport.equals("String"));
+        assertFalse("Checking equals", this.airport.equals(this.otherAirport));
+        this.otherAirport.setId(1);
+        assertFalse("Checking equals", this.airport.equals(this.otherAirport));
+        this.otherAirport.setName("Aeropuerto Astor Piazzolla");
+        assertFalse("Checking equals", this.airport.equals(this.otherAirport));
+        this.otherAirport.setIataCode("MDQ");
+        assertFalse("Checking equals", this.airport.equals(this.otherAirport));
+        this.otherAirport.setCity(this.airport.getCity());
+        assertFalse("Checking equals", this.airport.equals(this.otherAirport));
+        this.otherAirport.setLatitude((float)-56.55);
+        assertFalse("Checking equals", this.airport.equals(this.otherAirport));
     }
 
     @Test
     public void testHashCodeOK() {
-        int value = this.airport.hashCode();
-        assertEquals("Checking hashCode", value, -1606017605);
+        assertEquals("Checking hashCode", this.airport.hashCode(), 1976432028);
     }
 
     @Test
-    public void testHashCodeOneNull() {
-        this.airport.setIataCode(null);
-        int value = this.airport.hashCode();
-        assertEquals("Checking hashCode", value, 761948647);
-    }
-
-    @Test
-    public void testHashCodeAllNull() {
-        this.airport = new Airport();
-
-        int value = this.airport.hashCode();
-        assertEquals("Checking hashCode", value, -459850354);
+    public void testHashCodeBad() {
+        assertEquals("Checking hashCode", this.otherAirport.hashCode(), -459850354);
     }
 
     @Test
     public void testValidateNullEmptyOK() {
-        boolean value = this.airport.validateNullEmpty();
-        assertFalse("Checking validateNullEmpty", value);
+        assertFalse("Checking validateNullEmpty", this.airport.validateNullEmpty());
     }
 
     @Test
-    public void testValidateNullEmptyAttributeNull() {
-        this.airport.setName(null);
+    public void testValidateNullEmptyBad() {
+        assertTrue("Checking validateNullEmpty", this.otherAirport.validateNullEmpty());
+        this.otherAirport.setName("");
+        assertTrue("Checking validateNullEmpty", this.otherAirport.validateNullEmpty());
+        this.otherAirport.setName("A");
 
-        boolean value = this.airport.validateNullEmpty();
-        assertTrue("Checking validateNullEmpty", value);
-    }
+        assertTrue("Checking validateNullEmpty", this.otherAirport.validateNullEmpty());
+        this.otherAirport.setIataCode("");
+        assertTrue("Checking validateNullEmpty", this.otherAirport.validateNullEmpty());
+        this.otherAirport.setIataCode("A");
 
-    @Test
-    public void testValidateNullEmptyAttributeEmpty() {
-        this.airport.setName("");
-
-        boolean value = this.airport.validateNullEmpty();
-        assertTrue("Checking validateNullEmpty", value);
+        assertTrue("Checking validateNullEmpty", this.otherAirport.validateNullEmpty());
+        this.otherAirport.setCity(new City());
+        assertTrue("Checking validateNullEmpty", this.otherAirport.validateNullEmpty());
     }
 
     @Test
     public void testValidateNullEmptyIdentifierOK() {
-        boolean value = this.airport.validateNullEmptyIdentifier();
-        assertFalse("Checking validateNullEmptyIdentifier", value);
+        assertFalse("Checking validateNullEmptyIdentifier", this.airport.validateNullEmptyIdentifier());
     }
 
     @Test
     public void testValidateNullEmptyIdentifierAttributeNull() {
-        this.airport.setIataCode(null);
-
-        boolean value = this.airport.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
-    }
-
-    @Test
-    public void testValidateNullEmptyIdentifierAttributeEmpty() {
-        this.airport.setIataCode("");
-
-        boolean value = this.airport.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
+        assertTrue("Checking validateNullEmptyIdentifier", this.otherAirport.validateNullEmptyIdentifier());
+        this.otherAirport.setIataCode("");
+        assertTrue("Checking validateNullEmptyIdentifier", this.otherAirport.validateNullEmptyIdentifier());
     }
 }

@@ -12,118 +12,74 @@ public class CountryTest extends TestCase{
     @Before
     public void setUp() {
         this.country = new Country(1, "Argentina", "ARG");
-        this.otherCountry = new Country("Brasil", "BR");
+        this.otherCountry = new Country();
     }
 
     @Test
     public void testToStringOK() {
-        String value = this.country.toString();
-        assertEquals("Checking toString", value, "{name='Argentina', isoCode='ARG'}");
+        assertEquals("Checking toString", this.country.toString(), "{name='Argentina', isoCode='ARG'}");
     }
 
     @Test
-    public void testToStringNull() {
-        this.country.setName(null);
-        String value = this.country.toString();
-
-        assertEquals("Checking toString", value, "{name='null', isoCode='ARG'}");
-    }
-
-    @Test
-    public void testEqualsNull(){
-        boolean value = this.country.equals(null);
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsOtherObject(){
-        boolean value = this.country.equals("String");
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsNullAttributes(){
-
-        boolean value = this.country.equals(new Country());
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsDifferentAttributes(){
-        boolean value = this.country.equals(this.otherCountry);
-        assertEquals("Checking equals", value, false);
+    public void testToStringBad() {
+        assertEquals("Checking toString", this.otherCountry.toString(), "{name='null', isoCode='null'}");
     }
 
     @Test
     public void testEqualsOK(){
         this.otherCountry = this.country;
+        assertTrue("Checking equals", this.country.equals(otherCountry));
+    }
 
-        boolean value = this.country.equals(otherCountry);
-        assertEquals("Checking equals", value, true);
+    @Test
+    public void testEqualsBad(){
+        this.otherCountry = new Country("Brasil", "BR");
+
+        assertFalse("Checking equals", this.country.equals(null));
+        assertFalse("Checking equals", this.country.equals("String"));
+        assertFalse("Checking equals", this.country.equals(this.otherCountry));
+        this.otherCountry.setId(1);
+        assertFalse("Checking equals", this.country.equals(this.otherCountry));
+        this.otherCountry.setName("Argentina");
+        assertFalse("Checking equals", this.country.equals(this.otherCountry));
     }
 
     @Test
     public void testHashCodeOK() {
-        int value = this.country.hashCode();
-        assertEquals("Checking hashCode", value, 2044507685);
+        assertEquals("Checking hashCode", this.country.hashCode(), 2044507685);
     }
 
     @Test
-    public void testHashCodeOneNull() {
-        this.country.setIsoCode(null);
-        int value = this.country.hashCode();
-        assertEquals("Checking hashCode", value, 2044442607);
-    }
-
-    @Test
-    public void testHashCodeAllNull() {
-        this.country = new Country();
-
-        int value = this.country.hashCode();
-        assertEquals("Checking hashCode", value, 327701);
+    public void testHashCodeBad() {
+        assertEquals("Checking hashCode", this.otherCountry.hashCode(), 327701);
     }
 
     @Test
     public void testValidateNullEmptyOK() {
-        boolean value = this.country.validateNullEmpty();
-        assertFalse("Checking validateNullEmpty", value);
+        assertFalse("Checking validateNullEmpty", this.country.validateNullEmpty());
     }
 
     @Test
-    public void testValidateNullEmptyAttributeNull() {
-        this.country.setName(null);
+    public void testValidateNullEmptyBad() {
+        assertTrue("Checking validateNullEmpty", this.otherCountry.validateNullEmpty());
+        this.otherCountry.setName("   ");
+        assertTrue("Checking validateNullEmpty", this.otherCountry.validateNullEmpty());
+        this.otherCountry.setName("A");
 
-        boolean value = this.country.validateNullEmpty();
-        assertTrue("Checking validateNullEmpty", value);
-    }
-
-    @Test
-    public void testValidateNullEmptyAttributeEmpty() {
-        this.country.setName("");
-
-        boolean value = this.country.validateNullEmpty();
-        assertTrue("Checking validateNullEmpty", value);
+        assertTrue("Checking validateNullEmpty", this.otherCountry.validateNullEmpty());
+        this.otherCountry.setIsoCode("    ");
+        assertTrue("Checking validateNullEmpty", this.otherCountry.validateNullEmpty());
     }
 
     @Test
     public void testValidateNullEmptyIdentifierOK() {
-        boolean value = this.country.validateNullEmptyIdentifier();
-        assertFalse("Checking validateNullEmptyIdentifier", value);
+        assertFalse("Checking validateNullEmptyIdentifier", this.country.validateNullEmptyIdentifier());
     }
 
     @Test
     public void testValidateNullEmptyIdentifierAttributeNull() {
-        this.country.setIsoCode(null);
-
-        boolean value = this.country.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
-    }
-
-    @Test
-    public void testValidateNullEmptyIdentifierAttributeEmpty() {
-        this.country.setIsoCode("");
-
-        boolean value = this.country.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
+        assertTrue("Checking validateNullEmptyIdentifier", this.otherCountry.validateNullEmptyIdentifier());
+        this.otherCountry.setIsoCode("   ");
+        assertTrue("Checking validateNullEmptyIdentifier", this.otherCountry.validateNullEmptyIdentifier());
     }
 }

@@ -12,118 +12,74 @@ public class UserTest extends TestCase {
     @Before
     public void setUp() {
         this.user = new User(1, "pepe", "pompin");
-        this.otherUser = new User("luisito", "contraseña");
+        this.otherUser = new User();
     }
 
     @Test
     public void testToStringOK() {
-        String value = this.user.toString();
-        assertEquals("Checking toString", value, "{name='pepe', password='pompin'}");
+        assertEquals("Checking toString", this.user.toString(), "{name='pepe', password='pompin'}");
     }
 
     @Test
-    public void testToStringNull() {
-        this.user.setName(null);
-        String value = this.user.toString();
-
-        assertEquals("Checking toString", value, "{name='null', password='pompin'}");
-    }
-
-    @Test
-    public void testEqualsNull(){
-        boolean value = this.user.equals(null);
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsOtherObject(){
-        boolean value = this.user.equals("String");
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsNullAttributes(){
-
-        boolean value = this.user.equals(new User());
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsDifferentAttributes(){
-        boolean value = this.user.equals(this.otherUser);
-        assertEquals("Checking equals", value, false);
+    public void testToStringBad() {
+        assertEquals("Checking toString", this.otherUser.toString(), "{name='null', password='null'}");
     }
 
     @Test
     public void testEqualsOK(){
         this.otherUser = this.user;
+        assertTrue("Checking equals", this.user.equals(otherUser));
+    }
 
-        boolean value = this.user.equals(otherUser);
-        assertEquals("Checking equals", value, true);
+    @Test
+    public void testEqualsBad(){
+        this.otherUser = new User("Brasil", "BR");
+
+        assertFalse("Checking equals", this.user.equals(null));
+        assertFalse("Checking equals", this.user.equals("String"));
+        assertFalse("Checking equals", this.user.equals(this.otherUser));
+        this.otherUser.setId(1);
+        assertFalse("Checking equals", this.user.equals(this.otherUser));
+        this.otherUser.setName("pepe");
+        assertFalse("Checking equals", this.user.equals(this.otherUser));
     }
 
     @Test
     public void testHashCodeOK() {
-        int value = this.user.hashCode();
-        assertEquals("Checking hashCode", value, -1371078795);
+        assertEquals("Checking hashCode", this.user.hashCode(), -875512341);
     }
 
     @Test
-    public void testHashCodeOneNull() {
-        this.user.setName(null);
-        int value = this.user.hashCode();
-        assertEquals("Checking hashCode", value, -379285685);
-    }
-
-    @Test
-    public void testHashCodeAllNull() {
-        this.user = new User();
-
-        int value = this.user.hashCode();
-        assertEquals("Checking hashCode", value, 17546899);
+    public void testHashCodeBad() {
+        assertEquals("Checking hashCode", this.otherUser.hashCode(), 566029);
     }
 
     @Test
     public void testValidateNullEmptyOK() {
-        boolean value = this.user.validateNullEmpty();
-        assertFalse("Checking validateNullEmpty", value);
+        assertFalse("Checking validateNullEmpty", this.user.validateNullEmpty());
     }
 
     @Test
-    public void testValidateNullEmptyAttributeNull() {
-        this.user.setName(null);
+    public void testValidateNullEmptyBad() {
+        assertTrue("Checking validateNullEmpty", this.otherUser.validateNullEmpty());
+        this.otherUser.setName("");
+        assertTrue("Checking validateNullEmpty", this.otherUser.validateNullEmpty());
+        this.otherUser.setName("A");
 
-        boolean value = this.user.validateNullEmpty();
-        assertTrue("Checking validateNullEmpty", value);
-    }
-
-    @Test
-    public void testValidateNullEmptyAttributeEmpty() {
-        this.user.setName("");
-
-        boolean value = this.user.validateNullEmpty();
-        assertTrue("Checking validateNullEmpty", value);
+        assertTrue("Checking validateNullEmpty", this.otherUser.validateNullEmpty());
+        this.otherUser.setPassword("");
+        assertTrue("Checking validateNullEmpty", this.otherUser.validateNullEmpty());
     }
 
     @Test
     public void testValidateNullEmptyIdentifierOK() {
-        boolean value = this.user.validateNullEmptyIdentifier();
-        assertFalse("Checking validateNullEmptyIdentifier", value);
+        assertFalse("Checking validateNullEmptyIdentifier", this.user.validateNullEmptyIdentifier());
     }
 
     @Test
     public void testValidateNullEmptyIdentifierAttributeNull() {
-        this.user.setName(null);
-
-        boolean value = this.user.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
-    }
-
-    @Test
-    public void testValidateNullEmptyIdentifierAttributeEmpty() {
-        this.user.setName("");
-
-        boolean value = this.user.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
+        assertTrue("Checking validateNullEmptyIdentifier", this.otherUser.validateNullEmptyIdentifier());
+        this.otherUser.setName("");
+        assertTrue("Checking validateNullEmptyIdentifier", this.otherUser.validateNullEmptyIdentifier());
     }
 }

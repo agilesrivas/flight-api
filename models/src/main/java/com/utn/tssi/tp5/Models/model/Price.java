@@ -68,7 +68,7 @@ public class Price implements ValidationInterface<Price>{
         if (o == null || !(o instanceof Price)) return false;
 
         Price price= (Price) o;
-        return this.id == price.getId() && this.price == price.getPrice() && this.from_Date.equals(price.getFrom_Date()) && this.to_Date.equals(price.getTo_Date()) && this.state_bool == price.isState_bool() && this.cabin.equals(price.getCabin());
+        return this.id == price.getId() && this.price == price.getPrice() && this.from_Date.equals(price.getFrom_Date()) && ((this.to_Date == null)? null == price.getTo_Date() : this.to_Date.equals(price.getTo_Date())) && this.state_bool == price.isState_bool() && this.cabin.equals(price.getCabin());
     }
 
     @Override
