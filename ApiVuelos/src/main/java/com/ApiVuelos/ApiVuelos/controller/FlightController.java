@@ -154,4 +154,24 @@ public class FlightController {
 
         return status;
     }
+
+    @GetMapping(value = "/a")
+    public ResponseEntity<List<Flight>> getBetweenDates(@RequestParam("from_date") String fromDate, @RequestParam("to_date") String toDate){
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
+
+        try{
+            if(fromDate != null && !(fromDate.trim().equals("")) && toDate != null && !(toDate.trim().equals(""))){
+                List<Flight> flights = this.flightService.getByAttributeDate(fromDate, toDate);
+
+                if (!flights.isEmpty()) {
+                    status = new ResponseEntity<List<Flight>>(flights, HttpStatus.OK);
+                }
+            }
+        } catch(Exception e) {
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return status;
+    }
 }

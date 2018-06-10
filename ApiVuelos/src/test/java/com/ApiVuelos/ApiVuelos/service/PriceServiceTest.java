@@ -64,8 +64,8 @@ public class PriceServiceTest extends TestCase {
         Price pc=this.service.newObject(this.money);
         assertEquals(1,pc.getId());
         assertEquals(1023,pc.getPrice(),0);
-        assertEquals("10/12/18",pc.getFromDate());
-        assertNull("NO TIENE FECHA AUN",pc.getToDate());
+        assertEquals("10/12/18",pc.getFrom_Date());
+        assertNull("NO TIENE FECHA AUN",pc.getTo_Date());
 
         assertEquals(true,pc.isState_bool());
 
@@ -80,8 +80,8 @@ public class PriceServiceTest extends TestCase {
         when(this.priceRepository.findById(this.money.getId())).thenReturn(java.util.Optional.ofNullable(this.money));
         Price pc = this.service.getById(this.money.getId());
         assertEquals(1,pc.getId());
-        assertEquals("10/12/18",pc.getFromDate());
-        assertNull("NO TIENE FECHA AUN",pc.getToDate());
+        assertEquals("10/12/18",pc.getFrom_Date());
+        assertNull("NO TIENE FECHA AUN",pc.getTo_Date());
 
         assertEquals(1023,pc.getPrice(),0);
         assertEquals(true,pc.isState_bool());
