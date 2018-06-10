@@ -12,122 +12,87 @@ public class PriceTest extends TestCase {
     @Before
     public void setUp() {
         Cabin cabin = new Cabin(1, "Económico");
-        Cabin cabin2 = new Cabin(2, "VIP");
 
         this.price = new Price(1, (float)1.12, "25/06/2018", null, true, cabin);
-        this.otherPrice = new Price((float)2.42, "29/06/2018", null, true, cabin2);
+        this.otherPrice = new Price();
     }
 
     @Test
     public void testToStringOK() {
-        String value = this.price.toString();
-        assertEquals("Checking toString", value, "{price=1.12, fromDate='25/06/2018', toDate='null', state_bool=true, cabin={name='Económico'}}");
+        assertEquals("Checking toString", this.price.toString(), "{price=1.12, fromDate='25/06/2018', toDate='null', state_bool=true, cabin={name='Económico'}}");
     }
 
     @Test
-    public void testToStringNull() {
-        this.price.setCabin(null);
-        String value = this.price.toString();
-
-        assertEquals("Checking toString", value, "{price=1.12, fromDate='25/06/2018', toDate='null', state_bool=true, cabin=null}");
-    }
-
-    @Test
-    public void testEqualsNull(){
-        boolean value = this.price.equals(null);
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsOtherObject(){
-        boolean value = this.price.equals("String");
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsNullAttributes(){
-        this.otherPrice = new Price();
-
-        boolean value = this.price.equals(otherPrice);
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsDifferentAttributes(){
-        boolean value = this.price.equals(this.otherPrice);
-        assertEquals("Checking equals", value, false);
+    public void testToStringBad() {
+        assertEquals("Checking toString", this.otherPrice.toString(), "{price=0.0, fromDate='null', toDate='null', state_bool=false, cabin=null}");
     }
 
     @Test
     public void testEqualsOK(){
         this.otherPrice = this.price;
+        assertTrue("Checking equals", this.price.equals(otherPrice));
+    }
 
-        boolean value = this.price.equals(otherPrice);
-        assertEquals("Checking equals", value, true);
+    @Test
+    public void testEqualsBad(){
+        this.otherPrice = new Price((float)2.42, "29/06/2018", "89/88/8888", false, new Cabin());
+
+        assertFalse("Checking equals", this.price.equals(null));
+        assertFalse("Checking equals", this.price.equals("String"));
+        assertFalse("Checking equals", this.price.equals(this.otherPrice));
+        this.otherPrice.setId(1);
+        assertFalse("Checking equals", this.price.equals(this.otherPrice));
+        this.otherPrice.setPrice((float)1.12);
+        assertFalse("Checking equals", this.price.equals(this.otherPrice));
+        this.otherPrice.setFrom_Date("25/06/2018");
+        assertFalse("Checking equals", this.price.equals(this.otherPrice));
+        this.otherPrice.setTo_Date(null);
+        assertFalse("Checking equals", this.price.equals(this.otherPrice));
+        this.otherPrice.setState_bool(true);
+        assertFalse("Checking equals", this.price.equals(this.otherPrice));
     }
 
     @Test
     public void testHashCodeOK() {
-        int value = this.price.hashCode();
-        assertEquals("Checking hashCode", value, 1841679452);
+        assertEquals("Checking hashCode", this.price.hashCode(), 1841679452);
     }
 
     @Test
-    public void testHashCodeOneNull() {
-        this.price.setPrice(0);
-        int value = this.price.hashCode();
-        assertEquals("Checking hashCode", value, 1841649661);
-    }
-
-    @Test
-    public void testHashCodeAllNull() {
-        this.otherPrice = new Price();
-
-        int value = this.price.hashCode();
-        assertEquals("Checking hashCode", value, 1841679452);
+    public void testHashCodeBad() {
+        assertEquals("Checking hashCode", this.otherPrice.hashCode(), 429437265);
     }
 
     @Test
     public void testValidateNullEmptyOK() {
-        boolean value = this.price.validateNullEmpty();
-        assertFalse("Checking validateNullEmpty", value);
+        assertFalse("Checking validateNullEmpty", this.price.validateNullEmpty());
     }
 
     @Test
-    public void testValidateNullEmptyAttributeNull() {
-        this.price.setCabin(null);
+    public void testValidateNullEmptyBad() {
+        assertTrue("Checking validateNullEmpty", this.otherPrice.validateNullEmpty());
+        this.otherPrice.setPrice(-1);
+        assertTrue("Checking validateNullEmpty", this.otherPrice.validateNullEmpty());
+        this.otherPrice.setPrice(0);
 
-        boolean value = this.price.validateNullEmpty();
-        assertTrue("Checking validateNullEmpty", value);
-    }
+        assertTrue("Checking validateNullEmpty", this.otherPrice.validateNullEmpty());
+        this.otherPrice.setCabin(new Cabin());
+        assertTrue("Checking validateNullEmpty", this.otherPrice.validateNullEmpty());
+        this.otherPrice.setCabin(this.price.getCabin());
 
-    @Test
-    public void testValidateNullEmptyAttributeEmpty() {
-        this.price.setPrice(-1);
-
-        boolean value = this.price.validateNullEmpty();
-        assertTrue("Checking validateNullEmpty", value);
+        assertTrue("Checking validateNullEmpty", this.otherPrice.validateNullEmpty());
+        this.otherPrice.setFrom_Date("");
+        assertTrue("Checking validateNullEmpty", this.otherPrice.validateNullEmpty());
     }
 
     @Test
     public void testValidateNullEmptyIdentifierOK() {
-        boolean value = this.price.validateNullEmptyIdentifier();
-        assertFalse("Checking validateNullEmptyIdentifier", value);
+        assertFalse("Checking validateNullEmptyIdentifier", this.price.validateNullEmptyIdentifier());
     }
 
     @Test
     public void testValidateNullEmptyIdentifierAttributeNull() {
-        this.price.setCabin(null);
-
-        boolean value = this.price.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
-    }
-
-    @Test
-    public void testValidateNullEmptyIdentifierAttributeEmpty() {
-        this.price.getCabin().setName("");
-
-        boolean value = this.price.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
+        assertTrue("Checking validateNullEmptyIdentifier", this.otherPrice.validateNullEmptyIdentifier());
+        this.otherPrice.setCabin(new Cabin());
+        assertTrue("Checking validateNullEmptyIdentifier", this.otherPrice.validateNullEmptyIdentifier());
     }
 }

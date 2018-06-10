@@ -27,122 +27,104 @@ public class TicketTest extends TestCase{
         User user = new User(1, "pepe", "pompin");
 
         this.ticket = new Ticket(1, flight, priceA, user);
-        this.otherTicket = new Ticket(flight, priceB, user);
+        this.otherTicket = new Ticket();
     }
 
     @Test
     public void testToStringOK() {
-        String value = this.ticket.toString();
-        assertEquals("Checking toString", value, "{flight={route={airportBegin={iataCode='AEP', name='Jorge Newbery', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}, airportEnd={iataCode='EZE', name='Ezeiza International Airport', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=24.22, longitude=107.58}, distance=50, estimatedTime=3}, date='21/05/2018'}, price={price=1.12, fromDate='25/06/2018', toDate='null', state_bool=true, cabin={name='Económica'}}, user={name='pepe', password='pompin'}, date='21/05/2018', totalPrice=56.00000023841858}");
+        assertEquals("Checking toString", this.ticket.toString(), "{flight={route={airportBegin={iataCode='AEP', name='Jorge Newbery', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}, airportEnd={iataCode='EZE', name='Ezeiza International Airport', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=24.22, longitude=107.58}, distance=50, estimatedTime=3}, date='21/05/2018'}, price={price=1.12, fromDate='25/06/2018', toDate='null', state_bool=true, cabin={name='Económica'}}, user={name='pepe', password='pompin'}, date='21/05/2018', totalPrice=56.00000023841858}");
     }
 
     @Test
-    public void testToStringNull() {
-        this.ticket.setFlight(null);
-        this.ticket.calculateTotalPrice();
-
-        String value = this.ticket.toString();
-
-        assertEquals("Checking toString", value, "{flight=null, price={price=1.12, fromDate='25/06/2018', toDate='null', state_bool=true, cabin={name='Económica'}}, user={name='pepe', password='pompin'}, date='21/05/2018', totalPrice=0.0}");
-    }
-
-    @Test
-    public void testEqualsNull(){
-        boolean value = this.ticket.equals(null);
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsOtherObject(){
-        boolean value = this.ticket.equals("String");
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsNullAttributes(){
-
-        boolean value = this.ticket.equals(new Ticket());
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsDifferentAttributes(){
-        boolean value = this.ticket.equals(this.otherTicket);
-        assertEquals("Checking equals", value, false);
+    public void testToStringBad() {
+        assertEquals("Checking toString", this.otherTicket.toString(), "{flight=null, price=null, user=null, date='null', totalPrice=0.0}");
     }
 
     @Test
     public void testEqualsOK(){
         this.otherTicket = this.ticket;
+        assertTrue("Checking equals", this.ticket.equals(this.otherTicket));
+    }
 
-        boolean value = this.ticket.equals(this.otherTicket);
-        assertEquals("Checking equals", value, true);
+    @Test
+    public void testEqualsBad(){
+        this.otherTicket = new Ticket(new Flight(), new Price(), new User());
+
+        assertFalse("Checking equals", this.ticket.equals(null));
+        assertFalse("Checking equals", this.ticket.equals("String"));
+        assertFalse("Checking equals", this.ticket.equals(this.otherTicket));
+        this.otherTicket.setId(1);
+        assertFalse("Checking equals", this.ticket.equals(this.otherTicket));
+        this.otherTicket.setFlight(this.ticket.getFlight());
+        assertFalse("Checking equals", this.ticket.equals(this.otherTicket));
+        this.otherTicket.setPrice(this.ticket.getPrice());
+        assertFalse("Checking equals", this.ticket.equals(this.otherTicket));
+        this.otherTicket.setUser(this.ticket.getUser());
+        assertFalse("Checking equals", this.ticket.equals(this.otherTicket));
+        this.otherTicket.setDate(this.ticket.getFlight().getDate());
+        assertFalse("Checking equals", this.ticket.equals(this.otherTicket));
     }
 
     @Test
     public void testHashCodeOK() {
-        int value = this.ticket.hashCode();
-        assertEquals("Checking hashCode", value, 1866296128);
+        assertEquals("Checking hashCode", this.ticket.hashCode(), 1364288566);
     }
 
     @Test
-    public void testHashCodeOneNull() {
-        this.ticket.setFlight(null);
-        this.ticket.calculateTotalPrice();
-
-        int value = this.ticket.hashCode();
-        assertEquals("Checking hashCode", value, 129905625);
-    }
-
-    @Test
-    public void testHashCodeAllNull() {
-        this.ticket = new Ticket();
-
-        int value = this.ticket.hashCode();
-        assertEquals("Checking hashCode", value, -1204802926);
+    public void testHashCodeBad() {
+        assertEquals("Checking hashCode", this.otherTicket.hashCode(), -1204802926);
     }
 
     @Test
     public void testValidateNullEmptyOK() {
-        boolean value = this.ticket.validateNullEmpty();
-        assertFalse("Checking validateNullEmpty", value);
+        assertFalse("Checking validateNullEmpty", this.ticket.validateNullEmpty());
     }
 
     @Test
-    public void testValidateNullEmptyAttributeNull() {
-        this.ticket.setFlight(null);
+    public void testValidateNullEmptyBad() {
+        assertTrue("Checking validateNullEmpty", this.otherTicket.validateNullEmpty());
+        this.otherTicket.setFlight(new Flight());
+        assertTrue("Checking validateNullEmpty", this.otherTicket.validateNullEmpty());
+        this.otherTicket.setFlight(this.ticket.getFlight());
 
-        boolean value = this.ticket.validateNullEmpty();
-        assertTrue("Checking validateNullEmpty", value);
-    }
+        assertTrue("Checking validateNullEmpty", this.otherTicket.validateNullEmpty());
+        this.otherTicket.setPrice(new Price());
+        assertTrue("Checking validateNullEmpty", this.otherTicket.validateNullEmpty());
+        this.otherTicket.setPrice(this.ticket.getPrice());
 
-    @Test
-    public void testValidateNullEmptyAttributeEmpty() {
-        this.ticket.setDate("");
+        assertTrue("Checking validateNullEmpty", this.otherTicket.validateNullEmpty());
+        this.otherTicket.setUser(new User());
+        assertTrue("Checking validateNullEmpty", this.otherTicket.validateNullEmpty());
+        this.otherTicket.setUser(this.ticket.getUser());
 
-        boolean value = this.ticket.validateNullEmpty();
-        assertTrue("Checking validateNullEmpty", value);
+        assertTrue("Checking validateNullEmpty", this.otherTicket.validateNullEmpty());
+        this.otherTicket.setDate("");
+        assertTrue("Checking validateNullEmpty", this.otherTicket.validateNullEmpty());
+        this.otherTicket.setUser(this.ticket.getUser());
+
+        this.otherTicket.setTotalPrice(-50);
+        assertTrue("Checking validateNullEmpty", this.otherTicket.validateNullEmpty());
     }
 
     @Test
     public void testValidateNullEmptyIdentifierOK() {
-        boolean value = this.ticket.validateNullEmptyIdentifier();
-        assertFalse("Checking validateNullEmptyIdentifier", value);
+        assertFalse("Checking validateNullEmptyIdentifier", this.ticket.validateNullEmptyIdentifier());
     }
 
     @Test
     public void testValidateNullEmptyIdentifierAttributeNull() {
-        this.ticket.setFlight(null);
+        assertTrue("Checking validateNullEmpty", this.otherTicket.validateNullEmpty());
+        this.otherTicket.setFlight(new Flight());
+        assertTrue("Checking validateNullEmpty", this.otherTicket.validateNullEmpty());
+        this.otherTicket.setFlight(this.ticket.getFlight());
 
-        boolean value = this.ticket.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
-    }
+        assertTrue("Checking validateNullEmpty", this.otherTicket.validateNullEmpty());
+        this.otherTicket.setUser(new User());
+        assertTrue("Checking validateNullEmpty", this.otherTicket.validateNullEmpty());
+        this.otherTicket.setUser(this.ticket.getUser());
 
-    @Test
-    public void testValidateNullEmptyIdentifierAttributeEmpty() {
-        this.ticket.setDate("");
-
-        boolean value = this.ticket.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
+        assertTrue("Checking validateNullEmpty", this.otherTicket.validateNullEmpty());
+        this.otherTicket.setDate("");
+        assertTrue("Checking validateNullEmpty", this.otherTicket.validateNullEmpty());
     }
 }

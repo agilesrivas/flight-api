@@ -14,120 +14,82 @@ public class CityTest extends TestCase{
 
         Country country = new Country(1, "Argentina", "ARG");
         State state = new State(1, "Buenos Aires", "BA", country);
-
-        this.city = new City(1, "Mar del Plata", "MDQ", state);
-        this.otherCity = new City("La Plata", "LP", state);
+        this.city = new City(1, "Mar del Plata", "7600", state);
+        this.otherCity = new City();
     }
 
     @Test
     public void testToStringOK() {
-        String value = this.city.toString();
-        assertEquals("Checking toString", value, "{name='Mar del Plata', iataCode='MDQ', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}");
+        assertEquals("Checking toString", this.city.toString(), "{name='Mar del Plata', iataCode='7600', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}");
     }
 
     @Test
-    public void testToStringNull() {
-        this.city.setState(null);
-        String value = this.city.toString();
-
-        assertEquals("Checking toString", value, "{name='Mar del Plata', iataCode='MDQ', state=null}");
-    }
-
-    @Test
-    public void testEqualsNull(){
-        boolean value = this.city.equals(null);
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsOtherObject(){
-        boolean value = this.city.equals("String");
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsNullAttributes(){
-
-        boolean value = this.city.equals(new City());
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsDifferentAttributes(){
-        boolean value = this.city.equals(this.otherCity);
-        assertEquals("Checking equals", value, false);
+    public void testToStringBad() {
+        assertEquals("Checking toString", this.otherCity.toString(), "{name='null', iataCode='null', state=null}");
     }
 
     @Test
     public void testEqualsOK(){
         this.otherCity = this.city;
+        assertTrue("Checking equals", this.city.equals(this.otherCity));
+    }
 
-        boolean value = this.city.equals(this.otherCity);
-        assertEquals("Checking equals", value, true);
+    @Test
+    public void testEqualsBad(){
+        this.otherCity = new City("Mar Chiquita", "PPPP", null);
+
+        assertFalse("Checking equals", this.city.equals(null));
+        assertFalse("Checking equals", this.city.equals("String"));
+        assertFalse("Checking equals", this.city.equals(this.otherCity));
+        this.otherCity.setId(1);
+        assertFalse("Checking equals", this.city.equals(this.otherCity));
+        this.otherCity.setName("Mar del Plata");
+        assertFalse("Checking equals", this.city.equals(this.otherCity));
+        this.otherCity.setIataCode("7600");
+        assertFalse("Checking equals", this.city.equals(this.otherCity));
     }
 
     @Test
     public void testHashCodeOK() {
-        int value = this.city.hashCode();
-        assertEquals("Checking hashCode", value, -2007615562);
+        assertEquals("Checking hashCode", this.city.hashCode(), -1957527343);
     }
 
     @Test
-    public void testHashCodeOneNull() {
-        this.city.setIataCode(null);
-        int value = this.city.hashCode();
-        assertEquals("Checking hashCode", value, -2009977328);
-    }
-
-    @Test
-    public void testHashCodeAllNull() {
-        this.city = new City();
-
-        int value = this.city.hashCode();
-        assertEquals("Checking hashCode", value, 12005773);
+    public void testHashCodeBad() {
+        assertEquals("Checking hashCode", this.otherCity.hashCode(), 12005773);
     }
 
     @Test
     public void testValidateNullEmptyOK() {
-        boolean value = this.city.validateNullEmpty();
-        assertFalse("Checking validateNullEmpty", value);
+        assertFalse("Checking validateNullEmpty", this.city.validateNullEmpty());
     }
 
     @Test
-    public void testValidateNullEmptyAttributeNull() {
-        this.city.setName(null);
+    public void testValidateNullEmptyBad() {
+        assertTrue("Checking validateNullEmpty", this.otherCity.validateNullEmpty());
+        this.otherCity.setName("");
+        assertTrue("Checking validateNullEmpty", this.otherCity.validateNullEmpty());
+        this.otherCity.setName("A");
 
-        boolean value = this.city.validateNullEmpty();
-        assertTrue("Checking validateNullEmpty", value);
-    }
+        assertTrue("Checking validateNullEmpty", this.otherCity.validateNullEmpty());
+        this.otherCity.setIataCode("");
+        assertTrue("Checking validateNullEmpty", this.otherCity.validateNullEmpty());
+        this.otherCity.setIataCode("A");
 
-    @Test
-    public void testValidateNullEmptyAttributeEmpty() {
-        this.city.setName("");
-
-        boolean value = this.city.validateNullEmpty();
-        assertTrue("Checking validateNullEmpty", value);
+        assertTrue("Checking validateNullEmpty", this.otherCity.validateNullEmpty());
+        this.otherCity.setState(new State());
+        assertTrue("Checking validateNullEmpty", this.otherCity.validateNullEmpty());
     }
 
     @Test
     public void testValidateNullEmptyIdentifierOK() {
-        boolean value = this.city.validateNullEmptyIdentifier();
-        assertFalse("Checking validateNullEmptyIdentifier", value);
+        assertFalse("Checking validateNullEmptyIdentifier", this.city.validateNullEmptyIdentifier());
     }
 
     @Test
     public void testValidateNullEmptyIdentifierAttributeNull() {
-        this.city.setIataCode(null);
-
-        boolean value = this.city.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
-    }
-
-    @Test
-    public void testValidateNullEmptyIdentifierAttributeEmpty() {
-        this.city.setIataCode("");
-
-        boolean value = this.city.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
+        assertTrue("Checking validateNullEmptyIdentifier", this.otherCity.validateNullEmptyIdentifier());
+        this.otherCity.setIataCode("");
+        assertTrue("Checking validateNullEmptyIdentifier", this.otherCity.validateNullEmptyIdentifier());
     }
 }

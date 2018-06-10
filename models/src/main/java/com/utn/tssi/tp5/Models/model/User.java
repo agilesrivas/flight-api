@@ -23,9 +23,6 @@ public class User implements ValidationInterface<User> {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Transient
-    private String tocken;
-
     public User(long id, String name, String password) {
         this.id = id;
         this.name = name;
@@ -50,7 +47,7 @@ public class User implements ValidationInterface<User> {
         if (this == o) return true;
         if (o == null || !(o instanceof User)) return false;
         User user = (User) o;
-        return id == user.getId() && name.equals(user.getName()) && password.equals(user.getPassword()) && tocken.equals(user.getTocken());
+        return id == user.getId() && name.equals(user.getName()) && password.equals(user.getPassword());
     }
 
     @Override
@@ -60,7 +57,6 @@ public class User implements ValidationInterface<User> {
         hash = 31 * hash + (int) id;
         hash = 31 * hash + ((name == null) ? 0 : name.hashCode());
         hash = 31 * hash + ((password == null) ? 0 : password.hashCode());
-        hash = 31 * hash + ((tocken == null) ? 0 : tocken.hashCode());
 
         return hash;
     }
