@@ -30,7 +30,7 @@ public class StateController {
         try{
             for (State state : states) {
                 if (!state.validateNullEmptyIdentifier()) {
-                    String iataCode = state.getIataCode();
+                    String iataCode = state.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
                     String[] code = iataCode.split("-");
 
                     if(code.length == 2 && code[0] != null && !(code[0].trim().equals("")) && code[1] != null && !(code[1].trim().equals(""))) {
@@ -72,7 +72,7 @@ public class StateController {
                 State stateDB = this.stateService.getById(st.getId());
 
                 if(stateDB != null) {
-                    String iataCode = st.getIataCode();
+                    String iataCode = st.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
                     String[] code = iataCode.split("-");
 
                     if(code.length == 2 && code[0] != null && !(code[0].trim().equals("")) && code[1] != null && !(code[1].trim().equals(""))) {

@@ -21,11 +21,11 @@ public class Price implements ValidationInterface<Price>{
     @Column(name = "price", nullable = false)
     private float price;
 
-    @Column(name = "fromDate", nullable = false)
-    private String fromDate;
+    @Column(name = "from_Date", nullable = false)
+    private String from_Date;
 
-    @Column(name = "toDate")
-    private String toDate;
+    @Column(name = "to_Date")
+    private String to_Date;
 
     @Column(name = "state_bool", nullable = false)
     private boolean state_bool;
@@ -37,16 +37,16 @@ public class Price implements ValidationInterface<Price>{
     public Price(long id, float price, String fromDate, String toDate, boolean state_bool, Cabin cabin) {
         this.id = id;
         this.price = price;
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+        this.from_Date = fromDate;
+        this.to_Date = toDate;
         this.state_bool = state_bool;
         this.cabin = cabin;
     }
 
     public Price(float price, String fromDate, String toDate, boolean state_bool, Cabin cabin) {
         this.price = price;
-        this.fromDate = fromDate;
-        this.toDate = toDate;
+        this.from_Date = fromDate;
+        this.to_Date = toDate;
         this.state_bool = state_bool;
         this.cabin = cabin;
     }
@@ -55,8 +55,8 @@ public class Price implements ValidationInterface<Price>{
     public String toString() {
         return "{" +
                 "price=" + price +
-                ", fromDate='" + fromDate + '\'' +
-                ", toDate='" + toDate + '\'' +
+                ", fromDate='" + from_Date + '\'' +
+                ", toDate='" + to_Date + '\'' +
                 ", state_bool=" + state_bool +
                 ", cabin=" + cabin +
                 '}';
@@ -68,7 +68,7 @@ public class Price implements ValidationInterface<Price>{
         if (o == null || !(o instanceof Price)) return false;
 
         Price price= (Price) o;
-        return this.id == price.getId() && this.price == price.getPrice() && this.fromDate.equals(price.getFromDate()) && this.toDate.equals(price.getToDate()) && this.state_bool == price.isState_bool() && this.cabin.equals(price.getCabin());
+        return this.id == price.getId() && this.price == price.getPrice() && this.from_Date.equals(price.getFrom_Date()) && ((this.to_Date == null)? null == price.getTo_Date() : this.to_Date.equals(price.getTo_Date())) && this.state_bool == price.isState_bool() && this.cabin.equals(price.getCabin());
     }
 
     @Override
@@ -78,8 +78,8 @@ public class Price implements ValidationInterface<Price>{
         hash = 31 * hash + (int) this.id;
         hash = 31 * hash + (int) this.price;
         hash = 31 * hash + ((this.cabin == null) ? 0 : this.cabin.hashCode());
-        hash = 31 * hash + ((this.fromDate == null) ? 0 : this.fromDate.hashCode());
-        hash = 31 * hash + ((this.toDate == null) ? 0 : this.toDate.hashCode());
+        hash = 31 * hash + ((this.from_Date == null) ? 0 : this.from_Date.hashCode());
+        hash = 31 * hash + ((this.to_Date == null) ? 0 : this.to_Date.hashCode());
 
         return hash;
     }
@@ -87,7 +87,7 @@ public class Price implements ValidationInterface<Price>{
     public boolean validateNullEmpty() {
         boolean bool = true;
 
-        if(id >= 0 && price >= 0 && cabin != null && !(cabin.validateNullEmpty()) && fromDate != null && !(fromDate.trim().equals(""))) {
+        if(id >= 0 && price >= 0 && cabin != null && !(cabin.validateNullEmpty()) && from_Date != null && !(from_Date.trim().equals(""))) {
             bool = false;
         }
 

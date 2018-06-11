@@ -20,118 +20,75 @@ public class FlightTest extends TestCase{
         Route route = new Route(1, airportBegin, airportEnd, 50, 3);
 
         this.flight = new Flight(1, route, "21/05/2018");
-        this.otherFlight = new Flight(route, "21/05/2018");
+        this.otherFlight = new Flight();
     }
 
     @Test
     public void testToStringOK() {
-        String value = this.flight.toString();
-        assertEquals("Checking toString", value, "{route={airportBegin={iataCode='AEP', name='Jorge Newbery', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}, airportEnd={iataCode='EZE', name='Ezeiza International Airport', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=24.22, longitude=107.58}, distance=50, estimatedTime=3}, date='21/05/2018'}");
+        assertEquals("Checking toString", this.flight.toString(), "{route={airportBegin={iataCode='AEP', name='Jorge Newbery', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}, airportEnd={iataCode='EZE', name='Ezeiza International Airport', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=24.22, longitude=107.58}, distance=50, estimatedTime=3}, date='21/05/2018'}");
     }
 
     @Test
-    public void testToStringNull() {
-        this.flight.setRoute(null);
-        String value = this.flight.toString();
-
-        assertEquals("Checking toString", value, "{route=null, date='21/05/2018'}");
-    }
-
-    @Test
-    public void testEqualsNull(){
-        boolean value = this.flight.equals(null);
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsOtherObject(){
-        boolean value = this.flight.equals("String");
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsNullAttributes(){
-
-        boolean value = this.flight.equals(new Flight());
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsDifferentAttributes(){
-        boolean value = this.flight.equals(this.otherFlight);
-        assertEquals("Checking equals", value, false);
+    public void testToStringBad() {
+        assertEquals("Checking toString", this.otherFlight.toString(), "{route=null, date='null'}");
     }
 
     @Test
     public void testEqualsOK(){
         this.otherFlight = this.flight;
+        assertTrue("Checking equals", this.flight.equals(this.otherFlight));
+    }
 
-        boolean value = this.flight.equals(this.otherFlight);
-        assertEquals("Checking equals", value, true);
+    @Test
+    public void testEqualsBad(){
+        this.otherFlight = new Flight(new Route(), "22/05/2018");
+
+        assertFalse("Checking equals", this.flight.equals(null));
+        assertFalse("Checking equals", this.flight.equals("String"));
+        assertFalse("Checking equals", this.flight.equals(this.otherFlight));
+        this.otherFlight.setId(1);
+        assertFalse("Checking equals", this.flight.equals(this.otherFlight));
+        this.otherFlight.setRoute(this.flight.getRoute());
+        assertFalse("Checking equals", this.flight.equals(this.otherFlight));
     }
 
     @Test
     public void testHashCodeOK() {
-        int value = this.flight.hashCode();
-        assertEquals("Checking hashCode", value, 1986012847);
+        assertEquals("Checking hashCode", this.flight.hashCode(), 1986012847);
     }
 
     @Test
-    public void testHashCodeOneNull() {
-        this.flight.setRoute(null);
-        int value = this.flight.hashCode();
-        assertEquals("Checking hashCode", value, 1914309871);
-    }
-
-    @Test
-    public void testHashCodeAllNull() {
-        this.flight = new Flight();
-
-        int value = this.flight.hashCode();
-        assertEquals("Checking hashCode", value, 506447);
+    public void testHashCodeBad() {
+        assertEquals("Checking hashCode", this.otherFlight.hashCode(), 506447);
     }
 
     @Test
     public void testValidateNullEmptyOK() {
-        boolean value = this.flight.validateNullEmpty();
-        assertFalse("Checking validateNullEmpty", value);
+        assertFalse("Checking validateNullEmpty", this.flight.validateNullEmpty());
     }
 
     @Test
-    public void testValidateNullEmptyAttributeNull() {
-        this.flight.setRoute(null);
+    public void testValidateNullEmptyBad() {
+        assertTrue("Checking validateNullEmpty", this.otherFlight.validateNullEmpty());
+        this.otherFlight.setRoute(new Route());
+        assertTrue("Checking validateNullEmpty", this.otherFlight.validateNullEmpty());
 
-        boolean value = this.flight.validateNullEmpty();
-        assertTrue("Checking validateNullEmpty", value);
-    }
-
-    @Test
-    public void testValidateNullEmptyAttributeEmpty() {
-        this.flight.setDate("");
-
-        boolean value = this.flight.validateNullEmpty();
-        assertTrue("Checking validateNullEmpty", value);
+        assertTrue("Checking validateNullEmpty", this.otherFlight.validateNullEmpty());
+        this.otherFlight.setDate("");
+        assertTrue("Checking validateNullEmpty", this.otherFlight.validateNullEmpty());
     }
 
     @Test
     public void testValidateNullEmptyIdentifierOK() {
-        boolean value = this.flight.validateNullEmptyIdentifier();
-        assertFalse("Checking validateNullEmptyIdentifier", value);
+        assertFalse("Checking validateNullEmptyIdentifier", this.flight.validateNullEmptyIdentifier());
     }
 
     @Test
     public void testValidateNullEmptyIdentifierAttributeNull() {
-        this.flight.setRoute(null);
-
-        boolean value = this.flight.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
-    }
-
-    @Test
-    public void testValidateNullEmptyIdentifierAttributeEmpty() {
-        this.flight.setDate("");
-
-        boolean value = this.flight.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
+        assertTrue("Checking validateNullEmptyIdentifier", this.otherFlight.validateNullEmptyIdentifier());
+        this.otherFlight.setRoute(new Route());
+        assertTrue("Checking validateNullEmptyIdentifier", this.otherFlight.validateNullEmptyIdentifier());
+        this.otherFlight.setDate("");
+        assertTrue("Checking validateNullEmptyIdentifier", this.otherFlight.validateNullEmptyIdentifier());
     }
 }

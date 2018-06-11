@@ -42,7 +42,7 @@ public class TicketController {
 
                 if(flight != null && price != null && user != null) {
                     flight = this.flightService.getById(flight.getId());
-                    price = this.priceService.getById(price.getId());
+                    price = this.priceService.getPriceOfCabinAndDate(price.getCabin().getName(), flight.getDate());
                     user = this.userService.getById(user.getId());
 
                     ticket.setFlight(flight);
@@ -85,7 +85,7 @@ public class TicketController {
 
                     if (flight != null && price != null && user != null) {
                         flight = this.flightService.getById(flight.getId());
-                        price = this.priceService.getById(price.getId());
+                        price = this.priceService.getPriceOfCabinAndDate(price.getCabin().getName(), flight.getDate());
                         user = this.userService.getById(user.getId());
 
                         tk2.setFlight(flight);

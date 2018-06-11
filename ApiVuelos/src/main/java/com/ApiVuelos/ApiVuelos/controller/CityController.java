@@ -28,8 +28,7 @@ public class CityController {
 
         try{
             for(City city : cities) {
-
-                String iataCode = city.getIataCode();
+                String iataCode = city.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
                 String[] code = iataCode.split("-");
 
                 if(code.length == 3 && code[0] != null && !(code[0].trim().equals("")) && code[1] != null && !(code[1].trim().equals("")) && code[2] != null && !(code[2].trim().equals(""))) {
@@ -67,7 +66,7 @@ public class CityController {
                 City cityDB = this.cityService.getById(value.getId());
 
                 if(cityDB != null) {
-                    String iataCode = value.getIataCode();
+                    String iataCode = value.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
                     String[] code = iataCode.split("-");
 
                     if (code.length == 3 && code[0] != null && !(code[0].trim().equals("")) && code[1] != null && !(code[1].trim().equals("")) && code[2] != null && !(code[2].trim().equals(""))) {

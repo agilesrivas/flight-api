@@ -3,6 +3,7 @@ package com.ApiVuelos.ApiVuelos.controller;
 
 import com.ApiVuelos.ApiVuelos.service.FlightService;
 import com.ApiVuelos.ApiVuelos.service.RouteService;
+import com.utn.tssi.tp5.Models.model.Airport;
 import com.utn.tssi.tp5.Models.model.Flight;
 import com.utn.tssi.tp5.Models.model.Route;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,12 @@ public class FlightController {
                 Route route = flight.getRoute();
 
                 if (route != null && !(route.validateNullEmptyIdentifier())) {
-                    route = this.routeService.getByAttributeTypeRoute(flight.getRoute().getAirportBegin().getIataCode(), flight.getRoute().getAirportEnd().getIataCode());
+                    Airport airportBegin = route.getAirportBegin();
+                    Airport airportEnd = route.getAirportEnd();
+                    String iataBegin = airportBegin.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
+                    String iataEnd = airportEnd.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
+
+                    route = this.routeService.getByAttributeTypeRoute(iataBegin, iataEnd);
                     flight.setRoute(route);
 
                     if (!(flight.validateNullEmpty())) {
@@ -66,7 +72,14 @@ public class FlightController {
                 Flight flightDB = this.flightService.getById(flight.getId());
 
                 if(flightDB != null && !(flight.validateNullEmptyIdentifier())) {
-                    Route route = this.routeService.getByAttributeTypeRoute(flight.getRoute().getAirportBegin().getIataCode(), flight.getRoute().getAirportEnd().getIataCode());
+                    Route route = flight.getRoute();
+
+                    Airport airportBegin = route.getAirportBegin();
+                    Airport airportEnd = route.getAirportEnd();
+                    String iataBegin = airportBegin.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
+                    String iataEnd = airportEnd.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
+
+                    route = this.routeService.getByAttributeTypeRoute(iataBegin, iataEnd);
                     flight.setRoute(route);
 
                     if(!flight.validateNullEmpty()) {
@@ -133,6 +146,26 @@ public class FlightController {
                     if (flight != null) {
                         status = new ResponseEntity<Flight>(flight, HttpStatus.OK);
                     }
+                }
+            }
+        } catch(Exception e) {
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return status;
+    }
+
+    @GetMapping(value = "/a")
+    public ResponseEntity<List<Flight>> getBetweenDates(@RequestParam("from_date") String fromDate, @RequestParam("to_date") String toDate){
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
+
+        try{
+            if(fromDate != null && !(fromDate.trim().equals("")) && toDate != null && !(toDate.trim().equals(""))){
+                List<Flight> flights = this.flightService.getByAttributeDate(fromDate, toDate);
+
+                if (!flights.isEmpty()) {
+                    status = new ResponseEntity<List<Flight>>(flights, HttpStatus.OK);
                 }
             }
         } catch(Exception e) {

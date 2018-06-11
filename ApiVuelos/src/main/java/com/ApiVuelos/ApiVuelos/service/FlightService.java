@@ -46,8 +46,6 @@ public class FlightService implements MethodsRepository<Flight> {
         return value;
     }
 
-
-
     @Override
     public void removeObject(Long id) throws Exception{
         this.flightRepository.deleteById(id);
@@ -62,5 +60,10 @@ public class FlightService implements MethodsRepository<Flight> {
         }
 
         return flight;
+    }
+
+    public List<Flight> getByAttributeDate(String fromDate, String toDate){
+        List<Flight> flights = this.flightRepository.getAttributeDate(fromDate, toDate);
+        return flights;
     }
 }

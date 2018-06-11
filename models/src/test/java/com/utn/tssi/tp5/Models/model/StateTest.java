@@ -14,118 +14,81 @@ public class StateTest extends TestCase{
 
         Country country = new Country(1, "Argentina", "ARG");
         this.state = new State(1, "Buenos Aires", "BA", country);
-        this.otherState = new State("Córdoba", "COR", country);
+        this.otherState = new State();
     }
 
     @Test
     public void testToStringOK() {
-        String value = this.state.toString();
-        assertEquals("Checking toString", value, "{name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}");
+        assertEquals("Checking toString", this.state.toString(), "{name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}");
     }
 
     @Test
-    public void testToStringNull() {
-        this.state.setCountry(null);
-        String value = this.state.toString();
-
-        assertEquals("Checking toString", value, "{name='Buenos Aires', iataCode='BA', country=null}");
-    }
-
-    @Test
-    public void testEqualsNull(){
-        boolean value = this.state.equals(null);
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsOtherObject(){
-        boolean value = this.state.equals("String");
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsNullAttributes(){
-
-        boolean value = this.state.equals(new State());
-        assertEquals("Checking equals", value, false);
-    }
-
-    @Test
-    public void testEqualsDifferentAttributes(){
-        boolean value = this.state.equals(this.otherState);
-        assertEquals("Checking equals", value, false);
+    public void testToStringBad() {
+        assertEquals("Checking toString", this.otherState.toString(), "{name='null', iataCode='null', country=null}");
     }
 
     @Test
     public void testEqualsOK(){
         this.otherState = this.state;
+        assertTrue("Checking equals", this.state.equals(this.otherState));
+    }
 
-        boolean value = this.state.equals(this.otherState);
-        assertEquals("Checking equals", value, true);
+    @Test
+    public void testEqualsBad(){
+        this.otherState = new State("La Pampa", "PPPP", null);
+
+        assertFalse("Checking equals", this.state.equals(null));
+        assertFalse("Checking equals", this.state.equals("String"));
+        assertFalse("Checking equals", this.state.equals(this.otherState));
+        this.otherState.setId(1);
+        assertFalse("Checking equals", this.state.equals(this.otherState));
+        this.otherState.setName("Buenos Aires");
+        assertFalse("Checking equals", this.state.equals(this.otherState));
+        this.otherState.setIataCode("BA");
+        assertFalse("Checking equals", this.state.equals(this.otherState));
     }
 
     @Test
     public void testHashCodeOK() {
-        int value = this.state.hashCode();
-        assertEquals("Checking hashCode", value, 1707458729);
+        assertEquals("Checking hashCode", this.state.hashCode(), 1707458729);
     }
 
     @Test
-    public void testHashCodeOneNull() {
-        this.state.setIataCode(null);
-        int value = this.state.hashCode();
-        assertEquals("Checking hashCode", value, 1707393288);
-    }
-
-    @Test
-    public void testHashCodeAllNull() {
-        this.state = new State();
-
-        int value = this.state.hashCode();
-        assertEquals("Checking hashCode", value, 11082252);
+    public void testHashCodeBad() {
+        assertEquals("Checking hashCode", this.otherState.hashCode(), 11082252);
     }
 
     @Test
     public void testValidateNullEmptyOK() {
-        boolean value = this.state.validateNullEmpty();
-        assertFalse("Checking validateNullEmpty", value);
+        assertFalse("Checking validateNullEmpty", this.state.validateNullEmpty());
     }
 
     @Test
-    public void testValidateNullEmptyAttributeNull() {
-        this.state.setName(null);
+    public void testValidateNullEmptyBad() {
+        assertTrue("Checking validateNullEmpty", this.otherState.validateNullEmpty());
+        this.otherState.setName("");
+        assertTrue("Checking validateNullEmpty", this.otherState.validateNullEmpty());
+        this.otherState.setName("A");
 
-        boolean value = this.state.validateNullEmpty();
-        assertTrue("Checking validateNullEmpty", value);
-    }
+        assertTrue("Checking validateNullEmpty", this.otherState.validateNullEmpty());
+        this.otherState.setIataCode("");
+        assertTrue("Checking validateNullEmpty", this.otherState.validateNullEmpty());
+        this.otherState.setIataCode("A");
 
-    @Test
-    public void testValidateNullEmptyAttributeEmpty() {
-        this.state.setName("");
-
-        boolean value = this.state.validateNullEmpty();
-        assertTrue("Checking validateNullEmpty", value);
+        assertTrue("Checking validateNullEmpty", this.otherState.validateNullEmpty());
+        this.otherState.setCountry(new Country());
+        assertTrue("Checking validateNullEmpty", this.otherState.validateNullEmpty());
     }
 
     @Test
     public void testValidateNullEmptyIdentifierOK() {
-        boolean value = this.state.validateNullEmptyIdentifier();
-        assertFalse("Checking validateNullEmptyIdentifier", value);
+        assertFalse("Checking validateNullEmptyIdentifier", this.state.validateNullEmptyIdentifier());
     }
 
     @Test
     public void testValidateNullEmptyIdentifierAttributeNull() {
-        this.state.setIataCode(null);
-
-        boolean value = this.state.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
-    }
-
-    @Test
-    public void testValidateNullEmptyIdentifierAttributeEmpty() {
-        this.state.setIataCode("");
-
-        boolean value = this.state.validateNullEmptyIdentifier();
-        assertTrue("Checking validateNullEmptyIdentifier", value);
+        assertTrue("Checking validateNullEmptyIdentifier", this.otherState.validateNullEmptyIdentifier());
+        this.otherState.setIataCode("");
+        assertTrue("Checking validateNullEmptyIdentifier", this.otherState.validateNullEmptyIdentifier());
     }
 }
