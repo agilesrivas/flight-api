@@ -87,5 +87,14 @@ public class TicketServiceTest extends TestCase {
         assertNull(tkt);
 
     }
+    @Test
+    public void getByUserTest() {
+        when(this.ticketRepository.getAttribute(this.tk.getId())).thenReturn(java.util.Optional.ofNullable(this.tk));
+        Ticket tkt = this.service.getByUser(this.tk.getId());
+        assertEquals(1, tkt.getId());
+        assertEquals(this.fl, tkt.getFlight());
+        assertEquals(this.us,tkt.getUser());
+        assertEquals(this.money,tkt.getPrice());
+    }
 
 }

@@ -44,15 +44,15 @@ public class StateController {
 
                         } else {
                             status = new ResponseEntity(HttpStatus.NO_CONTENT);
-                            break;
+
                         }
                     }else {
                         status = new ResponseEntity(HttpStatus.NO_CONTENT);
-                        break;
+
                     }
                 }else {
                     status = new ResponseEntity(HttpStatus.NO_CONTENT);
-                    break;
+
                 }
             }
         } catch(Exception e){

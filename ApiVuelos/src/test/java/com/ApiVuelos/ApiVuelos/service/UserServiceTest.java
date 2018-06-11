@@ -1,10 +1,8 @@
 package com.ApiVuelos.ApiVuelos.service;
 
 import com.ApiVuelos.ApiVuelos.repository.AirportRepository;
-import com.utn.tssi.tp5.Models.model.Airport;
-import com.utn.tssi.tp5.Models.model.City;
-import com.utn.tssi.tp5.Models.model.Country;
-import com.utn.tssi.tp5.Models.model.State;
+import com.ApiVuelos.ApiVuelos.repository.UserRepository;
+import com.utn.tssi.tp5.Models.model.*;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,17 +23,15 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 public class UserServiceTest extends TestCase {
 
     @Mock
-    private AirportRepository airportRepository;
+    private UserRepository userRepository;
 
     @InjectMocks
-     private AirportService service;
+     private UserService service;
 
 
 
-    Country ct =new Country(1,"Argentina","ARG");
-    State st=new State(1,"state","ARG",ct);
-    City city=new City(1,"Buenos Aires","BS",st);
-    Airport airport=new Airport(1,"AreolineasArgentinas","ARG",city,-222,222);
+    User us =new User(1,"Alejandro","123");
+
 
     @Before
     public void setUp(){
@@ -45,51 +41,48 @@ public class UserServiceTest extends TestCase {
 
     @Test
     public void getALlTest() throws Exception{
-        List<Airport> listAirport = new ArrayList<Airport>();
-        listAirport.add(this.airport);
-        listAirport.add(this.airport);
-        listAirport.add(this.airport);
-        when(this.airportRepository.findAll()).thenReturn(listAirport);
-        List<Airport>dao=this.service.getAll();
+        List<User> listUser= new ArrayList<User>();
+        listUser.add(this.us);
+        listUser.add(this.us);
+        listUser.add(this.us);
+        when(this.userRepository.findAll()).thenReturn(listUser);
+        List<User>dao=this.service.getAll();
         assertEquals(3,dao.size());
     }
     @Test
     public void addTest()throws Exception{
-        when(this.airportRepository.save(this.airport)).thenReturn(this.airport);
-        Airport air=this.service.newObject(this.airport);
-        assertEquals(1,air.getId());
-        assertEquals("AreolineasArgentinas",air.getName());
-        assertEquals("ARG",air.getIataCode());
-        assertEquals(city,air.getCity());
-        assertEquals(-222,air.getLatitude(),0);
-        assertEquals(222,air.getLongitude(),0);
+        when(this.userRepository.save(this.us)).thenReturn(this.us);
+        User user=this.service.newObject(this.us);
+        assertEquals(1,user.getId());
+        assertEquals("Alejandro",user.getName());
+        assertEquals("123",user.getPassword());
+
     }
     @Test
     public void removeTest()throws Exception{
-        service.removeObject(this.airport.getId());
-        verify(this.airportRepository,times(1)).deleteById(this.airport.getId());
+        service.removeObject(this.us.getId());
+        verify(this.userRepository,times(1)).deleteById(this.us.getId());
     }
     @Test
     public void getByIdTest()throws Exception{
-        when(this.airportRepository.findById(this.airport.getId())).thenReturn(java.util.Optional.ofNullable(this.airport));
-        Airport air=this.service.getById(this.airport.getId());
-        assertEquals(1,air.getId());
-        assertEquals("AreolineasArgentinas",air.getName());
-        assertEquals("ARG",air.getIataCode());
-        assertEquals(city,air.getCity());
-        assertEquals(-222,air.getLatitude(),0);
-        assertEquals(222,air.getLongitude(),0);
+        when(this.userRepository.findById(this.us.getId())).thenReturn(java.util.Optional.ofNullable(this.us));
+        User user=this.service.getById(this.us.getId());
+        assertEquals(1,user.getId());
+        assertEquals("Alejandro",user.getName());
+        assertEquals("123",user.getPassword());
     }
     @Test
     public void getByAttributeTypeTest()throws Exception{
-        when(this.airportRepository.getAttribute(this.airport.getIataCode())).thenReturn(this.airport);
-        Airport air=this.service.getByAttributeType(this.airport.getIataCode());
-        assertEquals(1,air.getId());
-        assertEquals("AreolineasArgentinas",air.getName());
-        assertEquals("ARG",air.getIataCode());
-        assertEquals(city,air.getCity());
-        assertEquals(-222,air.getLatitude(),0);
-        assertEquals(222,air.getLongitude(),0);
+      when(this.service.getByAttributeType("a")).thenReturn(null);
+        User user=this.service.getByAttributeType(this.us.getName());
+        assertNull(user);
     }
-
+    @Test
+    public void getByAttributeTypeUserTest() throws Exception{
+        when(this.userRepository.getAttribute("Alejandro","123")).thenReturn(this.us);
+        User user=this.service.getByAttributeTypeUser("Alejandro","123");
+        assertEquals(1,user.getId());
+        assertEquals("Alejandro",user.getName());
+        assertEquals("123",user.getPassword());
+    }
 }

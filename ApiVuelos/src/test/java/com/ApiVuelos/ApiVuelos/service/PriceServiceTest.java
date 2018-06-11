@@ -91,4 +91,15 @@ public class PriceServiceTest extends TestCase {
         Price rte=this.service.getByAttributeType("hola");
         assertNull(rte);
     }
+    @Test
+    public void getPriceOfCabinAndDate(){
+        when(this.priceRepository.getPriceOfCabinAndDate("Economica","10/12/18")).thenReturn(java.util.Optional.ofNullable(this.money));
+        Price pc=this.service.getPriceOfCabinAndDate("Economica","10/12/18");
+        assertEquals(1,pc.getId());
+        assertEquals("10/12/18",pc.getFromDate());
+        assertNull("NO TIENE FECHA AUN",pc.getToDate());
+
+        assertEquals(1023,pc.getPrice(),0);
+        assertEquals(true,pc.isState_bool());
+    }
 }
