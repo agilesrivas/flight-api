@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -20,4 +21,11 @@ public interface RouteRepository extends JpaRepository<Route, Long> {
             nativeQuery = true,
             name = "getAttributeByAirports")
     Optional<Route> getAttributeByAirports(@Param("iataAirportBegin") String iataAirporBegin, @Param("iataAirportEnd") String iataAirportEnd);
+
+    @Query( value = "SELECT r.* " +
+                    "FROM routes r INNER JOIN airports a ON r.id_airport_begin = a.id " +
+                    "WHERE a.iata LIKE :iataAirportBegin",
+            nativeQuery = true,
+            name = "getByInitAirport")
+    List<Route> getByInitAirport(@Param("iataAirportBegin") String iataAirportBegin);
 }

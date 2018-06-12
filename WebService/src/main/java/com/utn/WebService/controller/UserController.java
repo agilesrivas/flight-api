@@ -1,6 +1,8 @@
 package com.utn.WebService.controller;
 
+import com.utn.WebService.WebServiceApplication;
 import com.utn.WebService.util.SessionData;
+import com.utn.WebService.wrapper.UserWrapper;
 import com.utn.tssi.tp5.Models.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<String> login(@RequestParam("userName") String userName, @RequestParam("password") String password) {
+    public ResponseEntity login(@RequestParam("userName") String userName, @RequestParam("password") String password) {
         ResponseEntity status = new ResponseEntity(HttpStatus.UNAUTHORIZED);
 
         User user = new User(userName, password);
@@ -41,7 +43,9 @@ public class UserController {
         user = response.getBody();
 
         if (user != null) {
-            String sessionId = sessionData.addSession(user);
+            UserWrapper userWrapper = new UserWrapper(user);
+            String sessionId = this.sessionData.addSession(userWrapper);
+            WebServiceApplication.TOCKEN = sessionId;
             status = new ResponseEntity<String>(sessionId, HttpStatus.OK);
 
         } else {
@@ -53,7 +57,8 @@ public class UserController {
 
     @PostMapping(value = "/logout")
     public ResponseEntity logout(@RequestHeader("sessionId") String sessionId) {
-        sessionData.removeSession(sessionId);
+        this.sessionData.removeSession(sessionId);
+        WebServiceApplication.TOCKEN = null;
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 
