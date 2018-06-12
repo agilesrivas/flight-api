@@ -1,11 +1,12 @@
 package com.utn.WebService.util;
 
+import com.utn.WebService.wrapper.UserWrapper;
 import com.utn.tssi.tp5.Models.model.User;
 import org.joda.time.DateTime;
 
 public class AuthenticationData {
 
-    private User user;
+    private UserWrapper userWrapper;
     private DateTime lastAction;
 
     public DateTime getLastAction() {
@@ -16,11 +17,11 @@ public class AuthenticationData {
         this.lastAction = lastAction;
     }
 
-    public User getUser() {
-        return user;
+    public UserWrapper getUser() {
+        return userWrapper;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(UserWrapper userWrapper) {
+        this.userWrapper = userWrapper;
     }
 }

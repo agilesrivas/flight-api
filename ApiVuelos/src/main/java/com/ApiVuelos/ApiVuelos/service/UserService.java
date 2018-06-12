@@ -29,7 +29,7 @@ public class UserService implements MethodsRepository<User>{
     }
 
     public User getByAttributeTypeUser(String value, String pass)throws Exception {
-        return this.userRepository.getAttribute(value,pass);
+        return this.userRepository.getAttribute(value, pass);
     }
 
     @Override

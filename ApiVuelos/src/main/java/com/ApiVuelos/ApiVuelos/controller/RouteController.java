@@ -149,4 +149,24 @@ public class RouteController {
 
         return status;
     }
+
+    @GetMapping(value= "/{iata}")
+    public ResponseEntity<List<Route>> getByInitAirport(@PathVariable("iata") String iataAirportBegin){
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
+
+        try{
+            if(iataAirportBegin != null && !(iataAirportBegin.trim().equals(""))){
+                List<Route> routes = this.routeService.getByInitAirport(iataAirportBegin);
+
+                if(!routes.isEmpty()){
+                    status = new ResponseEntity<List<Route>>(routes, HttpStatus.OK);
+                }
+            }
+        } catch(Exception e) {
+            status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return status;
+    }
 }

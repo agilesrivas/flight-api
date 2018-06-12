@@ -17,6 +17,7 @@ public class RouteService implements MethodsRepository<Route> {
 
     @Autowired
     private RouteRepository routeRepository;
+
     @Override
     public List<Route> getAll()throws Exception {
         return this.routeRepository.findAll();
@@ -60,5 +61,9 @@ public class RouteService implements MethodsRepository<Route> {
         }
 
         return route;
+    }
+
+    public List<Route> getByInitAirport(String iata)throws Exception {
+        return this.routeRepository.getByInitAirport(iata);
     }
 }

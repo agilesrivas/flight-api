@@ -34,7 +34,7 @@ public class UserController {
         return status;
     }
 
-    @PostMapping(value = "", consumes = "application/json")
+    @PostMapping(value = "")
     public ResponseEntity<User> getUser(@RequestBody User user) {
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
