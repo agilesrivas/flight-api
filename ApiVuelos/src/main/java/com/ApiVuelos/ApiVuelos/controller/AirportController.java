@@ -109,7 +109,7 @@ public class AirportController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Airport>> getAll() {
+    public @ResponseBody ResponseEntity<List<Airport>> getAll() {
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 

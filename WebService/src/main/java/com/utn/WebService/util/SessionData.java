@@ -1,5 +1,6 @@
 package com.utn.WebService.util;
 
+import com.utn.WebService.wrapper.UserWrapper;
 import com.utn.tssi.tp5.Models.model.User;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
@@ -25,7 +26,7 @@ public class SessionData {
         this.sessionData = new HashMap<String, AuthenticationData>();
     }
 
-    public String addSession(User user) {
+    public String addSession(UserWrapper user) {
         String sessionId = UUID.randomUUID().toString();
         AuthenticationData aData = new AuthenticationData();
         aData.setUser(user);
