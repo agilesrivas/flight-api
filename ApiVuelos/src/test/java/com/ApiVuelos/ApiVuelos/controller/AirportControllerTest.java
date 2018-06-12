@@ -59,23 +59,35 @@ public class AirportControllerTest extends TestCase {
 
   @Test
   public void testAddVerifyThrows(){
-            ResponseEntity status=new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        try {
-            when(this.airportService.newObject(this.air)).thenThrow(Exception.class);
-            status=this.controller.add(this.airports);
-            Airport airtNw=this.airportService.newObject(this.air);
-        }
-        catch(Exception e){
-            assertEquals(new ResponseEntity(HttpStatus.NO_CONTENT),status);
-        }
+      ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+      try {
+          when(this.airportService.newObject(this.air)).thenThrow(Exception.class);
+          status1 = this.controller.add(this.airports);
+      } catch (Exception e) {
+          assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
+      }
   }
   @Test
-    public void testAddVerify(){
+  public void addTestException(){
+      ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+      try {
+          when(this.cityService.getByAttributeType(this.air.getIataCode())).thenThrow(Exception.class);
+          status1 = this.controller.add(this.airports);
+      } catch (Exception e) {
+          assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
+      }
+  }
+
+  @Test
+    public void addTest(){
 
         ResponseEntity status=new ResponseEntity(HttpStatus.OK);
-        String [] code=this.air.getIataCode().split("-");
+
         try {
-            when(this.airportService.newObject(air)).thenReturn(this.air);
+            String iata=this.air.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
+            String [] code=iata.split("-");
             assertEquals(4,code.length);
             assertNotNull(code[0]);
             assertNotNull(code[1]);
@@ -88,11 +100,9 @@ public class AirportControllerTest extends TestCase {
 
             when(this.cityService.getByAttributeType(code[0]+"-"+code[1]+"-"+code[2])).thenReturn(this.city);
             City ct=this.cityService.getByAttributeType(code[0]+"-"+code[1]+"-"+code[2]);
-            assertEquals(ct,this.city);
-            verify(this.air,times(1)).setCity(ct);
-            verify(this.air,times(1)).setIataCode(code[3]);
             assertEquals(ct,this.air.getCity());
-            assertEquals(code[3],this.air.getIataCode());
+           assertEquals(ct.getIataCode()+"-"+code[3],this.air.getIataCode());
+
 
             assertFalse(this.air.validateNullEmpty());
 
@@ -107,7 +117,7 @@ public class AirportControllerTest extends TestCase {
 
         }
         catch(Exception e){
-
+            e.printStackTrace();
         }
   }
 
@@ -121,23 +131,25 @@ public class AirportControllerTest extends TestCase {
             when(this.airportService.getById(this.air.getId())).thenReturn(this.air);
             Airport airportdb=this.airportService.getById(this.air.getId());
             assertNotNull(airportdb);
-            when(airportdb.getIataCode()).thenReturn(airportdb.getIataCode());
-            String [] code=this.air.getIataCode().split("-");
+
+            String iata=this.air.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
+            String [] code=iata.split("-");
 
             assertEquals(4,code.length);
             assertFalse(code[0].trim().equals(""));
             assertFalse(code[1].trim().equals(""));
             assertFalse(code[2].trim().equals(""));
             assertFalse(code[3].trim().equals(""));
+
+
             when(this.cityService.getByAttributeType(code[0]+"-"+code[1]+"-"+code[2])).thenReturn(this.city);
             City ct=this.cityService.getByAttributeType(code[0]+"-"+code[1]+"-"+code[2]);
-            assertEquals(ct,this.city);
-            assertEquals(ct,this.air.getCity());
-            assertEquals(this.air.getIataCode(),code[3]);
+
 
             assertEquals(ct,this.air.getCity());
-            assertEquals(code[3],this.air.getIataCode());
+            assertEquals(this.air.getIataCode(),airportdb.getIataCode());
             assertFalse(this.air.validateNullEmpty());
+
             when(this.airportService.newObject(this.air)).thenReturn(this.air);
             Airport airt=this.airportService.newObject(this.air);
             assertEquals(this.air,airt);
@@ -150,25 +162,39 @@ public class AirportControllerTest extends TestCase {
 
         }
         catch(Exception e){
-
+            e.printStackTrace();
         }
     }
     @Test
     public void updateTestException(){
-        ResponseEntity status=new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        String[] code=this.air.getIataCode().split("-");
-
-
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         try {
-            when(this.airportService.getByAttributeType(code[0]+"-"+code[1]+"-"+code[2])).thenThrow(Exception.class);
             when(this.airportService.newObject(this.air)).thenThrow(Exception.class);
-            Airport airtDb=this.airportService.getByAttributeType(code[0]+"-"+code[1]+"-"+code[2]);
-            Airport airtNw=this.airportService.newObject(this.air);
-            status=this.controller.add(this.airports);
-            Assert.fail();
-            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status);
+            status1 = this.controller.update(this.air);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
         }
-        catch(Exception e){
+    }
+    @Test
+    public void updateTstException2(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.airportService.getById(1l)).thenThrow(Exception.class);
+            status1 = this.controller.update(this.air);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
+        }
+    }
+    @Test
+    public void updateTestExceptionCase(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.cityService.getByAttributeType(this.air.getIataCode())).thenThrow(Exception.class);
+            status1 = this.controller.update(this.air);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
 
         }
     }
@@ -221,13 +247,13 @@ public class AirportControllerTest extends TestCase {
     }
     @Test
     public void getAllTestException(){
-        ResponseEntity status=new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         try {
             when(this.airportService.getAll()).thenThrow(Exception.class);
-            List<Airport>list=this.airportService.getAll();
-             status=this.controller.getAll();
+            status1 = this.controller.getAll();
         } catch (Exception e) {
-           assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status);
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
         }
     }
 
@@ -249,21 +275,20 @@ public class AirportControllerTest extends TestCase {
 
         }
         catch(Exception e){
-
+            e.printStackTrace();
         }
 
 
     }
     @Test
     public void getByOneAirportTestException(){
-        ResponseEntity status=new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         try {
             when(this.airportService.getByAttributeType(this.air.getIataCode())).thenThrow(Exception.class);
-            Airport list=this.airportService.getByAttributeType(this.air.getIataCode());
-                    status=this.controller.getByOneAirport(this.air.getIataCode());
-                    Assert.fail();
+            status1 = this.controller.getByOneAirport(this.air.getIataCode());
         } catch (Exception e) {
-            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status);
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
         }
     }
 

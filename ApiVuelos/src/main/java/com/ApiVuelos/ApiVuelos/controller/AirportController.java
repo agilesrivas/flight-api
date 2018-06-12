@@ -33,10 +33,8 @@ public class AirportController {
 
                 if(code.length == 4 && code[0] != null && !(code[0].trim().equals("")) && code[1] != null && !(code[1].trim().equals("")) && code[2] != null && !(code[2].trim().equals("")) && code[3] != null && !(code[3].trim().equals(""))) {
                     City city = this.cityService.getByAttributeType(code[0] + "-" + code[1] + "-" + code[2]);
-                    System.out.print(city);
                     airport.setCity(city);
                     airport.setIataCode(code[3]);
-                    airport.getLatitude();
 
                     if (!airport.validateNullEmpty()) {
                         this.airportService.newObject(airport);

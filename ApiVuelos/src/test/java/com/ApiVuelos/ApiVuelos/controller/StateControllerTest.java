@@ -41,7 +41,29 @@ public class StateControllerTest extends TestCase {
         MockitoAnnotations.initMocks(this);
         this. listSt.add(this.st);
     }
+    @Test
+    public void addTestExceptionCase1(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.service.newObject(this.st)).thenThrow(Exception.class);
+            status1 = this.controller.add(this.listSt);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
 
+        }
+    }
+    @Test
+    public void addTestExceptionCase2()
+    {
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.service.getByAttributeType(this.st.getIataCode())).thenThrow(Exception.class);
+            status1 = this.controller.add(this.listSt);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
+        }
+    }
     @Test
     public void addTest(){
 
@@ -67,8 +89,9 @@ public class StateControllerTest extends TestCase {
             Country cte=this.countryService.getByAttributeType(code[0]);
 
             assertEquals(cte,this.ct);
-            verify(this.st,times(1)).setCountry(cte);
-            verify(this.st,times(1)).setIataCode(code[0] + "-" + code[1]);
+            assertEquals(cte,this.st.getCountry());
+            assertEquals(code[0]+"-"+code[1],this.st.getIataCode());
+
             assertEquals(cte,this.ct);
             assertEquals(code[0] + "-" + code[1] ,this.st.getIataCode());
             assertFalse(this.st.validateNullEmpty());
@@ -85,14 +108,51 @@ public class StateControllerTest extends TestCase {
         }
     }
     @Test
+    public void updateTestException(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.service.getById(1l)).thenThrow(Exception.class);
+            status1 = this.controller.update(this.st);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
+        }
+    }
+    @Test
+    public void updateTestExceptionCase2()
+    {
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.service.getByAttributeType(this.st.getIataCode())).thenThrow(Exception.class);
+            status1 = this.controller.update(this.st);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
+        }
+    }
+    @Test
+    public void updateTestExceptionCase3(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.service.newObject(this.st)).thenThrow(Exception.class);
+            status1 = this.controller.update(this.st);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
+        }
+    }
+    @Test
     public void updateTest(){
 
         ResponseEntity status=new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try {
+            when(this.service.getById(this.st.getId())).thenReturn(this.st);
+            State stk=this.service.getById(this.st.getId());
+            assertNotNull(stk);
             assertFalse(this.st.validateNullEmptyIdentifier());
-
-            String [] code=this.st.getIataCode().split("-");
+            String iata=this.st.getIataCode().replaceAll("[^a-zA-Z0-9]","-");
+            String [] code=iata.split("-");
             assertEquals(2,code.length);
             assertNotNull(code[0]);
             assertNotNull(code[1]);
@@ -107,22 +167,26 @@ public class StateControllerTest extends TestCase {
             Country cte=this.countryService.getByAttributeType(code[0]);
 
             assertEquals(cte,this.ct);
-            verify(this.st,times(1)).setCountry(cte);
+            assertEquals(cte,this.st.getCountry());
+            assertEquals(code[0]+"-"+code[1],this.st.getIataCode());
+
+
 
 
             assertEquals(code[0] + "-" + code[1] ,this.st.getIataCode());
             assertFalse(this.st.validateNullEmpty());
+
             when(this.service.newObject(this.st)).thenReturn(this.st);
             State Bend=this.service.newObject(this.st);
-            assertEquals(Bend,this.st);
+            assertEquals(this.st,Bend);
 
-            when(this.controller.add(this.listSt)).thenReturn(status);
-            ResponseEntity statusOk=this.controller.add(this.listSt);
+            when(this.controller.update(this.st)).thenReturn(status);
+            ResponseEntity statusOk=this.controller.update(this.st);
             assertEquals(statusOk,status);
 
         }
         catch(Exception e){
-
+            e.printStackTrace();
         }
     }
 
@@ -137,8 +201,21 @@ public class StateControllerTest extends TestCase {
             assertEquals(ent,status);
         }
         catch (Exception e){
-
+            e.printStackTrace();
         }
+    }
+    @Test
+    public void removeTestException(){
+
+            ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+            try {
+                Long id= Long.valueOf(1);
+                status1 = this.controller.remove(1l);
+            } catch (Exception e) {
+                assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
+            }
+
     }
     @Test
     public void getAllTest(){
@@ -154,7 +231,18 @@ public class StateControllerTest extends TestCase {
         }
     }
     @Test
-    public void getByOneCityTest(){
+    public void getAllTestException(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+           when(this.service.getAll()).thenThrow(Exception.class);
+            status1 = this.controller.getAll();
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
+        }
+    }
+    @Test
+    public void getByOneStateTest(){
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
         State tk=null;
         assertNull(tk);
@@ -171,6 +259,17 @@ public class StateControllerTest extends TestCase {
             assertEquals(new ResponseEntity(this.st,HttpStatus.OK),status);
         }
         catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void getByOneStateException(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+           when(this.service.getByAttributeType(this.st.getIataCode())).thenThrow(Exception.class);
+            status1 = this.controller.getByOneState(this.st.getIataCode());
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
 
         }
     }

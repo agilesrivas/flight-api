@@ -47,23 +47,19 @@ public class CabinControllerTest extends TestCase {
             assertEquals(new ResponseEntity(HttpStatus.OK),status);
         }
         catch(Exception e){
-
+            e.printStackTrace();
         }
     }
     @Test
     public void addtestVerifyException(){
-        ResponseEntity status=new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-            try{
-                when(this.cabinService.newObject(this.cabin)).thenThrow(Exception.class);
-                Cabin cb=this.cabinService.newObject(this.cabin);
-                assertEquals(this.cabin,cb);
-                when(this.controller.add(this.listCabin)).thenReturn(status);
-                status=this.controller.add(this.listCabin);
-                Assert.fail();
-            }
-            catch(Exception e){
-                assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status);
-            }
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.cabinService.newObject(this.cabin)).thenThrow(Exception.class);
+            status1 = this.controller.add(this.listCabin);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
+        }
     }
 
     @Test
@@ -86,22 +82,28 @@ public class CabinControllerTest extends TestCase {
             }
             catch(Exception e)
             {
-
+                e.printStackTrace();
             }
     }
     @Test
-    public void updateTestverifyException(){
-        ResponseEntity status=new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        try{
-
+    public void updateTestExceptionCase1(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
             when(this.cabinService.newObject(this.cabin)).thenThrow(Exception.class);
-           // Cabin cb=this.cabinService.newObject(this.cabin);
-            when(this.controller.add(this.listCabin)).thenReturn(status);
-            status=this.controller.add(this.listCabin);
-            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status);
-            Assert.fail();
+            status1 = this.controller.update(this.cabin);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
         }
-        catch(Exception e){
+    }
+    @Test
+    public void updateTestverifyException(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.cabinService.getById(1l)).thenThrow(Exception.class);
+            status1 = this.controller.update(this.cabin);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
 
         }
     }
@@ -148,15 +150,16 @@ public class CabinControllerTest extends TestCase {
     }
     @Test
     public void getAllTestException(){
-        ResponseEntity status=new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         try {
             when(this.cabinService.getAll()).thenThrow(Exception.class);
-            List<Cabin>list=this.cabinService.getAll();
-            status=this.controller.getAll();
+            status1 = this.controller.getAll();
         } catch (Exception e) {
-            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status);
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
         }
     }
+
 
     @Test
     public void getByOneCabinTest(){
@@ -181,13 +184,13 @@ public class CabinControllerTest extends TestCase {
     }
     @Test
     public void getByOneCabinTestException(){
-        ResponseEntity status=new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         try {
             when(this.cabinService.getByAttributeType(this.cabin.getName())).thenThrow(Exception.class);
-            Cabin list=this.cabinService.getByAttributeType(this.cabin.getName());
-            status=this.controller.getByOneCabin(this.cabin.getName());
+            status1 = this.controller.getByOneCabin(this.cabin.getName());
         } catch (Exception e) {
-            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status);
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
         }
     }
 }

@@ -69,6 +69,17 @@ public class CountryControllerTest extends TestCase {
         }
     }
     @Test
+    public void addTestException(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.service.newObject(this.ct)).thenThrow(Exception.class);
+            status1 = this.controller.add(this.listCount);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
+        }
+    }
+    @Test
     public void updateTest(){
 
         ResponseEntity status=new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -100,7 +111,28 @@ public class CountryControllerTest extends TestCase {
 
         }
     }
+    @Test
+    public void updateTestException(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.service.newObject(this.ct)).thenThrow(Exception.class);
+            status1 = this.controller.update(this.ct);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
 
+        }
+    }
+    @Test
+    public void updateTestExceptionCase2(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.service.getById(1l)).thenThrow(Exception.class);
+            status1 = this.controller.update(this.ct);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
+        }
+    }
     @Test
     public void removeTest(){
         Long id= Long.valueOf(1);
@@ -129,7 +161,18 @@ public class CountryControllerTest extends TestCase {
         }
     }
     @Test
-    public void getByOneCityTest(){
+    public void getAllTestException(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.service.getAll()).thenThrow(Exception.class);
+            status1 = this.controller.getAll();
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
+        }
+    }
+    @Test
+    public void getByOneCountryTest(){
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
         Country tk=null;
         assertNull(tk);
@@ -146,6 +189,17 @@ public class CountryControllerTest extends TestCase {
             assertEquals(new ResponseEntity(this.ct,HttpStatus.OK),status);
         }
         catch(Exception e){
+
+        }
+    }
+    @Test
+    public void getByOneCountryTestException(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.service.getByAttributeType(this.ct.getIsoCode())).thenThrow(Exception.class);
+            status1 = this.controller.getByOneCountry(this.ct.getIsoCode());
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
 
         }
     }
