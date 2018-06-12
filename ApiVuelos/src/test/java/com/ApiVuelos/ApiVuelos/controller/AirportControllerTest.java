@@ -132,8 +132,9 @@ public class AirportControllerTest extends TestCase {
             when(this.cityService.getByAttributeType(code[0]+"-"+code[1]+"-"+code[2])).thenReturn(this.city);
             City ct=this.cityService.getByAttributeType(code[0]+"-"+code[1]+"-"+code[2]);
             assertEquals(ct,this.city);
-            verify(this.air,times(1)).setCity(ct);
-            verify(this.air,times(1)).setIataCode(code[3]);
+            assertEquals(ct,this.air.getCity());
+            assertEquals(this.air.getIataCode(),code[3]);
+
             assertEquals(ct,this.air.getCity());
             assertEquals(code[3],this.air.getIataCode());
             assertFalse(this.air.validateNullEmpty());
