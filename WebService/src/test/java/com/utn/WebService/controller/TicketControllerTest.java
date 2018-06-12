@@ -1,4 +1,4 @@
-package com.utn.WebService.Controller;
+package com.utn.WebService.controller;
 
 public class TicketControllerTest {
 }

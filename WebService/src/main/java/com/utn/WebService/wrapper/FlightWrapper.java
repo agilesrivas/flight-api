@@ -12,14 +12,19 @@ public class FlightWrapper {
     private String date;
 
     public FlightWrapper(Flight flight) {
-        this.routeWrapper = new RouteWrapper(flight.getRoute());
-        this.date = flight.getDate();
+        if(flight != null) {
+            this.routeWrapper = new RouteWrapper(flight.getRoute());
+            this.date = flight.getDate();
+
+        } else {
+            this.routeWrapper = new RouteWrapper(null);
+        }
     }
 
     @Override
     public String toString() {
         return "{" +
-                "routeWrapper=" + routeWrapper +
+                "route=" + routeWrapper +
                 ", date='" + date + '\'' +
                 '}';
     }

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,24 +25,26 @@ public class RouteController {
     private RestTemplate restTemplate;
 
     @GetMapping(value = "/{iata}")
-    public ResponseEntity<List<RouteWrapper>> getAirportsEnd(@PathVariable("iata") String iataAirportBegin) {
+    public ResponseEntity<List<RouteWrapper>> getAirportsEnd(@PathVariable("iata") String iataAirportBegin, HttpServletRequest request) {
         ResponseEntity status = new ResponseEntity(HttpStatus.UNAUTHORIZED);
 
-        if(WebServiceApplication.TOCKEN != null && iataAirportBegin != null && !(iataAirportBegin.trim().equals(""))) {
-            status = restTemplate.getForEntity("http://localhost:25100/route/" + iataAirportBegin, List.class);
+        HttpSession session = request.getSession(true);
+        String tocken = (String) session.getAttribute("tocken");
 
-            List<Route> routes = (List<Route>) status.getBody();
+        if(tocken != null && iataAirportBegin != null && !(iataAirportBegin.trim().equals(""))) {
+            status = restTemplate.getForEntity("http://localhost:25100/route/" + iataAirportBegin, Route[].class);
+
+            Route[] routes = (Route[]) status.getBody();
             List<RouteWrapper> routeWrappers = new ArrayList<>();
 
-            if(!routes.isEmpty()) {
-                for(Route route : routes) {
-                    routeWrappers.add(new RouteWrapper(route));
-                }
-
-                status = new ResponseEntity<List<RouteWrapper>>(routeWrappers, HttpStatus.OK);
+            for(Route route : routes) {
+                routeWrappers.add(new RouteWrapper(route));
             }
+
+            status = new ResponseEntity<List<RouteWrapper>>(routeWrappers, HttpStatus.OK);
         }
 
         return status;
     }
+
 }

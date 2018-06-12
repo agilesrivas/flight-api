@@ -12,8 +12,10 @@ public class UserWrapper {
     private String password;
 
     public UserWrapper(User user) {
-        this.name = user.getName();
-        this.password = user.getPassword();
+        if(user != null) {
+            this.name = user.getName();
+            this.password = user.getPassword();
+        }
     }
 
     @Override
@@ -27,7 +29,7 @@ public class UserWrapper {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || o instanceof UserWrapper) return false;
+        if (o == null || !(o instanceof UserWrapper)) return false;
 
         UserWrapper userWrapper = (UserWrapper) o;
         return name.equals(userWrapper.getName()) && password.equals(userWrapper.getPassword());

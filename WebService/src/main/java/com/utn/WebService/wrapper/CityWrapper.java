@@ -13,9 +13,14 @@ public class CityWrapper {
     private StateWrapper stateWrapper;
 
     public CityWrapper(City city) {
-        this.name = city.getName();
-        this.iataCode = city.getIataCode();
-        this.stateWrapper = new StateWrapper(city.getState());
+        if(city != null) {
+            this.name = city.getName();
+            this.iataCode = city.getIataCode();
+            this.stateWrapper = new StateWrapper(city.getState());
+
+        } else {
+            this.stateWrapper = new StateWrapper(null);
+        }
     }
 
     @Override

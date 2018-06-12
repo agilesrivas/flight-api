@@ -108,7 +108,7 @@ public class AirportController {
     }
 
     @GetMapping
-    public @ResponseBody ResponseEntity<List<Airport>> getAll() {
+    public ResponseEntity<List<Airport>> getAll() {
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
