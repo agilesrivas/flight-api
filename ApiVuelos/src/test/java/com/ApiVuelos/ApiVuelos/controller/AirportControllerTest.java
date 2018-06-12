@@ -187,6 +187,7 @@ public class AirportControllerTest extends TestCase {
 
         }
     }
+
     @Test
     public void updateTestExceptionCase(){
         ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
