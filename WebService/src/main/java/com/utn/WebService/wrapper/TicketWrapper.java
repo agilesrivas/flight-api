@@ -15,11 +15,18 @@ public class TicketWrapper{
     private double totalPriceWrapper;
 
     public TicketWrapper(Ticket ticket) {
-        this.flightWrapper = new FlightWrapper(ticket.getFlight());
-        this.priceWrapper = new PriceWrapper(ticket.getPrice());
-        this.date = ticket.getFlight().getDate();
-        this.userWrapper = new UserWrapper(ticket.getUser());
-        this.totalPriceWrapper = ticket.getTotalPrice();
+        if(ticket != null) {
+            this.flightWrapper = new FlightWrapper(ticket.getFlight());
+            this.priceWrapper = new PriceWrapper(ticket.getPrice());
+            this.date = ticket.getFlight().getDate();
+            this.userWrapper = new UserWrapper(ticket.getUser());
+            this.totalPriceWrapper = ticket.getTotalPrice();
+
+        } else {
+            this.flightWrapper = new FlightWrapper(null);
+            this.priceWrapper = new PriceWrapper(null);
+            this.userWrapper = new UserWrapper(null);
+        }
     }
 
     @Override
@@ -29,7 +36,7 @@ public class TicketWrapper{
                 ", price=" + priceWrapper +
                 ", user=" + userWrapper +
                 ", date='" + date + '\'' +
-                ", totalPriceWrapper=" + totalPriceWrapper +
+                ", totalPrice=" + totalPriceWrapper +
                 '}';
     }
 

@@ -15,11 +15,16 @@ public class AirportWrapper {
     private float longitude;
 
     public AirportWrapper(Airport airport) {
-        this.name = airport.getName();
-        this.iataCode = airport.getIataCode();
-        this.cityWrapper = new CityWrapper(airport.getCity());
-        this.latitude = airport.getLatitude();
-        this.longitude = airport.getLongitude();
+        if(airport != null) {
+            this.name = airport.getName();
+            this.iataCode = airport.getIataCode();
+            this.cityWrapper = new CityWrapper(airport.getCity());
+            this.latitude = airport.getLatitude();
+            this.longitude = airport.getLongitude();
+
+        } else {
+            this.cityWrapper = new CityWrapper(null);
+        }
     }
 
     @Override

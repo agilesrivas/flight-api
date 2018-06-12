@@ -12,8 +12,14 @@ public class CountryWrapper{
     private String isoCode;
 
     public CountryWrapper(Country country) {
-        this.name = country.getName();
-        this.isoCode = country.getIsoCode();
+        if(country != null) {
+            this.name = country.getName();
+            this.isoCode = country.getIsoCode();
+
+        }  else {
+            this.name = null;
+            this.isoCode = null;
+        }
     }
 
     @Override

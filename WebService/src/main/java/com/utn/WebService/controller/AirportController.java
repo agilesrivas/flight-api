@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,22 +24,24 @@ public class AirportController {
     RestTemplate restTemplate;
 
     @GetMapping(value = "")
-    public ResponseEntity<List<AirportWrapper>> getAll() {
+    public ResponseEntity<List<AirportWrapper>> getAll(HttpServletRequest request) {
         ResponseEntity status = new ResponseEntity(HttpStatus.UNAUTHORIZED);
 
-        if(WebServiceApplication.TOCKEN != null) {
-            status = restTemplate.getForEntity("http://localhost:25100/airport", List.class);
+        HttpSession session = request.getSession(true);
+        String tocken = (String) session.getAttribute("tocken");
 
-            List<Airport> airports = (List<Airport>) status.getBody();
+        if(tocken != null) {
+            status = restTemplate.getForEntity("http://localhost:25100/airport", Airport[].class);
+
+            Airport[] airports = (Airport[]) status.getBody();
             List<AirportWrapper> airportWrappers = new ArrayList<>();
 
-            if(!airports.isEmpty()) {
-                for(Airport airport : airports) {
-                    airportWrappers.add(new AirportWrapper(airport));
-                }
-
-                status = new ResponseEntity<List<AirportWrapper>>(airportWrappers, HttpStatus.OK);
+            for(Airport airport : airports) {
+                airportWrappers.add(new AirportWrapper(airport));
             }
+
+            status = new ResponseEntity<List<AirportWrapper>>(airportWrappers, HttpStatus.OK);
+
         }
 
         return status;

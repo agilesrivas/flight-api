@@ -14,10 +14,16 @@ public class RouteWrapper{
     private int estimatedTime;
 
     public RouteWrapper(Route route) {
-        this.airportWrapperBegin = new AirportWrapper(route.getAirportBegin());
-        this.airportWrapperEnd = new AirportWrapper(route.getAirportEnd());
-        this.distance = route.getDistance();
-        this.estimatedTime = route.getEstimatedTime();
+        if(route != null) {
+            this.airportWrapperBegin = new AirportWrapper(route.getAirportBegin());
+            this.airportWrapperEnd = new AirportWrapper(route.getAirportEnd());
+            this.distance = route.getDistance();
+            this.estimatedTime = route.getEstimatedTime();
+
+        }else {
+            this.airportWrapperBegin = new AirportWrapper(null);
+            this.airportWrapperEnd = new AirportWrapper(null);
+        }
     }
 
     @Override

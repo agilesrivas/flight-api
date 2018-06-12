@@ -13,9 +13,14 @@ public class StateWrapper{
     private CountryWrapper countryWrapper;
 
     public StateWrapper(State state) {
-        this.name = state.getName();
-        this.iataCode = state.getIataCode();
-        this.countryWrapper = new CountryWrapper(state.getCountry());
+        if(state != null) {
+            this.name = state.getName();
+            this.iataCode = state.getIataCode();
+            this.countryWrapper = new CountryWrapper(state.getCountry());
+
+        } else {
+            this.countryWrapper = new CountryWrapper(null);
+        }
     }
 
     @Override

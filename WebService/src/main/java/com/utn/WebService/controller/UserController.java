@@ -10,6 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionEvent;
+import java.io.IOException;
+
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
@@ -35,30 +42,36 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity login(@RequestParam("userName") String userName, @RequestParam("password") String password) {
+    public ResponseEntity login(@RequestParam("userName") String userName, @RequestParam("password") String password, HttpServletRequest request){
         ResponseEntity status = new ResponseEntity(HttpStatus.UNAUTHORIZED);
 
         User user = new User(userName, password);
-        ResponseEntity<User> response = this.restTemplate.postForEntity("http://localhost:25100/user", user, User.class);
-        user = response.getBody();
+        ResponseEntity<User> responseRest = this.restTemplate.postForEntity("http://localhost:25100/user", user, User.class);
+        user = responseRest.getBody();
 
         if (user != null) {
             UserWrapper userWrapper = new UserWrapper(user);
             String sessionId = this.sessionData.addSession(userWrapper);
-            WebServiceApplication.TOCKEN = sessionId;
+
+            HttpSession session = request.getSession(true);
+            session.setAttribute("tocken", sessionId);
             status = new ResponseEntity<String>(sessionId, HttpStatus.OK);
 
+
         } else {
-            status = response;
+            status = responseRest;
         }
 
         return status;
     }
 
-    @PostMapping(value = "/logout")
-    public ResponseEntity logout(@RequestHeader("sessionId") String sessionId) {
-        this.sessionData.removeSession(sessionId);
-        WebServiceApplication.TOCKEN = null;
+    @RequestMapping(value = "/logout")
+    public ResponseEntity logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(true);
+        String tocken = (String) session.getAttribute("tocken");
+
+        this.sessionData.removeSession(tocken);
+        session.removeAttribute("tocken");
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 

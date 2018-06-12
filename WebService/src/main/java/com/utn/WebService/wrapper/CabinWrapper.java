@@ -9,15 +9,14 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "Cabins")
-@NoArgsConstructor
 public class CabinWrapper{
 
     private String name;
 
     public CabinWrapper(Cabin cabin) {
-        this.name = cabin.getName();
+        if(cabin != null) {
+            this.name = cabin.getName();
+        }
     }
 
     @Override
