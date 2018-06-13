@@ -1,0 +1,10 @@
+language: java
+sudo: false
+script: mvn clean test
+notifications:
+  email:
+    recipients:
+      - gianfranco.stabile98@gmail.com
+      - aleekanoo@gmail.com
+    on_success: always
+    on_failure: never
