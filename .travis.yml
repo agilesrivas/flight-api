@@ -1,10 +1,13 @@
 language: java
 sudo: false
-script: cd Models && mvn clean test
+script: 
+  - cd Models
+  - coverage run --source="/src/test/java/com/utn/tssi/tp5/Models/model" setup.py test
+  - coverage report --fail-under=80
 notifications:
   email:
     recipients:
       - gianfranco.stabile98@gmail.com
       - aleekanoo@gmail.com
-    on_success: always
-    on_failure: never
+    on_success: never
+    on_failure: always
