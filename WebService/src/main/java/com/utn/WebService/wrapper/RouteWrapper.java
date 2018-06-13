@@ -1,6 +1,8 @@
 package com.utn.WebService.wrapper;
 
 import com.utn.tssi.tp5.Models.model.Route;
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 @RequestMapping(value = "/user")
 public class UserController {
 
-    private SessionData sessionData;
+    public  static SessionData sessionData;
 
     @Autowired
     RestTemplate restTemplate;
