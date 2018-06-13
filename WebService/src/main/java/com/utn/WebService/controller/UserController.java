@@ -1,6 +1,5 @@
 package com.utn.WebService.controller;
 
-import com.utn.WebService.WebServiceApplication;
 import com.utn.WebService.util.SessionData;
 import com.utn.WebService.wrapper.UserWrapper;
 import com.utn.tssi.tp5.Models.model.User;
@@ -10,12 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionEvent;
-import java.io.IOException;
 
 @RestController
 @RequestMapping(value = "/user")

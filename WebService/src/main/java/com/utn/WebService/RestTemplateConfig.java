@@ -10,5 +10,5 @@ public class RestTemplateConfig {
     @Bean
     public RestTemplate connectToRestApi() {
         return new RestTemplate();
-    }
+}
 }
