@@ -1,6 +1,6 @@
 language: java
 sudo: false
-script: cd Models && mvn clean test
+script: cd Models && mvn clean install
 notifications:
   email:
     recipients:
