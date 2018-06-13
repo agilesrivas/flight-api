@@ -6,5 +6,5 @@ notifications:
     recipients:
       - gianfranco.stabile98@gmail.com
       - aleekanoo@gmail.com
-    on_success: always
-    on_failure: never
+    on_success: never
+    on_failure: always
