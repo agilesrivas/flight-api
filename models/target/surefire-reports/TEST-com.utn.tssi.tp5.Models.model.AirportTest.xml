@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="10" failures="0" name="com.utn.tssi.tp5.Models.model.AirportTest" time="0.011" errors="0" skipped="0">
+<testsuite tests="10" failures="0" name="com.utn.tssi.tp5.Models.model.AirportTest" time="0.047" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_161\jre\bin"/>
@@ -65,14 +65,14 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="com.utn.tssi.tp5.Models.model.AirportTest" name="testValidateNullEmptyIdentifierAttributeNull" time="0.007"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.AirportTest" name="testValidateNullEmptyIdentifierAttributeNull" time="0.043"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.AirportTest" name="testValidateNullEmptyOK" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.AirportTest" name="testToStringBad" time="0.001"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.AirportTest" name="testValidateNullEmptyIdentifierOK" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.AirportTest" name="testHashCodeOK" time="0.001"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.AirportTest" name="testValidateNullEmptyIdentifierOK" time="0.001"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.AirportTest" name="testHashCodeOK" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.AirportTest" name="testToStringOK" time="0.001"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.AirportTest" name="testValidateNullEmptyBad" time="0.001"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.AirportTest" name="testValidateNullEmptyBad" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.AirportTest" name="testEqualsOK" time="0"/>
   <testcase classname="com.utn.tssi.tp5.Models.model.AirportTest" name="testHashCodeBad" time="0"/>
-  <testcase classname="com.utn.tssi.tp5.Models.model.AirportTest" name="testEqualsBad" time="0"/>
+  <testcase classname="com.utn.tssi.tp5.Models.model.AirportTest" name="testEqualsBad" time="0.001"/>
 </testsuite>
