@@ -58,14 +58,6 @@ public class PriceService implements MethodsRepository<Price>{
         this.priceRepository.deleteById(id);
     }
 
-  public List<Price> getByAttributeTypePricesOffCabin(String type_Cabin)throws Exception{
-
-        List<Price> prices = new ArrayList<Price>();
-        prices = this.priceRepository.getAllPricesOffCabin(type_Cabin);
-
-        return prices;
-    }
-
     public Price getPriceOfCabinAndDate(String type_Cabin, String date){
         Price price = null;
         Optional<Price> priceOptional = this.priceRepository.getPriceOfCabinAndDate(type_Cabin, date);

@@ -117,17 +117,16 @@ public class PriceController {
     }
 
     @GetMapping(value = "/")
-    public ResponseEntity getByOnePricesOffCabin(@RequestParam("typeCabin")String typeCabin){
+    public ResponseEntity getPriceOfCabinAndDate(@RequestParam("typeCabin")String typeCabin, @RequestParam("date")String date){
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
-        List<Price> prices= new ArrayList<Price>();
 
         try{
             if(typeCabin != null && !(typeCabin.trim().equals(""))){
-                prices = this.priceService.getByAttributeTypePricesOffCabin(typeCabin);
+                Price price = this.priceService.getPriceOfCabinAndDate(typeCabin, date);
 
-                if(!prices.isEmpty()){
-                    status = new ResponseEntity<List<Price>>(prices,HttpStatus.OK);
+                if(price != null){
+                    status = new ResponseEntity<Price>(price, HttpStatus.OK);
                 }
             }
         } catch(Exception e){

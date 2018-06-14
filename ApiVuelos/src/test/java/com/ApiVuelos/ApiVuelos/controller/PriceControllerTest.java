@@ -196,17 +196,17 @@ public class PriceControllerTest extends TestCase {
         }
     }
     @Test
-    public void getByOnePricesOffCabinTest(){
+    public void getPriceOfCabinAndDateTest(){
         ResponseEntity status = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         try{
                 assertNotNull(this.money.getCabin().getName());
                 assertFalse(this.money.getCabin().getName().trim().equals(""));
 
-                when(this.service.getByAttributeTypePricesOffCabin(this.cabin.getName())).thenReturn(this.prices);
-                this.prices=this.service.getByAttributeTypePricesOffCabin(this.cabin.getName());
+                when(this.service.getPriceOfCabinAndDate(this.cabin.getName(), "10/12/18")).thenReturn(this.money);
+                this.money = this.service.getPriceOfCabinAndDate(this.cabin.getName(), "10/12/18");
 
-                when(this.controller.getByOnePricesOffCabin(this.cabin.getName())).thenReturn(status);
-                status=this.controller.getByOnePricesOffCabin(this.cabin.getName());
+                when(this.controller.getPriceOfCabinAndDate(this.cabin.getName(), "10/12/18")).thenReturn(status);
+                status=this.controller.getPriceOfCabinAndDate(this.cabin.getName(), "10/12/18");
                 assertEquals(new ResponseEntity(HttpStatus.OK),status);
         }
         catch(Exception e){
@@ -214,11 +214,11 @@ public class PriceControllerTest extends TestCase {
         }
     }
     @Test
-    public void getByOnePricesOffCabinTestException(){
+    public void getByOnePricesOfCabinTestException(){
         ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         try {
-            when(this.service.getByAttributeTypePricesOffCabin(this.cabin.getName())).thenThrow(Exception.class);
-            status1 = this.controller.getByOnePricesOffCabin(this.cabin.getName());
+            when(this.service.getPriceOfCabinAndDate(this.cabin.getName(), "10/12/18")).thenThrow(Exception.class);
+            status1 = this.controller.getPriceOfCabinAndDate(this.cabin.getName(), "10/12/18");
         } catch (Exception e) {
             assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
 
