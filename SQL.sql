@@ -125,7 +125,7 @@ BEGIN
 				OR STR_TO_DATE(p.from_Date, '%d/%m/%Y') BETWEEN STR_TO_DATE(NEW.from_Date, '%d/%m/%Y') AND STR_TO_DATE(NEW.to_Date, '%d/%m/%Y')
 				OR STR_TO_DATE(p.to_Date, '%d/%m/%Y') BETWEEN STR_TO_DATE(NEW.from_Date, '%d/%m/%Y') AND STR_TO_DATE(NEW.to_Date, '%d/%m/%Y')
 				AND p.id_Cabin = NEW.id_Cabin) THEN
-        SIGNAL SQLSTATE '25440' SET MESSAGE_TEXT = 'Dates collides with others dates - Prices'
+        SIGNAL SQLSTATE '25440' SET MESSAGE_TEXT = 'Dates collides with others dates - Prices';
 	END IF;
 END;
 $$
