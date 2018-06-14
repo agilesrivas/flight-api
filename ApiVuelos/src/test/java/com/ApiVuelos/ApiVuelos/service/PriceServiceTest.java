@@ -50,12 +50,10 @@ public class PriceServiceTest extends TestCase {
         assertEquals(3, dao.size());
     }
     @Test
-    public void getByAttributeTypePricesOffCabin()throws Exception{
-        List<Price> prices = new ArrayList<Price>();
-        prices.add(this.money);
-        when(this.priceRepository.getAllPricesOffCabin(this.cabin.getName())).thenReturn(prices);
-        List<Price> dao=this.service.getByAttributeTypePricesOffCabin(this.cabin.getName());
-        assertEquals(1,dao.size());
+    public void getByAttributeTypePricesOffCabinTest() throws Exception{
+        when(this.priceRepository.getPriceOfCabinAndDate(this.cabin.getName(), "10/12/18")).thenReturn(java.util.Optional.ofNullable(this.money));
+        this.money = this.service.getPriceOfCabinAndDate(this.cabin.getName(), "10/12/18");
+        assertNotNull(money);
 
     }
     @Test
