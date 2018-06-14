@@ -6,11 +6,11 @@ CREATE TABLE IF NOT EXISTS `countries` (
 	`id` INT AUTO_INCREMENT NOT NULL ,
     `name_Country` VARCHAR(50) NOT NULL,
     `iso` VARCHAR(5) NOT NULL,
-    CONSTRAINT `pk_Country` PRIMARY KEY(`id`),
-    CONSTRAINT `unq_name_Country` UNIQUE(`name_Country`),
-    CONSTRAINT `unq_iso_Country` UNIQUE(`iso`)
+    CONSTRAINT `pk_Country` PRIMARY KEY(`id`)
 ) ENGINE = InnoDB;
 ALTER TABLE countries COLLATE utf8_unicode_ci;
+CREATE UNIQUE INDEX `unq_name_Country` ON `countries`(`name_Country` ASC) USING HASH;
+CREATE UNIQUE INDEX `unq_iso_Country` ON `countries`(`iso` ASC) USING HASH;
 
 CREATE TABLE IF NOT EXISTS `states` (
 	`id` INT AUTO_INCREMENT NOT NULL ,
@@ -18,10 +18,10 @@ CREATE TABLE IF NOT EXISTS `states` (
     `name_State` VARCHAR(50) NOT NULL,
     `id_Country` INT NOT NULL,
     CONSTRAINT `pk_State` PRIMARY KEY(`id`),
-    CONSTRAINT `unq_iata_State` UNIQUE(`iata`),
     CONSTRAINT `fk_country_State` FOREIGN KEY(`id_Country`) REFERENCES `countries`(`id`) ON UPDATE CASCADE
 ) ENGINE = InnoDB;
 ALTER TABLE states COLLATE utf8_unicode_ci;
+CREATE UNIQUE INDEX `unq_iata_State` ON `states`(`iata` ASC) USING HASH;
 
 CREATE TABLE IF NOT EXISTS `cities` (
 	`id` INT AUTO_INCREMENT NOT NULL,
@@ -29,10 +29,10 @@ CREATE TABLE IF NOT EXISTS `cities` (
     `name_City` VARCHAR(50) NOT NULL,
     `id_State` INT NOT NULL,
     CONSTRAINT `pk_City` PRIMARY KEY(`id`),
-    CONSTRAINT `unq_iata_City` UNIQUE(`iata`),
     CONSTRAINT `fk_state_City` FOREIGN KEY(`id_State`) REFERENCES `states`(`id`) ON UPDATE CASCADE
 ) ENGINE = InnoDB;
 ALTER TABLE cities COLLATE utf8_unicode_ci;
+CREATE UNIQUE INDEX `unq_iata_City` ON `cities`(`iata` ASC) USING HASH;
 
 CREATE TABLE IF NOT EXISTS `airports` (
 	`id` INT AUTO_INCREMENT NOT NULL,
@@ -42,11 +42,11 @@ CREATE TABLE IF NOT EXISTS `airports` (
     `latitude` FLOAT NOT NULL,
     `longitude` FLOAT NOT NULL,
 	CONSTRAINT `id_Airport` PRIMARY KEY(`id`),
-    CONSTRAINT `unq_iata_Airport` UNIQUE(`iata`),
-	CONSTRAINT `unq_name_Airport` UNIQUE(`name_Airport`),
 	CONSTRAINT `fk_City_Airport` FOREIGN KEY(`id_City`) REFERENCES `cities`(`id`) ON UPDATE CASCADE
 ) ENGINE = InnoDB;
 ALTER TABLE airports COLLATE utf8_unicode_ci;
+CREATE UNIQUE INDEX `unq_iata_Airport` ON `airports`(`iata` ASC) USING HASH;
+CREATE UNIQUE INDEX `unq_name_Airport` ON `airports`(`name_Airport` ASC) USING HASH;
 
 CREATE TABLE IF NOT EXISTS `routes` (
 	`id` INT AUTO_INCREMENT NOT NULL,
@@ -56,10 +56,10 @@ CREATE TABLE IF NOT EXISTS `routes` (
 	`estimated_time` INT NOT NULL, 
 	CONSTRAINT `pk_Routes` PRIMARY KEY(`id`),
 	CONSTRAINT `fk_AirportBegin_Routes` FOREIGN KEY(`id_Airport_Begin`) REFERENCES `airports`(`id`) ON UPDATE CASCADE,
-	CONSTRAINT `fk_AirportEnd_Routes` FOREIGN KEY(`id_Airport_End`) REFERENCES `airports`(`id`) ON UPDATE CASCADE,
-    CONSTRAINT `unq_Route` UNIQUE(`id_Airport_Begin`, `id_Airport_End`)
+	CONSTRAINT `fk_AirportEnd_Routes` FOREIGN KEY(`id_Airport_End`) REFERENCES `airports`(`id`) ON UPDATE CASCADE
 ) ENGINE = InnoDB;
 ALTER TABLE routes COLLATE utf8_unicode_ci;
+CREATE UNIQUE INDEX `unq_Route` ON `routes`(`id_Airport_Begin` ASC, `id_Airport_End` ASC) USING HASH;
 
 CREATE TABLE IF NOT EXISTS `flights` (
 	`id` INT AUTO_INCREMENT NOT NULL,
@@ -73,10 +73,10 @@ ALTER TABLE flights COLLATE utf8_unicode_ci;
 CREATE TABLE IF NOT EXISTS `cabins` (
 	`id` INT AUTO_INCREMENT NOT NULL,
 	`type_Cabin` VARCHAR(50) NOT NULL,
-	CONSTRAINT `pk_Cabin` PRIMARY KEY(`id`),
-	CONSTRAINT `unq_Cabin` UNIQUE(`type_Cabin`)
+	CONSTRAINT `pk_Cabin` PRIMARY KEY(`id`)
 ) ENGINE = InnoDB;
 ALTER TABLE cabins COLLATE utf8_unicode_ci;
+CREATE UNIQUE INDEX `unq_Cabin` ON `cabins`(`type_Cabin` ASC) USING HASH;
 
 CREATE TABLE IF NOT EXISTS `prices` (
 	`id` INT AUTO_INCREMENT NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `prices` (
     `from_Date` VARCHAR(15) NOT NULL,
     `to_Date` VARCHAR(15),
     `price` FLOAT NOT NULL,
-    `state_bool` BOOLEAN,
+    `state_bool` BOOLEAN DEFAULT FALSE,
     CONSTRAINT `pk_Price` PRIMARY KEY(`id`),
     CONSTRAINT `fk_id_Cabin_Price` FOREIGN KEY(`id_Cabin`) REFERENCES `cabins`(`id`) ON UPDATE CASCADE
 ) ENGINE = InnoDB;
@@ -94,10 +94,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 	`id` INT AUTO_INCREMENT NOT NULL,
 	`name` VARCHAR(50) NOT NULL,
 	`password` VARCHAR(50) NOT NULL,
-	CONSTRAINT `pk_User` PRIMARY KEY(`id`),
-	CONSTRAINT `unq_User` UNIQUE(`name`)
+	CONSTRAINT `pk_User` PRIMARY KEY(`id`)
 ) ENGINE = InnoDB;
 ALTER TABLE users COLLATE utf8_unicode_ci;
+CREATE UNIQUE INDEX `unq_User` ON `users`(`name` ASC) USING HASH;
 
 CREATE TABLE IF NOT EXISTS `tickets` (
 	`id` INT AUTO_INCREMENT NOT NULL,
