@@ -118,54 +118,13 @@ CREATE TRIGGER `tInsertNewPrice` BEFORE INSERT
 ON prices
 FOR EACH ROW
 BEGIN
-	IF EXISTS(SELECT * FROM prices WHERE toDate IS NULL AND id_Cabin = new.id_Cabin) THEN
-        UPDATE prices SET toDate = new.fromDate, state_bool = FALSE WHERE toDate IS NULL AND id_Cabin = new.id_Cabin;
-        SET NEW.state_bool = TRUE;
+	IF EXISTS(	SELECT * 
+				FROM prices p 
+				WHERE STR_TO_DATE(NEW.from_Date, '%d/%m/%Y') BETWEEN STR_TO_DATE(p.from_Date, '%d/%m/%Y') AND STR_TO_DATE(p.to_Date, '%d/%m/%Y') 
+				OR STR_TO_DATE(NEW.to_Date, '%d/%m/%Y') BETWEEN STR_TO_DATE(p.from_Date, '%d/%m/%Y') AND STR_TO_DATE(p.to_Date, '%d/%m/%Y')
+				OR STR_TO_DATE(p.from_Date, '%d/%m/%Y') BETWEEN STR_TO_DATE(NEW.from_Date, '%d/%m/%Y') AND STR_TO_DATE(NEW.to_Date, '%d/%m/%Y')
+				OR STR_TO_DATE(p.to_Date, '%d/%m/%Y') BETWEEN STR_TO_DATE(NEW.from_Date, '%d/%m/%Y') AND STR_TO_DATE(NEW.to_Date, '%d/%m/%Y')) THEN
+        SIGNAL SQLSTATE '25440' SET MESSAGE_TEXT = 'Dates collides with others dates - Prices'
 	END IF;
 END;
 $$
-
-DELIMITER $$
-CREATE TRIGGER `tInsertNewTicket` AFTER INSERT
-ON tickets
-FOR EACH ROW
-BEGIN
-	DECLARE vTotal_Price FLOAT DEFAULT 0;
-    DECLARE vPrice_x_Km FLOAT DEFAULT 0;
-    DECLARE vDistance INT DEFAULT 0;
-    DECLARE vDate DATE;
-    
-	IF EXISTS(SELECT * FROM tickets WHERE id = NEW.id) THEN
-		
-        SET vDate = (	
-						SELECT f.date_Flight 
-						FROM flights f 
-						INNER JOIN tickets t ON t.id_Flight = f.id 
-						WHERE t.id = NEW.id
-					);	
-        
-        SET vDistance = (	
-							SELECT r.distance
-							FROM flights f
-							INNER JOIN routes r ON r.id = f.id_Route
-							WHERE f.id = NEW.id_Flight
-						);
-        
-        SET vPrice_x_Km = (
-							SELECT p.price
-							FROM cabin c
-							INNER JOIN prices p ON p.id_Cabin = c.id
-							WHERE 	c.id = NEW.id_Cabin AND
-									(vDate BETWEEN p.fromDate AND IF(p.toDate IS NULL, ADDDATE(p.fromDate, INTERVAL 1000 YEAR), p.toDate))
-						);
-                        
-		SET vTotal_Price = vPrice_x_Km * vDistance;
-        UPDATE tickets SET total_price = vTotal_Price, date_flight = vDate WHERE id = NEW.id;
-	
-    ELSE
-		SIGNAL SQLSTATE '15120' SET MESSAGE_TEXT = 'Ticket not found';
-    END IF;
-    
-END;
-$$
-
