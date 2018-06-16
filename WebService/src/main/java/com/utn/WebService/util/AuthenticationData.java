@@ -1,7 +1,6 @@
 package com.utn.WebService.util;
 
 import com.utn.WebService.wrapper.UserWrapper;
-import com.utn.tssi.tp5.Models.model.User;
 import org.joda.time.DateTime;
 
 public class AuthenticationData {

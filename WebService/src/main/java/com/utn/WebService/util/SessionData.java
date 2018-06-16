@@ -1,7 +1,6 @@
 package com.utn.WebService.util;
 
 import com.utn.WebService.wrapper.UserWrapper;
-import com.utn.tssi.tp5.Models.model.User;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +14,6 @@ import java.util.UUID;
 @Service
 public class SessionData {
 
-    static final Logger LOGGER = Logger.getLogger(SessionData.class);
     private HashMap<String, AuthenticationData> sessionData;
 
     @Value("${session.expiration}")
@@ -35,7 +33,6 @@ public class SessionData {
 
         return sessionId;
     }
-
 
     public void removeSession(String sessionId) {
         this.sessionData.remove(sessionId);

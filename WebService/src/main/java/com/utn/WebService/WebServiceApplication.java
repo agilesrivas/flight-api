@@ -1,6 +1,5 @@
 package com.utn.WebService;
 
-import com.utn.WebService.util.SessionData;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

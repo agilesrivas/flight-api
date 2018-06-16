@@ -1,6 +1,5 @@
 package com.utn.WebService.controller;
 
-import com.utn.WebService.WebServiceApplication;
 import com.utn.WebService.wrapper.AirportWrapper;
 import com.utn.tssi.tp5.Models.model.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
