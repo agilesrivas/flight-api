@@ -3,6 +3,7 @@ package com.utn.WebService.controller;
 import com.utn.WebService.wrapper.AirportWrapper;
 import com.utn.tssi.tp5.Models.model.Airport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +20,7 @@ import java.util.List;
 @RequestMapping(value = "/airport")
 public class AirportController {
 
-    @Autowired
-    RestTemplate restTemplate;
+    RestTemplate restTemplate = new RestTemplate();
 
     @GetMapping(value = "")
     public ResponseEntity<List<AirportWrapper>> getAll(HttpServletRequest request) {

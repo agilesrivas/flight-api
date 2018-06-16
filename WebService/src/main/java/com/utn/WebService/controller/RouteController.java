@@ -3,6 +3,7 @@ package com.utn.WebService.controller;
 import com.utn.WebService.wrapper.RouteWrapper;
 import com.utn.tssi.tp5.Models.model.Route;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,7 @@ import java.util.List;
 @RequestMapping(value = "/route")
 public class RouteController {
 
-    @Autowired
-    private RestTemplate restTemplate;
+    RestTemplate restTemplate = new RestTemplate();
 
     @GetMapping(value = "/{iata}")
     public ResponseEntity<List<RouteWrapper>> getAirportsEnd(@PathVariable("iata") String iataAirportBegin, HttpServletRequest request) {

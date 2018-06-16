@@ -4,14 +4,15 @@ import com.utn.WebService.wrapper.AirportWrapper;
 import com.utn.WebService.wrapper.CabinWrapper;
 import com.utn.tssi.tp5.Models.model.Airport;
 import com.utn.tssi.tp5.Models.model.Cabin;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,18 +23,19 @@ import java.util.List;
 @RequestMapping(value = "/index")
 public class MainController {
 
-    @Autowired
-    RestTemplate restTemplate;
+    RestTemplate restTemplate = new RestTemplate();
 
-    @GetMapping(value = "/")
-    public ResponseEntity<JSONObject>getAll_Index(HttpServletRequest request) {
+    @GetMapping(value = "")
+    public Object getAll_Index(HttpServletRequest request, ModelAndView modelAndView) {
         ResponseEntity status = new ResponseEntity(HttpStatus.UNAUTHORIZED);
 
         HttpSession session = request.getSession(true);
         String tocken = (String) session.getAttribute("tocken");
+
         List<Cabin>listCabin=new ArrayList<Cabin>();
         List<Airport>listAirport=new ArrayList<Airport>();
-        JSONObject entities = new JSONObject();
+
+        modelAndView.setViewName("redirect:/user");
 
         try {
             if(tocken != null) {
@@ -56,20 +58,15 @@ public class MainController {
                     airportWrappers.add(new AirportWrapper(airport));
                 }
 
-                entities.put("Cabins",cabinWrappers);
-                entities.put("Airports",airportWrappers);
-
-
-            status = new ResponseEntity<JSONObject>(entities, HttpStatus.OK);
-
-          }
-        }
-        catch(Exception e) {
+                modelAndView.setViewName("/index");
+                modelAndView.addObject("cabinList", cabinWrappers);
+                modelAndView.addObject("airportList", airportWrappers);
+            }
+        } catch(Exception e) {
             e.printStackTrace();
         }
 
-
-        return status;
+        return modelAndView;
     }
 }
 
