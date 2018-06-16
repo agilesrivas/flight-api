@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -25,7 +26,7 @@ public class MainController {
     RestTemplate restTemplate = new RestTemplate();
 
     @GetMapping(value = "")
-    public Object getAll_Index(HttpServletRequest request) {
+    public Object getAll_Index(HttpServletRequest request, ModelAndView modelAndView) {
         ResponseEntity status = new ResponseEntity(HttpStatus.UNAUTHORIZED);
 
         HttpSession session = request.getSession(true);
@@ -34,7 +35,7 @@ public class MainController {
         List<Cabin>listCabin=new ArrayList<Cabin>();
         List<Airport>listAirport=new ArrayList<Airport>();
 
-        ModelAndView modelAndView = new ModelAndView("redirect:/user");
+        modelAndView.setViewName("redirect:/user");
 
         try {
             if(tocken != null) {

@@ -61,6 +61,25 @@
 			</form>
 		</article>
 
+		<td>
+			<article th:if="${ticket != null}">
+				<ul>
+					<li>
+						<label th:text="${'Route: ' + ticket.route.airportBegin.iataCode + ' - ' + ticket.route.airportEnd.iataCode}"></label>
+					</li>
+					<li>
+						<label th:text="${'Cabin: ' + ticket.price.cabin.name}"></label>
+					</li>
+					<li>
+						<label th:text="${'Date: ' + ticket.date}"></label>
+					</li>
+					<li>
+						<label th:text="${'Total Price: $' + ticket.totalPrice}"></label>
+					</li>
+				</ul>
+			</article>
+		</td>
+
         <script th:src="@{/js/jquery.js}"></script>
         <script th:src="@{/js/popper.js}"></script>
         <script th:src="@{/js/bootstrap.min.js}"></script>

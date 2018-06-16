@@ -9,9 +9,11 @@ import com.utn.tssi.tp5.Models.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,12 +27,12 @@ public class TicketController {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    @GetMapping("")
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity requestATicket(@RequestParam("iataAirportBegin")String iataBegin, @RequestParam("iataAirportEnd")String iataEnd, @RequestParam("date")String date, @RequestParam("typeCabin") String typeCabin, HttpServletRequest  request){
 
-        ResponseEntity status = new ResponseEntity(HttpStatus.UNAUTHORIZED);
-        try{
+        ResponseEntity status = new ResponseEntity("Nothing to show", HttpStatus.UNAUTHORIZED);
 
+        try{
             HttpSession session = request.getSession(true);
             String tocken = (String) session.getAttribute("tocken");
             List<String>iatas=new ArrayList<String>();
@@ -39,10 +41,10 @@ public class TicketController {
 
             if(tocken != null && iataBegin != null && !(iataBegin.trim().equals("")) &&  iataEnd != null && !(iataEnd.trim().equals("")))  {
 
-                status=restTemplate.getForEntity("http://localhost:25100/route/?iataAirportBegin="+iataBegin+"&iataAirportEnd="+iataEnd,Route.class);
+                status = restTemplate.getForEntity("http://localhost:25100/route/?iataAirportBegin="+iataBegin+"&iataAirportEnd="+iataEnd,Route.class);
                 Route route= (Route) status.getBody();
 
-                status=this.restTemplate.getForEntity("http://localhost:25100/price/?typeCabin="+typeCabin+"&date="+date,Price.class);
+                status = this.restTemplate.getForEntity("http://localhost:25100/price/?typeCabin="+typeCabin+"&date="+date,Price.class);
                 Price priceCabin= (Price) status.getBody();
 
                 status = new ResponseEntity("Nothing to show", HttpStatus.NO_CONTENT);
@@ -61,13 +63,17 @@ public class TicketController {
                     User user = new User(usuarioOn.getName(), usuarioOn.getPassword());
                     Ticket ticket = new Ticket(flight, priceCabin, user);
                     TicketWrapper wrapperTick = new TicketWrapper(ticket);
+
                     status = new ResponseEntity(wrapperTick, HttpStatus.OK);
                 }
+            } else {
+                status = new ResponseEntity("Nothing to show", HttpStatus.UNAUTHORIZED);
             }
-        }
-        catch(Exception e){
+        } catch(Exception e){
             e.printStackTrace();
+            status = new ResponseEntity("Nothing to show", HttpStatus.BAD_REQUEST);
         }
+
         return status;
 
     }
