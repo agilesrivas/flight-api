@@ -1,8 +1,8 @@
 language: java
 sudo: false
 script: cd Models && mvn clean deploy
-script: cd ApiVuelos && mvn clean install
-script: cd WebService && mvn clean install
+ && cd ../ApiVuelos && mvn clean install
+ && cd ../WebService && mvn clean install
         
 notifications:
   email:
