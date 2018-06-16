@@ -7,6 +7,7 @@ import com.utn.WebService.wrapper.TicketWrapper;
 import com.utn.WebService.wrapper.UserWrapper;
 import com.utn.tssi.tp5.Models.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/")
+@RequestMapping(value="/ticket")
 public class TicketController {
 
-    @Autowired
-     RestTemplate restTemplate;
+    RestTemplate restTemplate = new RestTemplate();
 
     @GetMapping("")
-    public ResponseEntity solicitudTicket(@RequestParam("iataAirportBegin")String iataBegin, @RequestParam("iataAirportEnd")String iataEnd, @RequestParam("date")String date, @RequestParam("typeCabin") String typeCabin, HttpServletRequest  request){
+    public ResponseEntity requestATicket(@RequestParam("iataAirportBegin")String iataBegin, @RequestParam("iataAirportEnd")String iataEnd, @RequestParam("date")String date, @RequestParam("typeCabin") String typeCabin, HttpServletRequest  request){
 
         ResponseEntity status = new ResponseEntity(HttpStatus.UNAUTHORIZED);
         try{
@@ -45,20 +45,24 @@ public class TicketController {
                 status=this.restTemplate.getForEntity("http://localhost:25100/price/?typeCabin="+typeCabin+"&date="+date,Price.class);
                 Price priceCabin= (Price) status.getBody();
 
-                List<Flight>flights=new ArrayList<Flight>();
-                Flight flight = new Flight(route, date);
-                flights.add(flight);
+                status = new ResponseEntity("Nothing to show", HttpStatus.NO_CONTENT);
 
-                status = this.restTemplate.postForEntity("http://localhost:25100/flight/", flights, Flight[].class);
+                if(route != null && priceCabin != null) {
 
-                AuthenticationData data = UserController.sessionData.getSession(tocken);
-                UserWrapper usuarioOn =data.getUser();
+                    List<Flight> flights = new ArrayList<Flight>();
+                    Flight flight = new Flight(route, date);
+                    flights.add(flight);
 
+                    status = this.restTemplate.postForEntity("http://localhost:25100/flight/", flights, Flight[].class);
 
-                User user=new User(usuarioOn.getName(),usuarioOn.getPassword());
-                Ticket ticket = new Ticket(flight,priceCabin,user);
-                TicketWrapper wrapperTick=new TicketWrapper(ticket);
-                status=new ResponseEntity(wrapperTick,HttpStatus.OK);
+                    AuthenticationData data = UserController.sessionData.getSession(tocken);
+                    UserWrapper usuarioOn = data.getUser();
+
+                    User user = new User(usuarioOn.getName(), usuarioOn.getPassword());
+                    Ticket ticket = new Ticket(flight, priceCabin, user);
+                    TicketWrapper wrapperTick = new TicketWrapper(ticket);
+                    status = new ResponseEntity(wrapperTick, HttpStatus.OK);
+                }
             }
         }
         catch(Exception e){

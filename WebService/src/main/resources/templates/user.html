@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
+	<link rel="stylesheet" th:href="@{/css/select2.min.css}">
+
+	<title>WebService Airport</title>
+
+	<style type="text/css">
+		#datePicker, select {
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+
+		<article class="container my-3 py-2 border border-dark rounded" style="background-color: #f2f2f2;">
+			<h2 class="text-center">Register</h2>
+			<hr>
+			<form action="/user/register" method="POST">
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label for="userNameRegister">Name: </label>
+						<input type="text" name="userName" id="userNameRegister" class="form-control" required>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="userPasswordRegister">Password: </label>
+						<input type="password" name="password" id="userPasswordRegister" class="form-control" required>
+					</div>
+				</div>
+
+				<input type="submit" name="Submit" class="btn btn-success align-center btn-block">
+			</form>
+		</article>
+
+		<article class="container my-3 py-2 border border-dark rounded" style="background-color: #f2f2f2;">
+			<h2 class="text-center">Login</h2>
+			<hr>
+			<form action="/user/login" method="POST">
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label for="userNameLogin">Name: </label>
+						<input type="text" name="userName" id="userNameLogin" class="form-control" required>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="userPasswordLogin">Password: </label>
+						<input type="password" name="password" id="userPasswordLogin" class="form-control" required>
+					</div>
+				</div>
+
+				<input type="submit" name="Submit" class="btn btn-success align-center btn-block">
+			</form>
+		</article>
+
+		<script th:src="@{/js/jquery.js}"></script>
+		<script th:src="@{/js/popper.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/jquery-ui.min.js}"></script>
+		<script th:src="@{/js/select2.min.js}"></script>
+
+		<script>
+			var datePicker = $( "#datePicker" );
+			datePicker.val($.datepicker.formatDate('dd/mm/yy', new Date()));
+			datePicker.datepicker({
+				dateFormat: 'dd/mm/yy',
+				minDate: new Date()
+			});
+
+			$(document).ready(function() {
+			    $('.js-example-basic-single').select2();
+			});
+    	</script>
+</body>
+</html>

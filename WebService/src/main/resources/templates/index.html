@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+		<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
+		<link rel="stylesheet" th:href="@{/css/select2.min.css}">
+
+		<title>WebService Airport</title>
+
+		<style type="text/css">
+			#datePicker, select {
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+
+		<article class="container my-3 py-2 border border-dark rounded" style="background-color: #f2f2f2;">
+			<form action="/ticket" method="GET">
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label for="iataBegin">From: </label>
+						<select class="js-example-basic-single form-control" id="iataBegin" name="iataAirportBegin" required>
+							<option value="" selected>Choose...</option>
+                            <tr th:each="airport : ${airportList}">
+							    <td><option th:value="${airport.iataCode}" th:text="${airport.name + ' (' + airport.iataCode} + ')'"></option></td>
+                            </tr>
+						</select>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="iataEnd">To: </label>
+						<select class="js-example-basic-single form-control" id="iataEnd" name="iataAirportEnd" required>
+							<option value="" selected>Choose...</option>
+                            <tr th:each="airport : ${airportList}">
+                                <td><option th:value="${airport.iataCode}" th:text="${airport.name + ' (' + airport.iataCode} + ')'"></option></td>
+                            </tr>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label for="datePicker">Date: </label>
+						<input type="text" name="date" id="datePicker" class="form-control custom-select" placeholder="e.g. 25/12/2018" required>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="cabin">Cabin: </label>
+						<select id="cabin" class="form-control custom-select" name="typeCabin" required>
+							<option value="" selected>Choose...</option>
+                            <tr th:each="cabin : ${cabinList}">
+                                <td><option th:value="${cabin.name}" th:text="${cabin.name}"></option></td>
+                            </tr>
+						</select>
+					</div>
+				</div>
+				<input type="submit" name="Submit" class="btn btn-success align-center btn-block">
+			</form>
+		</article>
+
+        <script th:src="@{/js/jquery.js}"></script>
+        <script th:src="@{/js/popper.js}"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+        <script th:src="@{/js/jquery-ui.min.js}"></script>
+        <script th:src="@{/js/select2.min.js}"></script>
+
+		<script>
+			var datePicker = $( "#datePicker" );
+			datePicker.val($.datepicker.formatDate('dd/mm/yy', new Date()));
+			datePicker.datepicker({ 
+				dateFormat: 'dd/mm/yy',
+				minDate: new Date() 
+			});
+
+			$(document).ready(function() {
+			    $('.js-example-basic-single').select2();
+			});
+    	</script>
+	</body>
+</html>
