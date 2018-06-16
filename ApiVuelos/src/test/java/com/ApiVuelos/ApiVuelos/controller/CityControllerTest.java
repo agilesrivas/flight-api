@@ -2,8 +2,6 @@ package com.ApiVuelos.ApiVuelos.controller;
 
 import com.ApiVuelos.ApiVuelos.service.CityService;
 import com.ApiVuelos.ApiVuelos.service.StateService;
-import com.ApiVuelos.ApiVuelos.service.TicketService;
-import com.utn.tssi.tp5.Models.model.Airport;
 import com.utn.tssi.tp5.Models.model.City;
 import com.utn.tssi.tp5.Models.model.Country;
 import com.utn.tssi.tp5.Models.model.State;
@@ -21,8 +19,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringJUnit4ClassRunner.class)

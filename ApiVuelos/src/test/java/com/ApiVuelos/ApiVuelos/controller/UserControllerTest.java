@@ -1,26 +1,18 @@
 package com.ApiVuelos.ApiVuelos.controller;
 
-import com.ApiVuelos.ApiVuelos.service.AirportService;
 import com.ApiVuelos.ApiVuelos.service.UserService;
 import com.utn.tssi.tp5.Models.model.*;
 import junit.framework.TestCase;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.mockito.Mockito.when;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserControllerTest extends TestCase {

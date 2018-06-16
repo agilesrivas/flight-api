@@ -1,6 +1,5 @@
 package com.ApiVuelos.ApiVuelos.service;
 
-import com.ApiVuelos.ApiVuelos.repository.AirportRepository;
 import com.ApiVuelos.ApiVuelos.repository.UserRepository;
 import com.utn.tssi.tp5.Models.model.*;
 import junit.framework.TestCase;

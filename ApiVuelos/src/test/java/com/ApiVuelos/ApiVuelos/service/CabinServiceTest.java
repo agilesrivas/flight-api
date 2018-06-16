@@ -1,6 +1,5 @@
 package com.ApiVuelos.ApiVuelos.service;
 
-import com.ApiVuelos.ApiVuelos.repository.AirportRepository;
 import com.ApiVuelos.ApiVuelos.repository.CabinRepository;
 import com.utn.tssi.tp5.Models.model.*;
 import junit.framework.TestCase;
@@ -18,6 +17,7 @@ import java.util.List;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CabinServiceTest extends TestCase {
 

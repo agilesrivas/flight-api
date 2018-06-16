@@ -1,11 +1,8 @@
 package com.ApiVuelos.ApiVuelos.controller;
 
 import com.ApiVuelos.ApiVuelos.service.CabinService;
-import com.ApiVuelos.ApiVuelos.service.TicketService;
-import com.utn.tssi.tp5.Models.model.Airport;
 import com.utn.tssi.tp5.Models.model.Cabin;
 import junit.framework.TestCase;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

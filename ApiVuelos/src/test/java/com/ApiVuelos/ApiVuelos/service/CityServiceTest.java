@@ -1,8 +1,6 @@
 package com.ApiVuelos.ApiVuelos.service;
 
-import com.ApiVuelos.ApiVuelos.repository.AirportRepository;
 import com.ApiVuelos.ApiVuelos.repository.CityRepository;
-import com.utn.tssi.tp5.Models.model.Airport;
 import com.utn.tssi.tp5.Models.model.City;
 import com.utn.tssi.tp5.Models.model.Country;
 import com.utn.tssi.tp5.Models.model.State;

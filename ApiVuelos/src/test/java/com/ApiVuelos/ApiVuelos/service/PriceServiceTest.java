@@ -1,7 +1,6 @@
 package com.ApiVuelos.ApiVuelos.service;
 
 import com.ApiVuelos.ApiVuelos.repository.PriceRepository;
-import com.ApiVuelos.ApiVuelos.repository.TicketRepository;
 import com.utn.tssi.tp5.Models.model.*;
 import junit.framework.TestCase;
 import org.junit.Before;

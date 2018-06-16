@@ -1,6 +1,5 @@
 package com.ApiVuelos.ApiVuelos.service;
 
-import com.ApiVuelos.ApiVuelos.repository.CountryRepository;
 import com.ApiVuelos.ApiVuelos.repository.FlightRepository;
 import com.utn.tssi.tp5.Models.model.*;
 import junit.framework.TestCase;
@@ -12,9 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.mockito.Mockito.verify;
