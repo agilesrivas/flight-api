@@ -1,6 +1,8 @@
 language: java
 sudo: false
-script: cd Models && mvn clean install
+script: /Models && mvn clean install
+script: /ApiRest && mvn clean install
+script: /WebService && mvn clean install
         
 notifications:
   email:
