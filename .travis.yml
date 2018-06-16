@@ -1,10 +1,17 @@
 language: java
 sudo: false
-script: cd Models && mvn clean install
+script: 
+    -cd Models
+    -mvn clean install
+    -cd ../ApiVuelos
+    -mvn clean install
+    -cd ../WebService
+    -mvn clean install
+        
 notifications:
   email:
     recipients:
       - gianfranco.stabile98@gmail.com
       - aleekanoo@gmail.com
     on_success: never
-    on_failure: always
+    on_failure: never
