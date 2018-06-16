@@ -1,12 +1,6 @@
 language: java
 sudo: false
-script: 
-    cd Models
-    && mvn clean install
-    && cd ../ApiVuelos
-    && mvn clean install
-    && cd ../WebService
-    && mvn clean install
+script: cd Models && mvn clean install && cd ../ApiVuelos && mvn clean install && cd ../WebService && mvn clean install
         
 notifications:
   email:
