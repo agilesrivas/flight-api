@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="h-100">
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
@@ -18,45 +18,50 @@
 		}
 	</style>
 </head>
-<body>
+<body class="h-100 d-flex img-fluid" th:style="'background: url(' + @{/css/images/avion.jpg} + ') no-repeat; background-size: 100% 100%;'">
 
-		<article class="container my-3 py-2 border border-dark rounded" style="background-color: #f2f2f2;">
-			<h2 class="text-center">Register</h2>
-			<hr>
-			<form action="/user/register" method="POST">
-				<div class="row">
-					<div class="form-group col-md-6">
-						<label for="userNameRegister">Name: </label>
+<div class="m-auto justify-content-center">
+	<article class="row">
+		<section class="card col-md-5 border border-dark p-1 shadow" style="width: 35rem; background-color: rgba(0, 0, 0, 0.3);">
+			<div class="card-body">
+				<h2 class="text-center text-white">Sign up</h2>
+				<hr>
+				<form action="/user/register" method="POST">
+					<div class="form-group">
+						<label for="userNameRegister" class="text-white">Name: </label>
 						<input type="text" name="userName" id="userNameRegister" class="form-control" required>
 					</div>
-					<div class="form-group col-md-6">
-						<label for="userPasswordRegister">Password: </label>
+					<div class="form-group">
+						<label for="userPasswordRegister" class="text-white">Password: </label>
 						<input type="password" name="password" id="userPasswordRegister" class="form-control" required>
 					</div>
-				</div>
-
-				<input type="submit" name="Submit" class="btn btn-success align-center btn-block">
-			</form>
-		</article>
-
-		<article class="container my-3 py-2 border border-dark rounded" style="background-color: #f2f2f2;">
-			<h2 class="text-center">Login</h2>
-			<hr>
-			<form action="/user/login" method="POST">
-				<div class="row">
-					<div class="form-group col-md-6">
-						<label for="userNameLogin">Name: </label>
+					<footer class="text-center">
+						<input type="submit" class="btn btn-success">
+					</footer>
+				</form>
+			</div>
+		</section>
+		<section class="card offset-md-2 col-md-5 border border-dark p-1 shadow" style="width: 35rem; background-color: rgba(0, 0, 0, 0.3);">
+			<div class="card-body">
+				<h2 class="text-center text-white">Sign in</h2>
+				<hr>
+				<form action="/user/login" method="POST">
+					<div class="form-group">
+						<label for="userNameLogin" class="text-white">Name: </label>
 						<input type="text" name="userName" id="userNameLogin" class="form-control" required>
 					</div>
-					<div class="form-group col-md-6">
-						<label for="userPasswordLogin">Password: </label>
+					<div class="form-group">
+						<label for="userPasswordLogin" class="text-white">Password: </label>
 						<input type="password" name="password" id="userPasswordLogin" class="form-control" required>
 					</div>
-				</div>
-
-				<input type="submit" name="Submit" class="btn btn-success align-center btn-block">
-			</form>
-		</article>
+					<footer class="text-center">
+						<input type="submit" class="btn btn-success">
+					</footer>
+				</form>
+			</div>
+		</section>
+	</article>
+</div>
 
 		<script th:src="@{/js/jquery.js}"></script>
 		<script th:src="@{/js/popper.js}"></script>

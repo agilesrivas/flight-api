@@ -36,7 +36,7 @@ public class TicketServiceTest extends TestCase {
     Route rt=new Route(1,airportBegin,airportEnd,100,1);
     Flight fl =new Flight(1,rt,"10/12/18");
     Cabin cabin=new Cabin(1,"Economica");
-            Price money=new Price(1,1023,"10/12/18",null,true,cabin);
+            Price money=new Price(1,1023,"10/12/18","25/01/2018",cabin);
             User us=new User(1,"Alekano","12345");
     Ticket tk=new Ticket(1,fl,money, us);
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="h-100">
 	<head>
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
@@ -18,67 +18,48 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body class="h-100 d-flex img-fluid" th:style="'background: url(' + @{/css/images/avion.jpg} + ') no-repeat; background-size: 100% 100%;'">
 
-		<article class="container my-3 py-2 border border-dark rounded" style="background-color: #f2f2f2;">
+	<div class="card m-auto border border-dark p-1 justify-content-center shadow" style="width: 35rem; background-color: rgba(0, 0, 0, 0.3);">
+		<div class="card-body">
 			<form action="/ticket" method="GET">
-				<div class="row">
-					<div class="form-group col-md-6">
-						<label for="iataBegin">From: </label>
-						<select class="js-example-basic-single form-control" id="iataBegin" name="iataAirportBegin" required>
-							<option value="" selected>Choose...</option>
-                            <tr th:each="airport : ${airportList}">
-							    <td><option th:value="${airport.iataCode}" th:text="${airport.name + ' (' + airport.iataCode} + ')'"></option></td>
-                            </tr>
-						</select>
-					</div>
-					<div class="form-group col-md-6">
-						<label for="iataEnd">To: </label>
-						<select class="js-example-basic-single form-control" id="iataEnd" name="iataAirportEnd" required>
-							<option value="" selected>Choose...</option>
-                            <tr th:each="airport : ${airportList}">
-                                <td><option th:value="${airport.iataCode}" th:text="${airport.name + ' (' + airport.iataCode} + ')'"></option></td>
-                            </tr>
-						</select>
-					</div>
+				<div class="form-group row">
+					<label for="iataBegin" class="col-md-2 text-white">From: </label>
+					<select class="js-example-basic-single form-control col-md-10" id="iataBegin" name="iataAirportBegin" required>
+						<option value="" selected>Choose...</option>
+						<tr th:each="airport : ${airportList}">
+							<td><option th:value="${airport.iataCode}" th:text="${airport.name + ' (' + airport.iataCode} + ')'"></option></td>
+						</tr>
+					</select>
 				</div>
-				<div class="row">
-					<div class="form-group col-md-6">
-						<label for="datePicker">Date: </label>
-						<input type="text" name="date" id="datePicker" class="form-control custom-select" placeholder="e.g. 25/12/2018" required>
-					</div>
-					<div class="form-group col-md-6">
-						<label for="cabin">Cabin: </label>
-						<select id="cabin" class="form-control custom-select" name="typeCabin" required>
-							<option value="" selected>Choose...</option>
-                            <tr th:each="cabin : ${cabinList}">
-                                <td><option th:value="${cabin.name}" th:text="${cabin.name}"></option></td>
-                            </tr>
-						</select>
-					</div>
+				<div class="form-group row">
+					<label for="iataEnd" class="col-md-2 text-white">To: </label>
+					<select class="js-example-basic-single form-control col-md-10" id="iataEnd" name="iataAirportEnd" required>
+						<option value="" selected>Choose...</option>
+						<tr th:each="airport : ${airportList}">
+							<td><option th:value="${airport.iataCode}" th:text="${airport.name + ' (' + airport.iataCode} + ')'"></option></td>
+						</tr>
+					</select>
 				</div>
-				<input type="submit" name="Submit" class="btn btn-success align-center btn-block">
+				<div class="form-group row">
+					<label for="datePicker" class="col-md-2 text-white">Date: </label>
+					<input type="text" name="date" id="datePicker" class="form-control custom-select col-md-10" placeholder="e.g. 25/12/2018" required>
+				</div>
+				<div class="form-group row">
+					<label for="cabin" class="col-md-2 text-white">Cabin: </label>
+					<select id="cabin" class="form-control custom-select col-md-10" name="typeCabin" required>
+						<option value="" selected>Choose...</option>
+						<tr th:each="cabin : ${cabinList}">
+							<td><option th:value="${cabin.name}" th:text="${cabin.name}"></option></td>
+						</tr>
+					</select>
+				</div>
+				<footer class="text-center">
+					<input type="submit" class="btn btn-success">
+				</footer>
 			</form>
-		</article>
-
-		<td>
-			<article th:if="${ticket != null}">
-				<ul>
-					<li>
-						<label th:text="${'Route: ' + ticket.route.airportBegin.iataCode + ' - ' + ticket.route.airportEnd.iataCode}"></label>
-					</li>
-					<li>
-						<label th:text="${'Cabin: ' + ticket.price.cabin.name}"></label>
-					</li>
-					<li>
-						<label th:text="${'Date: ' + ticket.date}"></label>
-					</li>
-					<li>
-						<label th:text="${'Total Price: $' + ticket.totalPrice}"></label>
-					</li>
-				</ul>
-			</article>
-		</td>
+		</div>
+	</div>
 
         <script th:src="@{/js/jquery.js}"></script>
         <script th:src="@{/js/popper.js}"></script>

@@ -30,7 +30,7 @@ public class PriceServiceTest extends TestCase {
 
 
     Cabin cabin=new Cabin(1,"Economica");
-    Price money=new Price(1,1023,"10/12/18",null,true,cabin);
+    Price money=new Price(1,1023,"10/12/18","25/01/2019",cabin);
 
     @Before
     public void setUp(){
@@ -62,9 +62,7 @@ public class PriceServiceTest extends TestCase {
         assertEquals(1,pc.getId());
         assertEquals(1023,pc.getPrice(),0);
         assertEquals("10/12/18",pc.getFrom_Date());
-        assertNull("NO TIENE FECHA AUN",pc.getTo_Date());
-
-        assertEquals(true,pc.isState_bool());
+        assertEquals("25/01/2019",pc.getTo_Date());
 
     }
     @Test
@@ -78,10 +76,9 @@ public class PriceServiceTest extends TestCase {
         Price pc = this.service.getById(this.money.getId());
         assertEquals(1,pc.getId());
         assertEquals("10/12/18",pc.getFrom_Date());
-        assertNull("NO TIENE FECHA AUN",pc.getTo_Date());
+        assertEquals("25/01/2019",pc.getTo_Date());
 
         assertEquals(1023,pc.getPrice(),0);
-        assertEquals(true,pc.isState_bool());
     }
     @Test
     public void getByAttributeTypeTest() throws Exception{
@@ -94,9 +91,8 @@ public class PriceServiceTest extends TestCase {
         Price pc=this.service.getPriceOfCabinAndDate("Economica","10/12/18");
         assertEquals(1,pc.getId());
         assertEquals("10/12/18",pc.getFrom_Date());
-        assertNull("NO TIENE FECHA AUN",pc.getTo_Date());
+        assertEquals("25/01/2019",pc.getTo_Date());
 
         assertEquals(1023,pc.getPrice(),0);
-        assertEquals(true,pc.isState_bool());
     }
 }

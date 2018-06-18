@@ -39,7 +39,7 @@ public class PriceControllerTest extends TestCase {
     Route rt=new Route(1,airportBegin,airportEnd,100,1);
     Flight fl =new Flight(1,rt,"10/12/18");
     Cabin cabin=new Cabin(1,"Economica");
-    Price money=new Price(1,1023,"10/12/18",null,true,cabin);
+    Price money=new Price(1,1023,"10/12/18","25/01/2019",cabin);
     List<Price>prices=new ArrayList<Price>();
     @Before
     public void setUp(){
