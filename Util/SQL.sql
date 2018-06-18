@@ -41,8 +41,8 @@ CREATE TABLE IF NOT EXISTS `airports` (
     `id_City` INT NOT NULL,
     `latitude` FLOAT NOT NULL,
     `longitude` FLOAT NOT NULL,
-	CONSTRAINT `id_Airport` PRIMARY KEY(`id`),
-	CONSTRAINT `fk_City_Airport` FOREIGN KEY(`id_City`) REFERENCES `cities`(`id`) ON UPDATE CASCADE
+    CONSTRAINT `id_Airport` PRIMARY KEY(`id`),
+    CONSTRAINT `fk_City_Airport` FOREIGN KEY(`id_City`) REFERENCES `cities`(`id`) ON UPDATE CASCADE
 ) ENGINE = InnoDB;
 ALTER TABLE airports COLLATE utf8_unicode_ci;
 CREATE UNIQUE INDEX `unq_iata_Airport` ON `airports`(`iata` ASC) USING HASH;
