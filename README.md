@@ -16,6 +16,8 @@
 
 ## Relaciones del Projecto:
 ![Relaciones Projecto](https://raw.githubusercontent.com/gianfrancostabile/Trabajo-Practico-5/master/Util/Relaciones.png)
+<br />
+La conexión de la Web Service a la Api Rest se realiza con la ayuda de RestTemplate. **RestTemplate** es la clase que ofrece Spring para el acceso desde la parte cliente a Servicios REST.
 
 ## Endpoints utilizados:
   - ApiRest (puerto utilizado 25100):
@@ -78,6 +80,7 @@
       - /ticket/ (DELETE) - DELETE
       - /ticket/ (GET) - GET ALL
       - /ticket (GET) - GET ONE
+   <br />
    
   - WebService (puerto utilizado 25101):
     - User: 
