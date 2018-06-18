@@ -9,7 +9,7 @@
   * [Alejandro Giles Rivas](https://github.com/Alekano)
   * [Gian Franco Stabile](https://github.com/gianfrancostabile)
 
-## [Diagrama UML Modelos](https://github.com/gianfrancostabile/Trabajo-Practico-5/blob/master/Util/Diagrama%20UML.pdf) :
+## [Diagrama UML Modelos](https://github.com/gianfrancostabile/Trabajo-Practico-5/blob/master/Util/Diagrama%20UML.pdf)
 
 ## [Base de Datos](https://github.com/gianfrancostabile/Trabajo-Practico-5/blob/master/Util/SQL.sql) (MYSQL):
 ![DER SQL](https://github.com/gianfrancostabile/Trabajo-Practico-5/blob/master/Util/DER%20SQL.png)
