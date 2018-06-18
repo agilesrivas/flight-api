@@ -82,9 +82,8 @@ CREATE TABLE IF NOT EXISTS `prices` (
 	`id` INT AUTO_INCREMENT NOT NULL,
     `id_Cabin` INT NOT NULL,
     `from_Date` VARCHAR(15) NOT NULL,
-    `to_Date` VARCHAR(15),
+    `to_Date` VARCHAR(15) NOT NULL,
     `price` FLOAT NOT NULL,
-    `state_bool` BOOLEAN DEFAULT FALSE,
     CONSTRAINT `pk_Price` PRIMARY KEY(`id`),
     CONSTRAINT `fk_id_Cabin_Price` FOREIGN KEY(`id_Cabin`) REFERENCES `cabins`(`id`) ON UPDATE CASCADE
 ) ENGINE = InnoDB;

@@ -11,7 +11,6 @@ public class PriceWrapper{
     private float price;
     private String from_Date;
     private String to_Date;
-    private boolean state_bool;
     private CabinWrapper cabinWrapper;
 
     public PriceWrapper(Price price) {
@@ -19,7 +18,6 @@ public class PriceWrapper{
             this.price = price.getPrice();
             this.from_Date = price.getFrom_Date();
             this.to_Date = price.getTo_Date();
-            this.state_bool = price.isState_bool();
             this.cabinWrapper = new CabinWrapper(price.getCabin());
 
         } else {
@@ -33,7 +31,6 @@ public class PriceWrapper{
                 "price=" + price +
                 ", fromDate='" + from_Date + '\'' +
                 ", toDate='" + to_Date + '\'' +
-                ", state_bool=" + state_bool +
                 ", cabin=" + cabinWrapper +
                 '}';
     }
@@ -45,11 +42,7 @@ public class PriceWrapper{
 
         PriceWrapper priceWrapper = (PriceWrapper) o;
 
-        if (to_Date == null) {
-            to_Date = "null";
-        }
-
-        return this.price == priceWrapper.getPrice() && this.from_Date.equals(priceWrapper.getFrom_Date()) && this.to_Date.equals(priceWrapper.getTo_Date()) && this.state_bool == priceWrapper.isState_bool() && this.cabinWrapper.equals(priceWrapper.getCabinWrapper());
+        return this.price == priceWrapper.getPrice() && this.from_Date.equals(priceWrapper.getFrom_Date()) && this.to_Date.equals(priceWrapper.getTo_Date()) && this.cabinWrapper.equals(priceWrapper.getCabinWrapper());
     }
 
     @Override

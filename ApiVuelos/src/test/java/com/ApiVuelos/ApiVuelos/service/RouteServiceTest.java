@@ -95,4 +95,19 @@ public class RouteServiceTest extends TestCase {
         assertEquals(100,rte.getDistance());
         assertEquals(1,rte.getId());
     }
+
+    @Test
+    public void getByInitAirportTest() {
+        try {
+            List<Route> routes = new ArrayList<>();
+            routes.add(this.rt);
+            String iata = this.rt.getAirportBegin().getIataCode();
+            when(this.routeRepository.getByInitAirport(iata)).thenReturn(routes);
+            List<Route> returnRoutes = this.service.getByInitAirport(iata);
+
+            assertEquals(returnRoutes, routes);
+        }   catch (Exception e) {
+
+        }
+    }
 }

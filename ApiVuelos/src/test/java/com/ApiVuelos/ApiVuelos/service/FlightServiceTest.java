@@ -91,4 +91,14 @@ public class FlightServiceTest extends TestCase {
 
     }
 
+    @Test
+    public void getByAttributeDateTest() {
+        List<Flight> flights = new ArrayList<>();
+        flights.add(this.fl);
+
+        when(this.flightRepository.getAttributeDate("25/06/2018", "30/06/2018")).thenReturn(flights);
+        List<Flight> returnFlights =this.service.getByAttributeDate("25/06/2018", "30/06/2018");
+
+        assertEquals(returnFlights,flights);
+    }
 }

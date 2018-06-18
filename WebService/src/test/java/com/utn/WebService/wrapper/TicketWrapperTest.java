@@ -22,8 +22,8 @@ public class TicketWrapperTest extends TestCase {
         Flight flight = new Flight(1, route, "21/05/2018");
         Cabin cabinA = new Cabin(1, "Económica");
         Cabin cabinB = new Cabin(1, "VIP");
-        Price priceA = new Price(1, (float)1.12, "25/06/2018", null, true, cabinA);
-        Price priceB = new Price((float)2.42, "29/06/2018", null, true, cabinB);
+        Price priceA = new Price(1, (float)1.12, "25/06/2018", "30/06/2018", cabinA);
+        Price priceB = new Price((float)2.42, "29/06/2018", "02/07/2018", cabinB);
         User user = new User(1, "pepe", "pompin");
 
         this.ticket = new TicketWrapper(new Ticket(1, flight, priceA, user));
@@ -32,12 +32,12 @@ public class TicketWrapperTest extends TestCase {
 
     @Test
     public void testToStringOK() {
-        assertEquals("Checking toString", this.ticket.toString(), "{flight={route={airportBegin={iataCode='AEP', name='Jorge Newbery', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}, airportEnd={iataCode='EZE', name='Ezeiza International Airport', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=24.22, longitude=107.58}, distance=50, estimatedTime=3}, date='21/05/2018'}, price={price=1.12, fromDate='25/06/2018', toDate='null', state_bool=true, cabin={name='Económica'}}, user={name='pepe', password='pompin'}, date='21/05/2018', totalPrice=56.00000023841858}");
+        assertEquals("Checking toString", this.ticket.toString(), "{flight={route={airportBegin={iataCode='AEP', name='Jorge Newbery', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=23.14, longitude=108.11}, airportEnd={iataCode='EZE', name='Ezeiza International Airport', city={name='Buenos Aires', iataCode='CABA', state={name='Buenos Aires', iataCode='BA', country={name='Argentina', isoCode='ARG'}}}, latitude=24.22, longitude=107.58}, distance=50, estimatedTime=3}, date='21/05/2018'}, price={price=1.12, fromDate='25/06/2018', toDate='30/06/2018', cabin={name='Económica'}}, user={name='pepe', password='pompin'}, date='21/05/2018', totalPrice=56.00000023841858}");
     }
 
     @Test
     public void testToStringBad() {
-        assertEquals("Checking toString", this.otherTicket.toString(), "{flight={route={airportBegin={iataCode='null', name='null', city={name='null', iataCode='null', state={name='null', iataCode='null', country={name='null', isoCode='null'}}}, latitude=0.0, longitude=0.0}, airportEnd={iataCode='null', name='null', city={name='null', iataCode='null', state={name='null', iataCode='null', country={name='null', isoCode='null'}}}, latitude=0.0, longitude=0.0}, distance=0, estimatedTime=0}, date='null'}, price={price=0.0, fromDate='null', toDate='null', state_bool=false, cabin={name='null'}}, user={name='null', password='null'}, date='null', totalPrice=0.0}");
+        assertEquals("Checking toString", this.otherTicket.toString(), "{flight={route={airportBegin={iataCode='null', name='null', city={name='null', iataCode='null', state={name='null', iataCode='null', country={name='null', isoCode='null'}}}, latitude=0.0, longitude=0.0}, airportEnd={iataCode='null', name='null', city={name='null', iataCode='null', state={name='null', iataCode='null', country={name='null', isoCode='null'}}}, latitude=0.0, longitude=0.0}, distance=0, estimatedTime=0}, date='null'}, price={price=0.0, fromDate='null', toDate='null', cabin={name='null'}}, user={name='null', password='null'}, date='null', totalPrice=0.0}");
     }
 
     @Test
@@ -66,7 +66,7 @@ public class TicketWrapperTest extends TestCase {
 
     @Test
     public void testHashCodeOK() {
-        assertEquals("Checking hashCode", this.ticket.hashCode(), 725899613);
+        assertEquals("Checking hashCode", this.ticket.hashCode(), 1189247553);
     }
 
     @Test

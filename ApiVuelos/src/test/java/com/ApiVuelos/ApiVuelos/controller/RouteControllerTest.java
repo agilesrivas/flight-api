@@ -226,7 +226,7 @@ public class RouteControllerTest extends TestCase {
     }
 
     @Test
-    public void getByOneRoutetTest(){
+    public void getByOneRouteTest(){
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 
         try {
@@ -253,6 +253,37 @@ public class RouteControllerTest extends TestCase {
         try {
             when(this.service.getByAttributeTypeRoute(this.airportBegin.getIataCode(),this.airportEnd.getIataCode())).thenThrow(Exception.class);
             status1 = this.controller.getByOneRoute(this.airportBegin.getIataCode(),this.airportEnd.getIataCode());
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
+        }
+    }
+
+    @Test
+    public void getByInitAirportTest(){
+        ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
+        String iataBegin = this.airportBegin.getIataCode();
+        try {
+            assertNotNull(iataBegin);
+            assertFalse(iataBegin.trim().equals(""));
+            when(this.service.getByInitAirport(iataBegin)).thenReturn(this.rutas);
+            List<Route> routes=this.service.getByInitAirport(iataBegin);
+            assertEquals(this.rutas,routes);
+            when(this.controller.getByInitAirport(iataBegin)).thenReturn(status);
+            status=this.controller.getByInitAirport(iataBegin);
+            assertEquals(new ResponseEntity(HttpStatus.OK),status);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getByInitAirportTestException(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.service.getByInitAirport(this.airportBegin.getIataCode())).thenThrow(Exception.class);
+            status1 = this.controller.getByInitAirport(this.airportBegin.getIataCode());
         } catch (Exception e) {
             assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
 

@@ -155,8 +155,8 @@ public class FlightController {
         return status;
     }
 
-    @GetMapping(value = "/a")
-    public ResponseEntity<List<Flight>> getBetweenDates(@RequestParam("from_date") String fromDate, @RequestParam("to_date") String toDate){
+    @GetMapping(value = "/{from_date}/{to_date}")
+    public ResponseEntity<List<Flight>> getBetweenDates(@PathVariable("from_date") String fromDate, @PathVariable("to_date") String toDate){
 
         ResponseEntity status = new ResponseEntity(HttpStatus.NO_CONTENT);
 

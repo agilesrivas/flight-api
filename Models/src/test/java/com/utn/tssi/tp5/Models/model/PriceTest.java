@@ -13,18 +13,18 @@ public class PriceTest extends TestCase {
     public void setUp() {
         Cabin cabin = new Cabin(1, "Económico");
 
-        this.price = new Price(1, (float)1.12, "25/06/2018", null, true, cabin);
+        this.price = new Price(1, (float)1.12, "25/06/2018", "30/06/2018", cabin);
         this.otherPrice = new Price();
     }
 
     @Test
     public void testToStringOK() {
-        assertEquals("Checking toString", this.price.toString(), "{price=1.12, fromDate='25/06/2018', toDate='null', state_bool=true, cabin={name='Económico'}}");
+        assertEquals("Checking toString", this.price.toString(), "{price=1.12, fromDate='25/06/2018', toDate='30/06/2018', cabin={name='Económico'}}");
     }
 
     @Test
     public void testToStringBad() {
-        assertEquals("Checking toString", this.otherPrice.toString(), "{price=0.0, fromDate='null', toDate='null', state_bool=false, cabin=null}");
+        assertEquals("Checking toString", this.otherPrice.toString(), "{price=0.0, fromDate='null', toDate='null', cabin=null}");
     }
 
     @Test
@@ -35,7 +35,7 @@ public class PriceTest extends TestCase {
 
     @Test
     public void testEqualsBad(){
-        this.otherPrice = new Price((float)2.42, "29/06/2018", "89/88/8888", false, new Cabin());
+        this.otherPrice = new Price((float)2.42, "29/06/2018", "89/88/8888", new Cabin());
 
         assertFalse("Checking equals", this.price.equals(null));
         assertFalse("Checking equals", this.price.equals("String"));
@@ -46,15 +46,13 @@ public class PriceTest extends TestCase {
         assertFalse("Checking equals", this.price.equals(this.otherPrice));
         this.otherPrice.setFrom_Date("25/06/2018");
         assertFalse("Checking equals", this.price.equals(this.otherPrice));
-        this.otherPrice.setTo_Date(null);
-        assertFalse("Checking equals", this.price.equals(this.otherPrice));
-        this.otherPrice.setState_bool(true);
+        this.otherPrice.setTo_Date("30/06/2018");
         assertFalse("Checking equals", this.price.equals(this.otherPrice));
     }
 
     @Test
     public void testHashCodeOK() {
-        assertEquals("Checking hashCode", this.price.hashCode(), 1841679452);
+        assertEquals("Checking hashCode", this.price.hashCode(), 1100084728);
     }
 
     @Test
@@ -81,6 +79,11 @@ public class PriceTest extends TestCase {
 
         assertTrue("Checking validateNullEmpty", this.otherPrice.validateNullEmpty());
         this.otherPrice.setFrom_Date("");
+        assertTrue("Checking validateNullEmpty", this.otherPrice.validateNullEmpty());
+        this.otherPrice.setFrom_Date("25/06/2018");
+
+        assertTrue("Checking validateNullEmpty", this.otherPrice.validateNullEmpty());
+        this.otherPrice.setTo_Date("");
         assertTrue("Checking validateNullEmpty", this.otherPrice.validateNullEmpty());
     }
 

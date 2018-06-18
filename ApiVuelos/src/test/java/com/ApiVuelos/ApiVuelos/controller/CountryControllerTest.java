@@ -30,7 +30,7 @@ public class CountryControllerTest extends TestCase {
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
-        this. listCount.add(this.ct);
+        this.listCount.add(this.ct);
     }
 
 
@@ -61,6 +61,20 @@ public class CountryControllerTest extends TestCase {
 
         }
     }
+
+    @Test
+    public void addTestEmpty(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        Country empty = new Country();
+        try {
+            when(this.service.newObject(empty)).thenThrow(Exception.class);
+            status1 = this.controller.add(this.listCount);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.NO_CONTENT),status1);
+
+        }
+    }
+
     @Test
     public void addTestException(){
         ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -72,6 +86,7 @@ public class CountryControllerTest extends TestCase {
 
         }
     }
+
     @Test
     public void updateTest(){
 
@@ -140,6 +155,7 @@ public class CountryControllerTest extends TestCase {
 
         }
     }
+
     @Test
     public void getAllTest(){
         try {

@@ -47,19 +47,77 @@ public class FlightControllerTest extends TestCase {
 
     @Test
     public void addTestException(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.service.newObject(this.fl)).thenThrow(Exception.class);
+            status1 = this.controller.add(this.list);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
 
+        }
     }
     @Test
     public void addTest(){
 
+        ResponseEntity status=new ResponseEntity(HttpStatus.OK);
+
+        try {
+
+
+
+            assertFalse(this.ct.validateNullEmpty());
+
+            when(this.service.newObject(this.fl)).thenReturn(this.fl);
+            Flight Bend=this.service.newObject(this.fl);
+            assertEquals(Bend,this.fl);
+
+            when(this.controller.add(this.list)).thenReturn(status);
+            ResponseEntity statusOk=this.controller.add(this.list);
+            assertEquals(statusOk,status);
+        }
+        catch(Exception e){
+
+        }
     }
     @Test
     public void updateTest(){
 
+        ResponseEntity status=new ResponseEntity(HttpStatus.NO_CONTENT);
+
+        try {
+            assertNotNull(this.ct);
+
+            when(this.service.getById(this.ct.getId())).thenReturn(this.fl);
+
+            Flight ste=this.service.getById(this.fl.getId());
+            assertNotNull(ste);
+
+            assertFalse(this.ct.validateNullEmpty());
+            when(this.service.newObject(this.fl)).thenReturn(this.fl);
+            Flight flight=this.service.newObject(this.fl);
+            assertEquals(this.fl,flight);
+
+
+            when(this.controller.update(this.fl)).thenReturn(status);
+            ResponseEntity statusOk=this.controller.update(this.fl);
+            assertEquals(statusOk,status);
+
+
+        }
+        catch(Exception e){
+
+        }
     }
     @Test
     public void updateTestException(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            when(this.service.newObject(this.fl)).thenThrow(Exception.class);
+            status1 = this.controller.update(this.fl);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
 
+        }
     }
     @Test
     public void removeTest(){
@@ -117,11 +175,78 @@ public class FlightControllerTest extends TestCase {
         }
     }
     @Test
-    public void getByOneTicketTest(){
+    public void getByOneFlightOnDateTest(){
 
+        ResponseEntity status = new ResponseEntity(HttpStatus.OK);
+        Flight tk=null;
+        assertNull(tk);
+        String iataBegin=this.fl.getRoute().getAirportBegin().getIataCode();
+        String iataEnd=this.fl.getRoute().getAirportEnd().getIataCode();
+        String date=this.fl.getDate();
+        try {
+            assertFalse(iataBegin.trim().equals(""));
+            assertNotNull(iataBegin);
+            assertFalse(iataEnd.trim().equals(""));
+            assertNotNull(iataEnd);
+            when(this.service.getByAttributeTypeDateRoute(date, fl.getRoute())).thenReturn(this.fl);
+            tk=this.service.getByAttributeTypeDateRoute(date, fl.getRoute());
+            assertEquals(this.fl,tk);
+            assertNotNull(this.fl);
+            when(this.controller.getByOneFlightOnDate(date, iataBegin, iataEnd)).thenReturn(status);
+            status=this.controller.getByOneFlightOnDate(date, iataBegin, iataEnd);
+            assertEquals(new ResponseEntity(this.fl,HttpStatus.OK),status);
+        }
+        catch(Exception e){
+
+        }
     }
-    @Test
-    public void getByOneTicketTestException(){
 
+    @Test
+    public void getByOneFlightOnDateTestException(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        String iataBegin=this.fl.getRoute().getAirportBegin().getIataCode();
+        String iataEnd=this.fl.getRoute().getAirportEnd().getIataCode();
+        String date=this.fl.getDate();
+        try {
+            when(this.service.getByAttributeType(this.ct.getIsoCode())).thenThrow(Exception.class);
+            status1 = this.controller.getByOneFlightOnDate(date, iataBegin, iataEnd);
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
+        }
+    }
+
+    @Test
+    public void getBetweenDatesTest(){
+
+        ResponseEntity status = new ResponseEntity(HttpStatus.OK);
+        List<Flight> tk=null;
+        assertNull(tk);
+        try {
+            when(this.service.getByAttributeDate("25/06/2018", "30/06/2018")).thenReturn(this.list);
+            tk=this.service.getByAttributeDate("25/06/2018", "30/06/2018");
+            assertEquals(this.list,tk);
+            assertNotNull(this.list);
+            when(this.controller.getBetweenDates("25/06/2018", "30/06/2018")).thenReturn(status);
+            status=this.controller.getBetweenDates("25/06/2018", "30/06/2018");
+            assertEquals(new ResponseEntity(this.fl,HttpStatus.OK),status);
+        }
+        catch(Exception e){
+
+        }
+    }
+
+    @Test
+    public void getBetweenDatesTestException(){
+        ResponseEntity status1 = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        List<Flight> tk=null;
+        assertNull(tk);
+        try {
+            when(this.service.getByAttributeDate("25/06/2018", "30/06/2018")).thenThrow(Exception.class);
+            status1=this.controller.getBetweenDates("25/06/2018", "30/06/2018");
+        } catch (Exception e) {
+            assertEquals(new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR),status1);
+
+        }
     }
 }
