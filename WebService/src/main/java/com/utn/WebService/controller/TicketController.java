@@ -75,6 +75,5 @@ public class TicketController {
         }
 
         return status;
-
     }
 }
