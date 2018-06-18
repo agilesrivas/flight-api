@@ -1,24 +1,23 @@
 # [Trabajo Practico 5](https://github.com/gianfrancostabile/Trabajo-Practico-5)
-<br />
 
 ## Travis: 
    - Models - [![Build Status](https://travis-ci.org/gianfrancostabile/Trabajo-Practico-5.svg?branch=master)](https://travis-ci.org/gianfrancostabile/Trabajo-Practico-5)
   - ApiRest - **(Sin implementar)**
   - WebService - **(Sin implementar)**
-<br />  
   
 ## Integrantes:
   * [Alejandro Giles Rivas](https://github.com/Alekano)
   * [Gian Franco Stabile](https://github.com/gianfrancostabile)
-<br />
 
-## Diagrama UML Modelos:
-![Diagrama UML Modelos](https://github.com/gianfrancostabile/Trabajo-Practico-5/uml.pdf)
-<br />
+## [Diagrama UML Modelos](https://github.com/gianfrancostabile/Trabajo-Practico-5/blob/master/Util/Diagrama%20UML.pdf)
 
-## Base de Datos (MYSQL):
-[SQL](https://github.com/gianfrancostabile/Trabajo-Practico-5/blob/master/SQL.sql)
+## [Base de Datos](https://github.com/gianfrancostabile/Trabajo-Practico-5/blob/master/Util/SQL.sql) (MYSQL):
+![DER SQL](https://github.com/gianfrancostabile/Trabajo-Practico-5/blob/master/Util/DER%20SQL.png)
+
+## Relaciones del Projecto:
+![Relaciones Projecto](https://raw.githubusercontent.com/gianfrancostabile/Trabajo-Practico-5/master/Util/Relaciones.png)
 <br />
+La conexión de la Web Service a la Api Rest se realiza con la ayuda de RestTemplate. **RestTemplate** es la clase que ofrece Spring para el acceso desde la parte cliente a Servicios REST.
 
 ## Endpoints utilizados:
   - ApiRest (puerto utilizado 25100):
@@ -81,3 +80,15 @@
       - /ticket/ (DELETE) - DELETE
       - /ticket/ (GET) - GET ALL
       - /ticket (GET) - GET ONE
+   <br />
+   
+  - WebService (puerto utilizado 25101):
+    - User: 
+      - /user (GET) - USER VIEW
+      - /user/register (POST) - REGISTER
+      - /user/login (POST) - LOGIN
+      - /user/logout (GET) - LOGOUT
+    - Main: 
+      - /index (GET) - WEB INDEX
+    - Ticket: 
+      - /ticket (GET) - REQUEST A TICKET
