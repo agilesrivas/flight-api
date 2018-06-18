@@ -112,6 +112,7 @@ CREATE TABLE IF NOT EXISTS `tickets` (
 ) ENGINE = InnoDB;
 ALTER TABLE tickets COLLATE utf8_unicode_ci;
 
+DROP TRIGGER IF EXISTS `tInsertNewPrice`;
 DELIMITER $$
 CREATE TRIGGER `tInsertNewPrice` BEFORE INSERT
 ON prices
@@ -119,10 +120,10 @@ FOR EACH ROW
 BEGIN
     IF EXISTS(	SELECT * 
                 FROM prices p 
-                WHERE STR_TO_DATE(NEW.from_Date, '%d/%m/%Y') BETWEEN STR_TO_DATE(p.from_Date, '%d/%m/%Y') AND STR_TO_DATE(p.to_Date, '%d/%m/%Y') 
+                WHERE (STR_TO_DATE(NEW.from_Date, '%d/%m/%Y') BETWEEN STR_TO_DATE(p.from_Date, '%d/%m/%Y') AND STR_TO_DATE(p.to_Date, '%d/%m/%Y') 
                 OR STR_TO_DATE(NEW.to_Date, '%d/%m/%Y') BETWEEN STR_TO_DATE(p.from_Date, '%d/%m/%Y') AND STR_TO_DATE(p.to_Date, '%d/%m/%Y')
                 OR STR_TO_DATE(p.from_Date, '%d/%m/%Y') BETWEEN STR_TO_DATE(NEW.from_Date, '%d/%m/%Y') AND STR_TO_DATE(NEW.to_Date, '%d/%m/%Y')
-                OR STR_TO_DATE(p.to_Date, '%d/%m/%Y') BETWEEN STR_TO_DATE(NEW.from_Date, '%d/%m/%Y') AND STR_TO_DATE(NEW.to_Date, '%d/%m/%Y')
+                OR STR_TO_DATE(p.to_Date, '%d/%m/%Y') BETWEEN STR_TO_DATE(NEW.from_Date, '%d/%m/%Y') AND STR_TO_DATE(NEW.to_Date, '%d/%m/%Y'))
                 AND p.id_Cabin = NEW.id_Cabin
     )THEN
     	SIGNAL SQLSTATE '25440' SET MESSAGE_TEXT = 'Dates collides with others dates - Prices';
