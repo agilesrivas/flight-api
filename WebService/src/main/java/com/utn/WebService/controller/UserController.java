@@ -3,11 +3,8 @@ package com.utn.WebService.controller;
 import com.utn.WebService.util.SessionData;
 import com.utn.WebService.wrapper.UserWrapper;
 import com.utn.tssi.tp5.Models.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,7 +20,7 @@ public class UserController {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    @RequestMapping(value = "")
+    @GetMapping(value = "")
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("/user");
         return modelAndView;
@@ -70,7 +67,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/logout")
+    @GetMapping(value = "/logout")
     public ModelAndView logout(HttpServletRequest request) {
         HttpSession session = request.getSession(true);
         String tocken = (String) session.getAttribute("tocken");
