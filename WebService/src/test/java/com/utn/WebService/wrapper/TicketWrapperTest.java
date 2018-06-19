@@ -22,8 +22,8 @@ public class TicketWrapperTest extends TestCase {
         Flight flight = new Flight(1, route, "21/05/2018");
         Cabin cabinA = new Cabin(1, "Económica");
         Cabin cabinB = new Cabin(1, "VIP");
-        Price priceA = new Price(1, (float)1.12, "25/06/2018", "30/06/2018",false, cabinA);
-        Price priceB = new Price((float)2.42, "29/06/2018", "02/07/2018", false,cabinB);
+        Price priceA = new Price(1, (float)1.12, "25/06/2018", "30/06/2018", cabinA);
+        Price priceB = new Price((float)2.42, "29/06/2018", "02/07/2018",cabinB);
         User user = new User(1, "pepe", "pompin");
 
         this.ticket = new TicketWrapper(new Ticket(1, flight, priceA, user));
