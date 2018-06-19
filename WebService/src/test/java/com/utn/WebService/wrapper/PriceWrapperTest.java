@@ -15,7 +15,7 @@ public class PriceWrapperTest extends TestCase {
     public void setUp() {
         Cabin cabin = new Cabin(1, "Económico");
 
-        this.price = new PriceWrapper(new Price(1, (float)1.12, "25/06/2018", "30/06/2018", cabin));
+        this.price = new PriceWrapper(new Price(1, (float)1.12, "25/06/2018", "30/06/2018",false, cabin));
         this.otherPrice = new PriceWrapper(null);
     }
 
@@ -37,7 +37,7 @@ public class PriceWrapperTest extends TestCase {
 
     @Test
     public void testEqualsBad(){
-        this.otherPrice = new PriceWrapper(new Price((float)2.42, "29/06/2018", "89/88/8888", new Cabin()));
+        this.otherPrice = new PriceWrapper(new Price((float)2.42, "29/06/2018", "89/88/8888",false, new Cabin()));
 
         assertFalse("Checking equals", this.price.equals(null));
         assertFalse("Checking equals", this.price.equals("String"));
